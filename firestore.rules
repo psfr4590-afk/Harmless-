@@ -1,0 +1,114 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Primitives
+    function isSignedIn() { return request.auth != null; }
+    function isAdmin() { return isSignedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid)); }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+
+    // Validation Blueprint for Resource
+    function isValidResource(data) {
+      return data.keys().hasAll(['name', 'type', 'createdAt', 'updatedAt'])
+        && data.name is string && data.name.size() > 0 && data.name.size() <= 200
+        && data.type is string && data.type in ['clinic', 'exchange', 'shelter', 'pantry', 'rehab', 'other']
+        && ( !('address' in data) || (data.address is string && data.address.size() <= 500) )
+        && ( !('phone' in data) || (data.phone is string && data.phone.size() <= 50) )
+        && ( !('description' in data) || (data.description is string && data.description.size() <= 2000) )
+        && ( !('lat' in data) || (data.lat is number) )
+        && ( !('lng' in data) || (data.lng is number) )
+        && ( !('isVerified' in data) || (data.isVerified is bool) )
+        && ( !('submittedBy' in data) || (data.submittedBy is string && data.submittedBy.size() <= 128) )
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    // Validation Blueprint for HelpfulLink
+    function isValidHelpfulLink(data) {
+      return data.keys().hasAll(['title', 'url', 'createdAt', 'updatedAt'])
+        && data.title is string && data.title.size() > 0 && data.title.size() <= 200
+        && data.url is string && data.url.size() > 0 && data.url.size() <= 1000
+        && ( !('desc' in data) || (data.desc is string && data.desc.size() <= 1000) )
+        && ( !('iconType' in data) || (data.iconType is string && data.iconType.size() <= 100) )
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    // Validation Blueprint for TestingFacility
+    function isValidTestingFacility(data) {
+      return data.keys().hasAll(['name', 'region', 'url', 'createdAt', 'updatedAt'])
+        && data.name is string && data.name.size() > 0 && data.name.size() <= 200
+        && data.region is string && data.region.size() > 0 && data.region.size() <= 100
+        && data.url is string && data.url.size() > 0 && data.url.size() <= 1000
+        && ( !('desc' in data) || (data.desc is string && data.desc.size() <= 1000) )
+        && ( !('colorClass' in data) || (data.colorClass is string && data.colorClass.size() <= 50) )
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    // Validation Blueprint for Submission
+    function isValidSubmission(data) {
+      return data.keys().hasAll(['type', 'payload', 'status', 'submittedBy', 'createdAt', 'updatedAt'])
+        && data.type is string && data.type in ['resource', 'link', 'facility', 'correction']
+        && data.payload is string && data.payload.size() > 0 && data.payload.size() <= 10000
+        && data.status is string && data.status in ['pending', 'approved', 'rejected']
+        && data.submittedBy is string && data.submittedBy == request.auth.uid
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    // Public Collections (Admin managed, globally readable)
+    match /resources/{resourceId} {
+      allow get: if isValidId(resourceId);
+      allow list: if true;
+      allow create: if isAdmin() && isValidResource(incoming()) && incoming().createdAt == request.time && incoming().updatedAt == request.time && data.keys().size() <= 11;
+      allow update: if isAdmin() && isValidResource(incoming()) && incoming().updatedAt == request.time && incoming().createdAt == existing().createdAt;
+      allow delete: if isAdmin();
+    }
+
+    match /helpfulLinks/{linkId} {
+      allow get: if isValidId(linkId);
+      allow list: if true;
+      allow create: if isAdmin() && isValidHelpfulLink(incoming()) && incoming().createdAt == request.time && incoming().updatedAt == request.time && data.keys().size() <= 6;
+      allow update: if isAdmin() && isValidHelpfulLink(incoming()) && incoming().updatedAt == request.time && incoming().createdAt == existing().createdAt;
+      allow delete: if isAdmin();
+    }
+
+    match /testingFacilities/{facilityId} {
+      allow get: if isValidId(facilityId);
+      allow list: if true;
+      allow create: if isAdmin() && isValidTestingFacility(incoming()) && incoming().createdAt == request.time && incoming().updatedAt == request.time && data.keys().size() <= 7;
+      allow update: if isAdmin() && isValidTestingFacility(incoming()) && incoming().updatedAt == request.time && incoming().createdAt == existing().createdAt;
+      allow delete: if isAdmin();
+    }
+
+    // User Submissions
+    match /submissions/{submissionId} {
+      allow get: if isValidId(submissionId) && isSignedIn() && (isAdmin() || existing().submittedBy == request.auth.uid);
+      allow list: if isSignedIn() && (isAdmin() || resource.data.submittedBy == request.auth.uid);
+      
+      allow create: if isSignedIn() && isValidId(submissionId) 
+                     && isValidSubmission(incoming()) 
+                     && incoming().createdAt == request.time 
+                     && incoming().updatedAt == request.time
+                     && incoming().status == 'pending'
+                     && incoming().keys().size() == 6;
+
+      allow update: if isAdmin() && isValidSubmission(incoming()) && incoming().createdAt == existing().createdAt && incoming().updatedAt == request.time;
+      allow delete: if isAdmin();
+    }
+
+    // Admin Config
+    match /admins/{adminId} {
+      allow get: if isValidId(adminId) && isSignedIn() && adminId == request.auth.uid;
+      allow list: if false; // admins shouldn't be listed globally by anyone, maybe by other admins but avoiding query loops is better
+      allow create, update, delete: if false; // Must be set up directly in Firebase Console
+    }
+  }
+}

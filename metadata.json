@@ -1,0 +1,5 @@
+{
+  "name": "Harm.Less",
+  "description": "A harm reduction companion for substance use and recovery support.",
+  "requestFramePermissions": ["geolocation", "camera", "microphone"]
+}

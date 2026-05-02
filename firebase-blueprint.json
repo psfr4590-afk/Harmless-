@@ -1,0 +1,99 @@
+{
+  "entities": {
+    "Resource": {
+      "title": "Local Resource",
+      "description": "Harm reduction resource like clinics, syringe exchange, etc.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "type": { "type": "string", "enum": ["clinic", "exchange", "shelter", "pantry", "rehab", "other"] },
+        "address": { "type": "string" },
+        "phone": { "type": "string" },
+        "description": { "type": "string" },
+        "lat": { "type": "number" },
+        "lng": { "type": "number" },
+        "isVerified": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "submittedBy": { "type": "string" }
+      },
+      "required": ["name", "type", "createdAt", "updatedAt"]
+    },
+    "HelpfulLink": {
+      "title": "Helpful Link",
+      "description": "Educational or survival links.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "desc": { "type": "string" },
+        "url": { "type": "string" },
+        "iconType": { "type": "string", "description": "Name of the lucide icon to use" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "url", "createdAt", "updatedAt"]
+    },
+    "TestingFacility": {
+      "title": "Lab Testing Facility",
+      "description": "Global or regional mail-in testing facilities.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "region": { "type": "string" },
+        "desc": { "type": "string" },
+        "url": { "type": "string" },
+        "colorClass": { "type": "string", "description": "Tailwind color class for UI" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "region", "url", "createdAt", "updatedAt"]
+    },
+    "Submission": {
+      "title": "User Submission",
+      "description": "A submission for new data from a user to be reviewed.",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["resource", "link", "facility", "correction"] },
+        "payload": { "type": "string", "description": "JSON string mapped payload" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "submittedBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["type", "payload", "status", "submittedBy", "createdAt", "updatedAt"]
+    },
+    "AdminConfig": {
+      "title": "Admin Role Check",
+      "description": "Determines if a user has admin privileges.",
+      "type": "object",
+      "properties": {
+        "isAdmin": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["isAdmin", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "resources": {
+      "schema": { "$ref": "#/entities/Resource" },
+      "description": "Stores local geographical resources."
+    },
+    "helpfulLinks": {
+      "schema": { "$ref": "#/entities/HelpfulLink" },
+      "description": "Stores helpful links globally."
+    },
+    "testingFacilities": {
+      "schema": { "$ref": "#/entities/TestingFacility" },
+      "description": "Stores mail-in testing facilities."
+    },
+    "submissions": {
+      "schema": { "$ref": "#/entities/Submission" },
+      "description": "User generated submissions for review."
+    },
+    "admins": {
+      "schema": { "$ref": "#/entities/AdminConfig" },
+      "description": "Records mapping UID to admin permission state."
+    }
+  }
+}

@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #121212;
+  --color-accent-pink: #FF1493;
+  --color-hot-pink-outline: #FF69B4;
+  --font-sans: "Lexend", ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--color-primary);
+  color: white;
+  font-family: var(--font-sans);
+  margin: 0;
+  /* Dyslexia readability improvements: Letter spacing and line height reduce crowding */
+  letter-spacing: 0.035em;
+  line-height: 1.6;
+}
+
+/* Global Accessibility Overrides */
+
+/* 1. Prevent completely uppercase words - Word Shape is critical for dyslexic reading */
+* {
+  text-transform: none !important;
+}
+
+/* 2. Enforce higher minimum text sizes and contrasts for visually impaired users */
+@layer utilities {
+  .text-xs { font-size: 0.95rem !important; line-height: 1.4rem !important; }
+  .text-sm { font-size: 1.05rem !important; line-height: 1.5rem !important; }
+  
+  [class*="text-white/"] { color: rgba(255, 255, 255, 0.95) !important; }
+  [class*="text-[#"] { filter: brightness(1.2); }
+}
