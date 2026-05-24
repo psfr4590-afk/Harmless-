@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, Search, Navigation, ExternalLink, Loader2, AlertCircle, Plus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { db, auth, signInWithGoogle } from '../firebase';
+import { saveSubmission } from '../lib/storage';
 
 export default function ResourceSearch() {
   const [location, setLocation] = useState<{ lat: number, lng: number } | null>(null);
@@ -56,8 +55,7 @@ export default function ResourceSearch() {
     setApiResults([]);
 
     try {
-      // 1. Fetch free public data via Overpass API (OpenStreetMap)
-      const radius = 15000; // 15km
+      const radius = 15000;
       const overpassQuery = `
         [out:json][timeout:10];
         (
@@ -65,13 +63,13 @@ export default function ResourceSearch() {
         );
         out body 15;
       `;
-      
+
       const osmRes = await fetch('https://overpass-api.de/api/interpreter', {
         method: 'POST',
         body: overpassQuery,
       });
       const osmData = await osmRes.json();
-      
+
       const mappedOsm = osmData.elements.map((el: Record<string, unknown>) => {
         const id = el.id as string;
         const tags = el.tags as Record<string, string>;
@@ -101,13 +99,13 @@ export default function ResourceSearch() {
   const handleGeocode = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (!manualLocationQuery.trim()) return;
-    
+
     setGeocoding(true);
     setLocError(null);
     try {
       const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(manualLocationQuery)}`);
       const data = await res.json();
-      
+
       if (data && data.length > 0) {
         setLocation({
           lat: parseFloat(data[0].lat),
@@ -158,29 +156,12 @@ export default function ResourceSearch() {
 
   const handleSubmission = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!auth.currentUser) {
-      try {
-        await signInWithGoogle();
-      } catch {
-        return;
-      }
-    }
-
     setSubmitStatus('submitting');
     try {
-      const payload = JSON.stringify({
+      saveSubmission({
         ...submitForm,
-        lat: location?.lat || null,
-        lng: location?.lng || null
-      });
-
-      await addDoc(collection(db, 'submissions'), {
-        type: 'resource',
-        payload,
-        status: 'pending',
-        submittedBy: auth.currentUser!.uid,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        lat: location?.lat ?? null,
+        lng: location?.lng ?? null,
       });
       setSubmitStatus('success');
       setTimeout(() => {
@@ -196,13 +177,13 @@ export default function ResourceSearch() {
 
   return (
     <div className="flex flex-col h-full bg-[#121212] overflow-y-auto w-full max-w-4xl mx-auto p-6 space-y-6 relative">
-      
+
       <div className="flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between bg-gradient-to-r from-[#FF1493]/20 to-[#FF1493]/5 border border-[#FF1493]/30 rounded-2xl p-6">
         <div>
           <h2 className="text-xl font-black uppercase text-[#FF69B4] tracking-widest">Community Resources</h2>
           <p className="mt-2 text-sm text-white/80 max-w-md">Find harm reduction services, shelters, and clinics nearby. We aggregate public health markers and crowdsourced locations.</p>
         </div>
-        <button 
+        <button
           onClick={() => setShowSubmitModal(true)}
           className="px-6 py-3 shrink-0 rounded-full bg-[#FF1493] text-white font-black uppercase tracking-widest text-sm hover:scale-105 transition-transform flex items-center gap-2 justify-center"
         >
@@ -224,7 +205,7 @@ export default function ResourceSearch() {
           </div>
 
           <form onSubmit={handleGeocode} className="w-full md:w-auto flex flex-col sm:flex-row gap-2">
-            <input 
+            <input
               type="text"
               placeholder="e.g. Dallas County, TX"
               className="flex-1 w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-[#FF1493]/50"
@@ -232,7 +213,7 @@ export default function ResourceSearch() {
               onChange={(e) => setManualLocationQuery(e.target.value)}
               disabled={geocoding}
             />
-            <button 
+            <button
               type="submit"
               disabled={geocoding || !manualLocationQuery.trim()}
               className="px-6 py-2 bg-white/10 hover:bg-white/20 disabled:opacity-50 text-white flex items-center justify-center rounded-xl transition-colors font-bold uppercase tracking-wider text-xs whitespace-nowrap"
@@ -241,7 +222,7 @@ export default function ResourceSearch() {
             </button>
           </form>
         </div>
-        
+
         {loadingLoc ? (
           <div className="flex items-center gap-3 text-white/60">
             <Loader2 className="w-5 h-5 animate-spin text-[#FF1493]" />
@@ -253,7 +234,7 @@ export default function ResourceSearch() {
               <AlertCircle className="w-5 h-5" />
               <span className="text-sm font-bold">{locError}</span>
             </div>
-            <button 
+            <button
               onClick={requestLocation}
               className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-sm font-bold uppercase tracking-wider self-start transition-colors"
             >
@@ -266,7 +247,7 @@ export default function ResourceSearch() {
               <Navigation className="w-5 h-5" />
               <span className="text-sm uppercase tracking-widest font-bold">Location Active - Local Search Enabled</span>
             </div>
-            <button 
+            <button
               onClick={requestLocation}
               className="text-white/40 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest underline decoration-white/20 underline-offset-4 ml-auto"
             >
@@ -303,13 +284,13 @@ export default function ResourceSearch() {
 
       <AnimatePresence>
         {selectedCategory && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
           >
-            <motion.div 
+            <motion.div
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 50, opacity: 0 }}
@@ -369,21 +350,21 @@ export default function ResourceSearch() {
 
       <AnimatePresence>
         {showSubmitModal && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
           >
-            <motion.div 
+            <motion.div
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 50, opacity: 0 }}
               className="bg-[#1a1a1a] border border-white/10 p-6 rounded-3xl w-full max-w-md max-h-[90vh] overflow-y-auto"
             >
               <h3 className="text-2xl font-black uppercase text-[#FF69B4] tracking-widest mb-2">Submit Resource</h3>
-              <p className="text-white/60 text-sm mb-6">Contribute to our directory. All submissions are manually verified before appearing on the map.</p>
-              
+              <p className="text-white/60 text-sm mb-6">Contribute to our local directory. Submissions are saved privately on your device.</p>
+
               <form onSubmit={handleSubmission} className="space-y-4">
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-widest text-white/40 mb-1">Resource Name</label>
@@ -416,7 +397,7 @@ export default function ResourceSearch() {
                 )}
                 {submitStatus === 'success' && (
                   <div className="p-3 bg-green-500/20 border border-green-500/50 rounded-xl text-green-400 text-sm font-bold">
-                    Submitted! Thank you for contributing.
+                    Submitted! Saved locally to your device.
                   </div>
                 )}
 
