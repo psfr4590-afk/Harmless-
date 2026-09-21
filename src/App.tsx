@@ -179,11 +179,11 @@ export default function App() {
             exit={{ opacity: 0, x: -20 }}
             className="h-[100dvh] flex flex-col"
           >
-            <header className="p-4 flex items-center gap-4 bg-[#121212] border-b border-white/10 shrink-0">
+            <header className="p-4 flex items-center gap-4 bg-[#121212] border-b border-white/10 shrink-0" aria-labelledby="screen-title">
               <button aria-label="Back to dashboard" onClick={() => setCurrentScreen('dashboard')} className="p-2 hover:bg-white/10 rounded-full transition-all flex items-center justify-center shrink-0">
                 <ArrowLeft className="w-6 h-6" />
               </button>
-              <h2 className="text-xl font-black text-[#FF69B4] uppercase tracking-tighter truncate">
+              <h2 id="screen-title" className="text-xl font-black text-[#FF69B4] uppercase tracking-tighter truncate">
                 {currentScreen === 'interactions' && 'Interaction Check'}
                 {currentScreen === 'dose'         && 'Dose Calculator'}
                 {currentScreen === 'resources'    && 'Local Resources'}
