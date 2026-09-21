@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { MapPin, Search, Navigation, ExternalLink, Loader2, AlertCircle, Phone, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { buildOverpassQuery, dedupeById, safeExternalUrl, extractOverpassElements } from '../utils/safetyUtils';
+import { searchFindTreatment } from '../utils/medicalApi';
 
 interface ResourceResult {
   id: string;
@@ -11,6 +12,8 @@ interface ResourceResult {
   website: string | null;
   distance: number | null;
   source: string;
+  sourceUrl?: string;
+  retrievedAt?: string;
 }
 
 const CATEGORIES = [
@@ -62,6 +65,46 @@ export default function ResourceSearch() {
     const requestId = ++requestIdRef.current;
     const controller = new AbortController();
     try {
+      const results: ResourceResult[] = [];
+
+      if (categoryId === 'rehab' || categoryId === 'mental') {
+        try {
+          const treatment = await searchFindTreatment({
+            lat: location.lat,
+            lng: location.lng,
+            radiusMeters: 50000,
+            type: categoryId === 'mental' ? 'MH' : 'SA',
+            codes: categoryId === 'rehab' ? ['DT', 'OTP', 'BU', 'NU', 'OP', 'HI'] : [],
+            signal: controller.signal
+          });
+
+          const treatmentRows = treatment.records.map((row: any, index: number) => {
+            const name = row.facilityName || row.FACILITY_NAME || row.name || row.NAME || row.facility || row.FACILITY;
+            const address = row.address || row.ADDRESS || [row.address1, row.city, row.state, row.zip].filter(Boolean).join(', ');
+            const phone = row.phone || row.PHONE || row.telephone || row.TELEPHONE || null;
+            const lat = Number(row.latitude ?? row.LATITUDE ?? row.lat);
+            const lng = Number(row.longitude ?? row.LONGITUDE ?? row.lng ?? row.lon);
+            if (!name) return null;
+            return {
+              id: `samhsa-${row.facilityId || row.FACILITY_ID || row.id || index}`,
+              name: String(name),
+              address: String(address || 'Address not listed'),
+              phone: phone ? String(phone) : null,
+              website: row.website || row.WEBSITE || null,
+              distance: Number.isFinite(lat) && Number.isFinite(lng) ? distanceKm(location.lat, location.lng, lat, lng) : null,
+              source: treatment.source,
+              sourceUrl: treatment.sourceUrl,
+              retrievedAt: treatment.retrievedAt
+            } as ResourceResult;
+          }).filter(Boolean) as ResourceResult[];
+
+          results.push(...treatmentRows);
+        } catch (error) {
+          if (error instanceof DOMException && error.name === 'AbortError') return;
+          // Keep the secondary geographic source available if the authoritative treatment service is unavailable.
+        }
+      }
+
       const overpassQuery = buildOverpassQuery(category.osm, location.lat, location.lng);
       const osmRes = await fetch('https://overpass-api.de/api/interpreter', { method: 'POST', body: overpassQuery, signal: controller.signal });
       if (!osmRes.ok) throw new Error(`Public data service returned HTTP ${osmRes.status}`);
@@ -69,7 +112,7 @@ export default function ResourceSearch() {
       const elements = extractOverpassElements(osmData);
       if (!elements) throw new Error('Public data service returned an unexpected response format.');
 
-      const results: ResourceResult[] = dedupeById<ResourceResult>(elements.map((el: any) => {
+      results.push(...elements.map((el: any) => {
         const tags = el.tags || {};
         const lat = el.lat ?? el.center?.lat;
         const lng = el.lon ?? el.center?.lon;
@@ -86,19 +129,24 @@ export default function ResourceSearch() {
           phone: tags.phone || tags['contact:phone'] || null,
           website: tags.website || tags['contact:website'] || null,
           distance: typeof lat === 'number' && typeof lng === 'number' ? distanceKm(location.lat, location.lng, lat, lng) : null,
-          source: 'OpenStreetMap'
-        };
-      }))
-        .filter((item: ResourceResult) => item.name !== 'Unnamed facility' || item.phone || item.website)
-        .sort((a: ResourceResult, b: ResourceResult) => (a.distance ?? 9999) - (b.distance ?? 9999))
+          source: 'OpenStreetMap',
+          sourceUrl: 'https://www.openstreetmap.org/',
+          retrievedAt: new Date().toISOString()
+        } as ResourceResult;
+      }).filter((item: ResourceResult) => item.name !== 'Unnamed facility' || item.phone || item.website));
+
+      const finalResults = dedupeById(results)
+        .sort((a, b) => (a.distance ?? 9999) - (b.distance ?? 9999))
         .slice(0, 50);
 
       if (requestId !== requestIdRef.current) return;
-      setApiResults(results);
-      if (results.length === 0) setSearchError('No matching public records were found within 20 km. Coverage depends on what has been mapped in OpenStreetMap.');
+      setApiResults(finalResults);
+      if (finalResults.length === 0) {
+        setSearchError('No matching records were returned by the connected sources. Broaden the search area or try another category.');
+      }
     } catch (err) {
       if (err instanceof DOMException && err.name === 'AbortError') return;
-      if (requestId === requestIdRef.current) setSearchError(err instanceof Error ? err.message : 'Unable to query the public resource database.');
+      if (requestId === requestIdRef.current) setSearchError(err instanceof Error ? err.message : 'Unable to query the connected resource databases.');
     } finally {
       if (requestId === requestIdRef.current) setFetchingData(false);
     }
@@ -150,7 +198,7 @@ export default function ResourceSearch() {
     <div className="flex flex-col h-full bg-[#121212] overflow-y-auto w-full max-w-4xl mx-auto p-6 space-y-6 relative">
       <div className="bg-gradient-to-r from-[#FF1493]/20 to-[#FF1493]/5 border border-[#FF1493]/30 rounded-2xl p-6">
         <h2 className="text-xl font-black uppercase text-[#FF69B4] tracking-widest">Local Resources</h2>
-        <p className="mt-2 text-sm text-white/80 max-w-2xl">Search OpenStreetMap for mapped support services within 20 km of the selected location. Results can include facilities mapped as nodes, ways, or relations. Public mapping is incomplete, so a missing result does not mean a service is absent.</p>
+        <p className="mt-2 text-sm text-white/80 max-w-2xl">Search connected treatment and geographic sources near the selected location. Substance-use and mental-health treatment searches query SAMHSA FindTreatment.gov and supplement it with OpenStreetMap. Other categories use OpenStreetMap. Results include source and retrieval metadata, and a missing result does not establish that a service is absent.</p>
       </div>
 
       <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
@@ -173,8 +221,8 @@ export default function ResourceSearch() {
         <h3 className="text-white/40 font-black uppercase tracking-widest text-xs ml-2">Find Support Near You</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-8">
           {CATEGORIES.map(category => <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} key={category.id} onClick={() => fetchPublicData(category.id)} disabled={!location || fetchingData} className={`p-6 rounded-2xl border flex flex-col justify-between text-left gap-4 ${category.color} transition-all disabled:opacity-40`}>
-            <div><h4 className="font-black uppercase text-lg tracking-wide">{category.name}</h4><p className="text-xs opacity-80 mt-1 font-medium">Search mapped public records</p></div>
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest opacity-80 mt-2"><Search className="w-4 h-4" /><span>Search OpenStreetMap</span><ExternalLink className="w-3 h-3 ml-auto" /></div>
+            <div><h4 className="font-black uppercase text-lg tracking-wide">{category.name}</h4><p className="text-xs opacity-80 mt-1 font-medium">Search connected sources</p></div>
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest opacity-80 mt-2"><Search className="w-4 h-4" /><span>Search live sources</span><ExternalLink className="w-3 h-3 ml-auto" /></div>
           </motion.button>)}
         </div>
       </div>
@@ -192,7 +240,7 @@ export default function ResourceSearch() {
                   {res.distance !== null && <div className="text-xs text-white/50">{res.distance.toFixed(1)} km away</div>}
                   {res.phone && <a href={`tel:${res.phone}`} className="flex items-center gap-2 text-sm text-green-400 hover:text-green-300"><Phone className="w-4 h-4" />{res.phone}</a>}
                   {res.website && safeExternalUrl(res.website) && <a href={safeExternalUrl(res.website) as string} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300"><Globe className="w-4 h-4" />Website</a>}
-                  <div className="text-xs font-bold uppercase tracking-widest text-white/40">Source: {res.source}</div>
+                  <div className="text-xs font-bold uppercase tracking-widest text-white/40">Source: {res.source}{res.retrievedAt ? ` • Retrieved ${new Date(res.retrievedAt).toLocaleString()}` : ''}</div>
                 </div>)}
                 {apiResults.length > 0 && <div className="pt-2 text-center"><button onClick={() => openMapFallback(CATEGORIES.find(c => c.id === selectedCategory)?.query || '')} className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold uppercase tracking-wider">Search broader map results</button></div>}
                 {!fetchingData && apiResults.length === 0 && !searchError && <div className="p-6 text-center text-white/60">No results found.</div>}
