@@ -1,4 +1,6 @@
-name: CI
+name: Verify
+permissions:
+  contents: read
 
 on:
   push:
@@ -19,3 +21,6 @@ jobs:
       - run: npm run lint
       - run: npm test
       - run: npm run build
+      - run: npm run preview -- --host 127.0.0.1 > /tmp/harm-less-preview.log 2>&1 &
+      - run: sleep 3
+      - run: curl --fail --silent --show-error http://127.0.0.1:4173/ > /dev/null
