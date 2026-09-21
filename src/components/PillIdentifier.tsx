@@ -74,7 +74,9 @@ export default function PillIdentifier() {
           />
 
           {!photoUrl ? (
-            <button 
+            <button
+              type="button"
+              aria-label="Open camera or image picker to inspect pill markings"
               onClick={() => fileInputRef.current?.click()}
               className="flex-1 min-h-[200px] border-2 border-dashed border-white/20 rounded-xl flex flex-col items-center justify-center gap-3 hover:bg-white/5 hover:border-[#FF1493]/50 transition-all text-white/50"
             >
@@ -91,7 +93,9 @@ export default function PillIdentifier() {
                 alt="User-selected pill image for local inspection" 
                 className="max-h-[300px] object-contain w-full"
               />
-              <button 
+              <button
+                type="button"
+                aria-label="Remove selected pill image"
                 onClick={clearPhoto}
                 className="absolute top-2 right-2 bg-black/60 p-2 rounded-full text-white/80 hover:text-white hover:bg-[#FF1493] transition-colors"
               >
