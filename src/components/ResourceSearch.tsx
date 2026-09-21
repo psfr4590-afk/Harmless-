@@ -156,7 +156,7 @@ export default function ResourceSearch() {
 
   const openMapFallback = (query: string) => {
     const suffix = location ? `/@${location.lat},${location.lng},13z` : '';
-    window.open(`https://www.google.com/maps/search/${encodeURIComponent(query)}${suffix}`, '_blank');
+    window.open(`https://www.google.com/maps/search/${encodeURIComponent(query)}${suffix}`, '_blank', 'noopener,noreferrer');
   };
 
   const handleGeocode = async (e?: React.FormEvent) => {
@@ -230,9 +230,9 @@ export default function ResourceSearch() {
       </div>
 
       <AnimatePresence>
-        {selectedCategory && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        {selectedCategory && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="resource-results-dialog-title">
           <motion.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 50, opacity: 0 }} className="bg-[#1a1a1a] border border-white/10 p-6 rounded-3xl w-full max-w-2xl max-h-[90vh] flex flex-col">
-            <div className="flex items-center justify-between mb-4"><h3 className="text-2xl font-black uppercase tracking-widest text-white">{CATEGORIES.find(c => c.id === selectedCategory)?.name}</h3><button onClick={() => setSelectedCategory(null)} className="p-2 hover:bg-white/10 rounded-full text-white">✕</button></div>
+            <div className="flex items-center justify-between mb-4"><h3 id="resource-results-dialog-title" className="text-2xl font-black uppercase tracking-widest text-white">{CATEGORIES.find(c => c.id === selectedCategory)?.name}</h3><button type="button" aria-label="Close local resource results" onClick={() => setSelectedCategory(null)} className="p-2 hover:bg-white/10 rounded-full text-white">✕</button></div>
             {fetchingData ? <div className="flex-1 flex flex-col items-center justify-center gap-4 py-12"><Loader2 className="w-8 h-8 animate-spin text-[#FF1493]" /><p className="text-sm font-bold uppercase tracking-widest text-[#FF69B4]">Searching public records...</p></div> :
               <div className="flex-1 overflow-y-auto space-y-4 pr-2">
                 {searchError && <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-300 text-sm">{searchError}</div>}

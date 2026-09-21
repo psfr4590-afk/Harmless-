@@ -1,4 +1,7 @@
-name: CI
+name: Verify
+# Full dependency, code, type, build, and production-preview verification.
+permissions:
+  contents: read
 
 on:
   push:
@@ -15,6 +18,19 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - run: npm audit --audit-level=high
       - run: npm run lint
       - run: npm test
+      - run: npm run typecheck
       - run: npm run build
+      - name: Smoke test production preview
+        run: |
+          npm run preview -- --host 127.0.0.1 > /tmp/harm-less-preview.log 2>&1 &
+          PID=$!
+          trap 'kill $PID' EXIT
+          for attempt in 1 2 3 4 5; do
+            if curl --fail --silent --show-error http://127.0.0.1:4173/ > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/harm-less-preview.log
+          exit 1

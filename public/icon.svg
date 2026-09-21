@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Harm.Less</title>
+  <desc id="desc">A heart mark representing practical harm reduction and support.</desc>
+  <rect width="512" height="512" rx="112" fill="#121212"/>
+  <path d="M256 405 113 267c-47-45-52-118-9-164 42-45 114-47 157-3l-5 5 5-5 5 5-5 5 5-5c43-44 115-42 157 3 43 46 38 119-9 164L256 405Z" fill="none" stroke="#FF1493" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M256 166v132M190 232h132" stroke="#FF69B4" stroke-width="22" stroke-linecap="round"/>
+</svg>

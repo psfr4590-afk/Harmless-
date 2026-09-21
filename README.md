@@ -1,44 +1,72 @@
 # Harm.Less
 
-> A privacy-first harm reduction reference and local resource finder.
+> A privacy-conscious harm-reduction companion for people seeking practical safety information and real-world support.
 
-Built for people who need real help finding real resources, without surveillance or barriers.
+Harm.Less brings harm-reduction education, emergency support, treatment-resource discovery, and safety tools into one focused interface. It is designed to reduce friction when someone needs useful information quickly.
 
-## What it does
+## Features
 
-- **Local Resources** — searches public OpenStreetMap data for harm-reduction services, shelters, clinics, food support, and other assistance near a selected location.
-- **Harm Reduction Tools** — interaction checking, volumetric measurement, pill-imprint lookup, safer-use information, emergency support, and legal-reference material.
+- **Urgent support** for emergency and crisis resources.
+- **Local resources** using connected public-service data when an online search is requested.
+- **Interaction checking** with medication-name normalization, live evidence lookup, and explicit unverified states.
+- **Volumetric calculations** for mathematical conversion, with safety-focused framing.
+- **Pill identification** through imprint information supplied by the user.
+- **Safer-use education** covering routes of administration, overdose response, and risk reduction.
+- **Lab testing and support resources** for practical harm-reduction needs.
+- **Legal references** routed to current jurisdictional legislative information.
 
-## Stack
+## Safety and evidence
 
-React · TypeScript · Vite · Tailwind CSS · local browser APIs
+Health, emergency, treatment, and legal information is treated as safety-sensitive content.
 
-## Run Locally
+The application distinguishes documented evidence from unknown, unavailable, or insufficient evidence. A missing interaction record is not presented as proof of safety. Source links and review metadata are exposed where applicable.
 
-**Prerequisites:** Node.js
+Live integrations currently include NLM RxNorm, FDA openFDA drug labeling, and SAMHSA FindTreatment.gov. External services are queried only when the relevant feature is used. Public geographic searches may also use OpenStreetMap/Nominatim and Overpass.
 
-1. Install dependencies:
-   ```
-   npm install
-   ```
-2. Start the app:
-   ```
-   npm run dev
-   ```
+A live-service failure is presented as unavailable evidence rather than silently converted into a reassuring result.
 
-Open `http://localhost:3000`
+## Architecture
 
-## Verification
+The application is a client-side React/TypeScript application built with Vite. Safety-sensitive logic is separated into small utility modules and covered by regression tests. Static health and legal content carries source metadata, while live integrations are isolated behind explicit adapters.
 
-- `npm test` runs the deterministic safety and data-handling regression suite.
-- `npm run lint` checks the current TypeScript/React source.
-- `npm run build` performs the TypeScript and Vite production build.
-- GitHub Actions runs all three checks on pushes to `main` and pull requests.
+The application has no application-managed user account or cloud profile. Browser APIs are used only for current feature workflows such as geolocation and local image selection.
 
 ## Privacy
 
-Harm.Less does not require an account or cloud service. Local browser data is not uploaded by the application. Some resource-search features use external public services when you request an online search, so location or search information may be transmitted to those providers. Review the in-app disclosures before using external search.
+Harm.Less does not require an account or application-managed cloud profile.
 
-## Contributing
+Some features communicate with external public services. Location-based searches can transmit coordinates or a manually entered location to the services required for that search. Pill images are handled locally by the current identifier workflow and are not uploaded by the application.
 
-Issues and PRs welcome. See open issues for the roadmap.
+External providers have their own privacy policies and operational practices. Do not enter secrets, credentials, or unnecessary personal information into external searches.
+
+## Development
+
+Requires Node.js 20.
+
+    npm ci
+    npm run lint
+    npm test
+    npm run typecheck
+    npm run build
+    npm run dev
+
+Open the local Vite development address shown by the command.
+
+## Verification
+
+The repository CI workflow runs dependency auditing, linting, regression tests, TypeScript/Vite builds, and a basic production-preview HTTP smoke check on pushes to `main` and pull requests.
+
+Browser-level interaction testing, camera behavior, geolocation permissions, and live third-party service behavior remain deployment-environment concerns and should be verified before a production release.
+
+## Project documentation
+
+- [Contributing](CONTRIBUTING.md)
+- [Security Policy](SECURITY.md)
+- [Changelog](CHANGELOG.md)
+- [License](LICENSE)
+
+## Scope
+
+Harm.Less provides educational harm-reduction information and access to resources. It does not replace emergency services, medical diagnosis, treatment, or professional legal advice.
+
+If someone is in immediate danger, contact local emergency services.

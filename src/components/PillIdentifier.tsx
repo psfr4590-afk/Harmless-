@@ -34,7 +34,7 @@ export default function PillIdentifier() {
     if (color) params.append('color', color);
     if (shape) params.append('shape', shape);
     
-    window.open(`https://www.drugs.com/imprints.php?${params.toString()}`, '_blank');
+    window.open(`https://www.drugs.com/imprints.php?${params.toString()}`, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -48,7 +48,7 @@ export default function PillIdentifier() {
         </h2>
         <p className="mt-3 text-white/80 text-sm leading-relaxed font-mono">
           Counterfeit pills are highly prevalent. Even if a pill perfectly matches the visual markings, shape, and color of a legitimate pharmaceutical drug, it may contain lethal amounts of fentanyl, xylazine, or nitazenes. 
-          Pill identification is NOT a substitute for chemical test strips or lab testing.
+          Pill identification cannot confirm contents. A visual match is not proof of identity or safety and is not a substitute for chemical testing or lab testing.
         </p>
       </div>
 
@@ -74,7 +74,9 @@ export default function PillIdentifier() {
           />
 
           {!photoUrl ? (
-            <button 
+            <button
+              type="button"
+              aria-label="Open camera or image picker to inspect pill markings"
               onClick={() => fileInputRef.current?.click()}
               className="flex-1 min-h-[200px] border-2 border-dashed border-white/20 rounded-xl flex flex-col items-center justify-center gap-3 hover:bg-white/5 hover:border-[#FF1493]/50 transition-all text-white/50"
             >
@@ -88,10 +90,12 @@ export default function PillIdentifier() {
             <div className="relative flex-1 bg-black rounded-xl border border-white/10 overflow-hidden flex items-center justify-center min-h-[200px]">
               <img 
                 src={photoUrl} 
-                alt="Captured pill" 
+                alt="User-selected pill image for local inspection" 
                 className="max-h-[300px] object-contain w-full"
               />
-              <button 
+              <button
+                type="button"
+                aria-label="Remove selected pill image"
                 onClick={clearPhoto}
                 className="absolute top-2 right-2 bg-black/60 p-2 rounded-full text-white/80 hover:text-white hover:bg-[#FF1493] transition-colors"
               >

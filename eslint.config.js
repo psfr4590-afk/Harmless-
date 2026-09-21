@@ -4,7 +4,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 
 export default [
-  { ignores: ["dist/**/*", "*.rules"] },
+  { ignores: ["dist/**/*", "coverage/**/*", "*.rules"] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
@@ -14,6 +14,7 @@ export default [
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      "no-console": ["warn", { allow: ["warn", "error"] }],
       "react-refresh/only-export-components": [
         "warn",
         { allowConstantExport: true },

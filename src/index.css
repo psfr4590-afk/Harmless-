@@ -33,3 +33,29 @@ body {
   [class*="text-white/"] { color: rgba(255, 255, 255, 0.95) !important; }
   [class*="text-[#"] { filter: brightness(1.2); }
 }
+
+
+/* Publication accessibility defaults */
+:focus-visible {
+  outline: 2px solid #FF69B4;
+  outline-offset: 3px;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -52,6 +52,8 @@ export default function Disclaimer({ onAcknowledge }: DisclaimerProps) {
         </div>
 
         <button
+          type="button"
+          aria-label="Acknowledge the disclaimer and continue"
           onClick={onAcknowledge}
           className="w-full py-4 rounded-xl font-bold uppercase tracking-widest flex items-center justify-center gap-2 transition-all duration-300 bg-white/10 text-white hover:bg-[#FF1493] hover:shadow-[0_0_20px_rgba(255,20,147,0.5)] border border-white/10"
         >
