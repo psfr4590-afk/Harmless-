@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heart, MapPin, PhoneCall, Shield, Calculator, FlaskConical, ArrowLeft, Globe, Bot } from 'lucide-react';
+import { Heart, MapPin, PhoneCall, Shield, Calculator, FlaskConical, ArrowLeft, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ResourceSearch from './components/ResourceSearch';
 import ROASafeUse from './components/ROASafeUse';
@@ -12,13 +12,12 @@ import Disclaimer from './components/Disclaimer';
 import LabTesting from './components/LabTesting';
 import PillIdentifier from './components/PillIdentifier';
 import GoodSamaritanLaws from './components/GoodSamaritanLaws';
-import AIChat from './components/AIChat';
 import { Microscope, Search as SearchIcon } from 'lucide-react';
 
 type Screen =
   | 'disclaimer' | 'landing' | 'dashboard'
   | 'resources' | 'roa' | 'hotlines' | 'interactions'
-  | 'dose' | 'links' | 'testing' | 'pill-id' | 'laws' | 'ai';
+  | 'dose' | 'links' | 'testing' | 'pill-id' | 'laws';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('disclaimer');
@@ -44,13 +43,6 @@ export default function App() {
                 <Heart className="w-8 h-8 text-[#FF1493]" />
                 <h1 className="text-xl font-black text-[#FF69B4] uppercase tracking-widest">Harm.Less</h1>
               </div>
-              <button
-                onClick={() => setCurrentScreen('ai')}
-                className="flex items-center gap-2 px-4 py-2 bg-[#FF1493]/20 hover:bg-[#FF1493]/30 border border-[#FF1493]/40 rounded-full transition-colors font-bold text-sm uppercase tracking-wider text-[#FF69B4]"
-              >
-                <Bot className="w-4 h-4" />
-                <span className="hidden sm:inline">AI Chat</span>
-              </button>
             </header>
 
             <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
@@ -92,26 +84,6 @@ export default function App() {
                     </div>
                   </button>
                 </div>
-              </section>
-
-              {/* SECTION: AI Chat */}
-              <section id="ai-section" className="space-y-4">
-                <div className="flex items-center gap-3 border-b border-white/10 pb-2">
-                  <Bot className="w-5 h-5 text-[#FF69B4]" />
-                  <h2 className="text-xl font-black uppercase tracking-widest text-white/90">AI Assistant</h2>
-                </div>
-                <button
-                  onClick={() => setCurrentScreen('ai')}
-                  className="w-full flex flex-col sm:flex-row items-center justify-center text-center sm:text-left gap-4 p-6 rounded-2xl border border-[#FF1493]/30 bg-gradient-to-r from-[#FF1493]/10 to-purple-500/10 hover:border-[#FF1493]/60 hover:from-[#FF1493]/20 hover:-translate-y-1 transition-all duration-300 group"
-                >
-                  <div className="p-3 bg-[#FF1493]/20 rounded-full group-hover:scale-110 transition-transform">
-                    <Bot className="w-6 h-6 text-[#FF69B4]" />
-                  </div>
-                  <div>
-                    <span className="text-lg font-black uppercase tracking-widest text-white block">Harm Reduction AI</span>
-                    <span className="text-sm uppercase text-white/60 font-bold">Local · Private · No Cloud · Powered by Ollama</span>
-                  </div>
-                </button>
               </section>
 
               {/* SECTION: Tools */}
@@ -210,7 +182,6 @@ export default function App() {
                 {currentScreen === 'testing'      && 'Mail-In Lab Testing'}
                 {currentScreen === 'pill-id'      && 'Pill Identifier & Scanner'}
                 {currentScreen === 'laws'         && 'Good Samaritan Laws'}
-                {currentScreen === 'ai'           && 'Harm Reduction AI'}
               </h2>
             </header>
 
@@ -224,7 +195,6 @@ export default function App() {
               {currentScreen === 'testing'      && <LabTesting />}
               {currentScreen === 'pill-id'      && <PillIdentifier />}
               {currentScreen === 'laws'         && <GoodSamaritanLaws />}
-              {currentScreen === 'ai'           && <AIChat />}
             </div>
           </motion.div>
         )}
