@@ -20,11 +20,11 @@ function distanceKm(aLat: number, aLng: number, bLat: number, bLng: number) {
 }
 
 const NATIONAL_HOTLINES = [
-  { id: 'emergency', name: 'Emergency Services', number: '911', desc: 'Immediate medical or safety emergencies' },
-  { id: 'suicide', name: 'Suicide & Crisis Lifeline', number: '988', desc: '24/7 free and confidential support' },
-  { id: 'samhsa', name: 'SAMHSA National Helpline', number: '1-800-662-4357', desc: 'Treatment referral and info service' },
-  { id: 'nua', name: 'Never Use Alone', number: '1-800-484-3731', desc: 'Harm reduction & overdose prevention' },
-  { id: 'na', name: 'Narcotics Anonymous', number: '1-818-773-9999', desc: 'NA World Services general information' }
+  { id: 'emergency', name: 'Emergency Services', number: '911', desc: 'Immediate medical or safety emergencies', source: 'https://www.usa.gov/911' },
+  { id: 'suicide', name: 'Suicide & Crisis Lifeline', number: '988', desc: '24/7 free and confidential support', source: 'https://www.samhsa.gov/find-support/in-crisis' },
+  { id: 'samhsa', name: 'SAMHSA National Helpline', number: '1-800-662-4357', desc: 'Treatment referral and info service', source: 'https://www.samhsa.gov/find-help/helplines/national-helpline' },
+  { id: 'nua', name: 'Never Use Alone', number: '1-800-484-3731', desc: 'Harm reduction & overdose prevention', source: 'https://neverusealone.com/' },
+  { id: 'na', name: 'Narcotics Anonymous', number: '1-818-773-9999', desc: 'NA World Services general information', source: 'https://na.org/e-lit/na-a-resource-in-your-community/' }
 ];
 
 export default function HotlineSearch() {
@@ -92,7 +92,7 @@ export default function HotlineSearch() {
       </div>
       <div className="space-y-4">
         <h3 className="text-white/40 font-black uppercase tracking-widest text-xs ml-2">Direct Dial National Hotlines</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">{NATIONAL_HOTLINES.map(hl => <a key={hl.id} href={`tel:${hl.number}`} className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all flex items-center justify-between group"><div><h4 className="font-black uppercase text-lg tracking-wide text-white">{hl.name}</h4><p className="text-xs text-white/60 font-medium mt-1">{hl.desc}</p><p className="text-sm font-bold text-[#FF69B4] mt-2">{hl.number}</p></div><PhoneCall className="w-8 h-8 text-[#FF1493] group-hover:scale-110 transition-transform" /></a>)}</div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">{NATIONAL_HOTLINES.map(hl => <a key={hl.id} href={`tel:${hl.number}`} className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all flex items-center justify-between group"><div><h4 className="font-black uppercase text-lg tracking-wide text-white">{hl.name}</h4><p className="text-xs text-white/60 font-medium mt-1">{hl.desc}</p><p className="text-sm font-bold text-[#FF69B4] mt-2">{hl.number}</p><p className="text-xs text-white/40 mt-1">Source: official organization/service information</p></div><PhoneCall className="w-8 h-8 text-[#FF1493] group-hover:scale-110 transition-transform" /></a>)}</div>
       </div>
       <div className="space-y-4 pb-8">
         <h3 className="text-white/40 font-black uppercase tracking-widest text-xs ml-2">Find Local Services & Contact Numbers</h3>
