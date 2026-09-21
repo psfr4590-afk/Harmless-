@@ -29,6 +29,7 @@ export function searchFindTreatment(options: {
   lng: number;
   radiusMeters?: number;
   codes?: string[];
+  type?: 'SA' | 'MH' | 'both';
   signal?: AbortSignal;
 }): Promise<{
   records: unknown[];
