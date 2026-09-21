@@ -79,9 +79,9 @@ export default function ResourceSearch() {
           });
 
           const treatmentRows = treatment.records.map((row: any, index: number) => {
-            const name = row.facilityName || row.FACILITY_NAME || row.name || row.NAME || row.facility || row.FACILITY;
-            const address = row.address || row.ADDRESS || [row.address1, row.city, row.state, row.zip].filter(Boolean).join(', ');
-            const phone = row.phone || row.PHONE || row.telephone || row.TELEPHONE || null;
+            const name = [row.name1, row.name2].filter(Boolean).join(' ').trim() || row.facilityName || row.FACILITY_NAME || row.name || row.NAME || row.facility || row.FACILITY;
+            const address = row.address || row.ADDRESS || [row.street1, row.street2, row.city, row.state, row.zip].filter(Boolean).join(', ');
+            const phone = row.phone || row.PHONE || row.telephone || row.TELEPHONE || row.intake1 || row.hotline1 || null;
             const lat = Number(row.latitude ?? row.LATITUDE ?? row.lat);
             const lng = Number(row.longitude ?? row.LONGITUDE ?? row.lng ?? row.lon);
             if (!name) return null;
@@ -90,7 +90,7 @@ export default function ResourceSearch() {
               name: String(name),
               address: String(address || 'Address not listed'),
               phone: phone ? String(phone) : null,
-              website: row.website || row.WEBSITE || null,
+              website: row.website ? (String(row.website).startsWith('http') ? row.website : `https://${row.website}`) : row.WEBSITE || null,
               distance: Number.isFinite(lat) && Number.isFinite(lng) ? distanceKm(location.lat, location.lng, lat, lng) : null,
               source: treatment.source,
               sourceUrl: treatment.sourceUrl,
@@ -135,7 +135,7 @@ export default function ResourceSearch() {
         } as ResourceResult;
       }).filter((item: ResourceResult) => item.name !== 'Unnamed facility' || item.phone || item.website));
 
-      const finalResults = dedupeById(results)
+      const finalResults = dedupeById(results.map(item => ({ ...item, website: item.website && safeExternalUrl(item.website) ? safeExternalUrl(item.website) : null })))
         .sort((a, b) => (a.distance ?? 9999) - (b.distance ?? 9999))
         .slice(0, 50);
 
