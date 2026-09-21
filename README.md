@@ -28,6 +28,13 @@ React · TypeScript · Vite · Tailwind CSS · local browser APIs
 
 Open `http://localhost:3000`
 
+## Verification
+
+- `npm test` runs the deterministic safety and data-handling regression suite.
+- `npm run lint` checks the current TypeScript/React source.
+- `npm run build` performs the TypeScript and Vite production build.
+- GitHub Actions runs all three checks on pushes to `main` and pull requests.
+
 ## Privacy
 
 Harm.Less does not require an account or cloud service. Local browser data is not uploaded by the application. Some resource-search features use external public services when you request an online search, so location or search information may be transmitted to those providers. Review the in-app disclosures before using external search.
