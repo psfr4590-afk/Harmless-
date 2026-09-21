@@ -23,7 +23,7 @@ export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('disclaimer');
 
   return (
-    <div className="min-h-[100dvh] bg-[#121212] text-white">
+    <div className="min-h-[100dvh] bg-[#121212] text-white antialiased">
       <AnimatePresence mode="wait">
         {currentScreen === 'disclaimer' ? (
           <Disclaimer key="disclaimer" onAcknowledge={() => setCurrentScreen('landing')} />
@@ -41,7 +41,10 @@ export default function App() {
             <header className="flex justify-between items-center py-4">
               <div className="flex items-center gap-3">
                 <Heart className="w-8 h-8 text-[#FF1493]" />
-                <h1 className="text-xl font-black text-[#FF69B4] uppercase tracking-widest">Harm.Less</h1>
+                <div>
+                  <h1 className="text-xl font-black text-[#FF69B4] uppercase tracking-widest">Harm.Less</h1>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-white/40">Harm reduction • support • practical safety</p>
+                </div>
               </div>
             </header>
 
