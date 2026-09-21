@@ -5,11 +5,13 @@ import { checkInteraction, DRUG_CLASSES } from '../utils/interactionMatrix';
 import { getFdaInteractionEvidence, resolveRxNormName, type InteractionEvidence } from '../utils/medicalApi';
 
 type Severity = 'FATAL' | 'UNSAFE' | 'CAUTION' | 'LOW RISK' | 'UNKNOWN' | 'SAME_SUBSTANCE';
+type LocalEvidence = { source: string; sourceUrl: string; evidence: string; updatedAt: null };
+type EvidenceItem = InteractionEvidence | LocalEvidence;
 
 export default function InteractionChecker() {
   const [drug1, setDrug1] = useState('');
   const [drug2, setDrug2] = useState('');
-  const [result, setResult] = useState<{ severity: Severity; description: string; evidence?: InteractionEvidence[] }>({
+  const [result, setResult] = useState<{ severity: Severity; description: string; evidence?: EvidenceItem[] }>({
     severity: 'UNKNOWN',
     description: 'Enter two substances and run a live evidence check.'
   });
