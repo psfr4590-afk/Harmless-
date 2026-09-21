@@ -1,3 +1,13 @@
+export const DATA_REVIEW_DATE = '2026-09-20';
+
+export const DATA_SOURCES = [
+  { name: 'CDC Overdose Prevention', url: 'https://www.cdc.gov/overdose-prevention/' },
+  { name: 'CDC Fentanyl Information', url: 'https://www.cdc.gov/overdose-prevention/about/fentanyl.html' },
+  { name: 'SAMHSA Opioid Overdose Prevention and Reversal', url: 'https://www.samhsa.gov/substance-use/treatment/overdose-prevention' },
+  { name: 'NIDA Research Topics by Substance', url: 'https://nida.nih.gov/drugabuse.html' },
+  { name: 'NIDA Psychedelic and Dissociative Drugs', url: 'https://nida.nih.gov/Infofacts/LSD-Sp.html' }
+];
+
 export const DRUG_DATA = [
   {
     category: 'Opioids',
