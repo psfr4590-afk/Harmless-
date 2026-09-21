@@ -39,6 +39,10 @@ function normalizeEvidenceText(value) {
   return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
+function escapeFdaSearchTerm(term) {
+  return String(term).replace(/[\\\"()]/g, '\\\\function containsTerm(text, term) {');
+}
+
 function containsTerm(text, term) {
   const haystack = normalizeEvidenceText(text);
   const needle = normalizeEvidenceText(term);
@@ -51,41 +55,39 @@ export async function getFdaInteractionEvidence(drugA, drugB, signal) {
   const b = String(drugB || '').trim();
   if (!a || !b) return { status: 'INSUFFICIENT_EVIDENCE', records: [] };
 
-  const url = new URL(OPENFDA_BASE);
-  url.searchParams.set('search', `drug_interactions:(${a})`);
-  url.searchParams.set('limit', '25');
-
-  let data;
-  try {
-    data = await fetchJson(url.toString(), signal);
-  } catch (error) {
-    if (error instanceof Error && error.message.includes('HTTP 404')) {
-      return { status: 'NO_MATCHING_LABEL', records: [] };
+  const queries = [[a, b], [b, a]];
+  const allMatches = [];
+  let successfulQueries = 0;
+  for (const [sourceDrug, targetDrug] of queries) {
+    const url = new URL(OPENFDA_BASE);
+    url.searchParams.set('search', `drug_interactions:"${escapeFdaSearchTerm(sourceDrug)}"`);
+    url.searchParams.set('limit', '25');
+    try {
+      const data = await fetchJson(url.toString(), signal);
+      successfulQueries += 1;
+      const records = Array.isArray(data.results) ? data.results : [];
+      allMatches.push(...records.filter(record => {
+        const interactionText = Array.isArray(record.drug_interactions) ? record.drug_interactions.join(' ') : record.drug_interactions;
+        return containsTerm(interactionText, targetDrug);
+      }).map(record => ({
+        source: 'FDA openFDA Drug Labeling',
+        sourceUrl: 'https://open.fda.gov/apis/drug/label/',
+        evidence: Array.isArray(record.drug_interactions) ? record.drug_interactions.join(' ') : record.drug_interactions,
+        drugName: record.openfda?.generic_name?.[0] || record.openfda?.brand_name?.[0] || sourceDrug,
+        updatedAt: record.effective_time?.[0] || record.effective_time || null,
+        setId: record.openfda?.spl_set_id?.[0] || null
+      })));
+    } catch (error) {
+      if (!(error instanceof Error && error.message.includes('HTTP 404'))) {
+        if (signal?.aborted) throw error;
+      }
     }
-    throw error;
   }
-
-  const records = Array.isArray(data.results) ? data.results : [];
-  const matches = records.filter(record => {
-    const interactionText = Array.isArray(record.drug_interactions)
-      ? record.drug_interactions.join(' ')
-      : record.drug_interactions;
-    return containsTerm(interactionText, b);
-  }).slice(0, 5).map(record => ({
-    source: 'FDA openFDA Drug Labeling',
-    sourceUrl: 'https://open.fda.gov/apis/drug/label/',
-    evidence: Array.isArray(record.drug_interactions) ? record.drug_interactions.join(' ') : record.drug_interactions,
-    drugName: record.openfda?.generic_name?.[0] || record.openfda?.brand_name?.[0] || a,
-    updatedAt: record.effective_time?.[0] || record.effective_time || null,
-    setId: record.openfda?.spl_set_id?.[0] || null
-  }));
-
-  return {
-    status: matches.length ? 'DOCUMENTED_INTERACTION' : 'NO_DOCUMENTED_PAIR_IN_MATCHED_LABELS',
-    records: matches
-  };
+  const unique = Array.from(new Map(allMatches.map(item => [item.setId || item.drugName + item.evidence, item])).values()).slice(0, 5);
+  if (unique.length) return { status: 'DOCUMENTED_INTERACTION', records: unique };
+  if (successfulQueries === 0) return { status: 'UPSTREAM_UNAVAILABLE', records: [] };
+  return { status: 'NO_DOCUMENTED_PAIR_IN_MATCHED_LABELS', records: [] };
 }
-
 export async function searchFindTreatment({ lat, lng, radiusMeters = 50000, codes = [], type, signal }) {
   if (!Number.isFinite(Number(lat)) || !Number.isFinite(Number(lng))) {
     throw new Error('A valid latitude and longitude are required.');
