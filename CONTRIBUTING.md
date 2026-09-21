@@ -8,6 +8,7 @@ Thank you for helping improve a safety-focused project.
 - Preserve source attribution and review dates when changing health, treatment, emergency, or legal information.
 - Do not add credentials, API keys, personal data, or generated build artifacts to the repository.
 - Prefer small, reviewable changes with tests for safety-critical behavior.
+- Keep user-facing claims aligned with what the current implementation actually does.
 
 ## Local development
 
@@ -21,7 +22,19 @@ Requires Node.js 20.
 
 ## Pull requests
 
-Describe the user-facing change, affected safety behavior, sources consulted for factual data changes, and verification performed. Do not claim runtime verification that was not actually performed.
+Describe the user-facing change, affected safety behavior, sources consulted for factual data changes, and verification performed.
+
+For safety-sensitive changes, include:
+1. What evidence or source was used.
+2. What happens when that source is unavailable.
+3. What tests cover the changed behavior.
+4. Whether browser/runtime verification was performed.
+
+Do not claim runtime verification that was not actually performed.
+
+## External services
+
+Changes involving NLM RxNorm, FDA openFDA, SAMHSA FindTreatment.gov, OpenStreetMap/Nominatim, or Overpass should preserve explicit failure states and source attribution. Do not add hidden fallbacks that convert unavailable evidence into a positive safety conclusion.
 
 ## Scope
 
