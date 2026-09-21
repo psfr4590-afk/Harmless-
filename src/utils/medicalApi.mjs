@@ -86,7 +86,7 @@ export async function getFdaInteractionEvidence(drugA, drugB, signal) {
   };
 }
 
-export async function searchFindTreatment({ lat, lng, radiusMeters = 50000, codes = [], signal }) {
+export async function searchFindTreatment({ lat, lng, radiusMeters = 50000, codes = [], type, signal }) {
   if (!Number.isFinite(Number(lat)) || !Number.isFinite(Number(lng))) {
     throw new Error('A valid latitude and longitude are required.');
   }
@@ -99,6 +99,7 @@ export async function searchFindTreatment({ lat, lng, radiusMeters = 50000, code
   url.searchParams.set('page', '1');
   url.searchParams.set('sort', '0');
   if (codes.length) url.searchParams.set('sCodes', codes.join(','));
+  if (type) url.searchParams.set('sType', type);
 
   const data = await fetchJson(url.toString(), signal);
   const rows = Array.isArray(data.data) ? data.data : Array.isArray(data.results) ? data.results : [];
