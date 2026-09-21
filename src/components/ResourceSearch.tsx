@@ -74,7 +74,7 @@ export default function ResourceSearch() {
             lng: location.lng,
             radiusMeters: 50000,
             type: categoryId === 'mental' ? 'MH' : 'SA',
-            codes: categoryId === 'rehab' ? ['DT', 'OTP', 'BU', 'NU', 'OP', 'HI'] : [],
+            codes: [],
             signal: controller.signal
           });
 
