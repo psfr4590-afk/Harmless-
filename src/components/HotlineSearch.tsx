@@ -12,6 +12,7 @@ const LOCAL_SEARCHES = [
 ];
 
 interface LocalResult { id: string; name: string; address: string; phone: string | null; website: string | null; distance: number | null; }
+interface OverpassElement { type: string; id: string | number; lat?: number; lon?: number; center?: { lat: number; lon: number }; tags?: Record<string, string>; }
 
 function distanceKm(aLat: number, aLng: number, bLat: number, bLng: number) {
   const r = 6371, dLat = (bLat - aLat) * Math.PI / 180, dLng = (bLng - aLng) * Math.PI / 180;
@@ -62,7 +63,7 @@ export default function HotlineSearch() {
       const data = await res.json();
       const elements = extractOverpassElements(data);
       if (!elements) throw new Error('Public directory returned an unexpected response format.');
-      const mapped: LocalResult[] = dedupeById<LocalResult>(elements.map((el: any) => {
+      const mapped: LocalResult[] = dedupeById<LocalResult>(elements.map((el: OverpassElement) => {
         const t = el.tags || {}, lat = el.lat ?? el.center?.lat, lng = el.lon ?? el.center?.lon;
         const address = [[t['addr:housenumber'], t['addr:street']].filter(Boolean).join(' '), t['addr:city'], t['addr:state'], t['addr:postcode']].filter(Boolean).join(', ');
         return { id: `osm-${el.type}-${el.id}`, name: t.name || t.operator || 'Unnamed service', address: address || 'Address not listed', phone: t.phone || t['contact:phone'] || null, website: t.website || t['contact:website'] || null, distance: typeof lat === 'number' && typeof lng === 'number' ? distanceKm(location.lat, location.lng, lat, lng) : null };
