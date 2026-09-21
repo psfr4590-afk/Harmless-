@@ -4,6 +4,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { buildOverpassQuery, dedupeById, safeExternalUrl, extractOverpassElements } from '../utils/safetyUtils';
 import { searchFindTreatment } from '../utils/medicalApi';
 
+interface OverpassElement { type: string; id: string | number; lat?: number; lon?: number; center?: { lat: number; lon: number }; tags?: Record<string, string>; }
+
+interface FindTreatmentRow { [key: string]: string | number | null | undefined; }
+
 interface ResourceResult {
   id: string;
   name: string;
@@ -79,7 +83,7 @@ export default function ResourceSearch() {
             signal: controller.signal
           });
 
-          const treatmentRows = treatment.records.map((row: any, index: number) => {
+          const treatmentRows = treatment.records.map((row: FindTreatmentRow, index: number) => {
             const name = [row.name1, row.name2].filter(Boolean).join(' ').trim() || row.facilityName || row.FACILITY_NAME || row.name || row.NAME || row.facility || row.FACILITY;
             const address = row.address || row.ADDRESS || [row.street1, row.street2, row.city, row.state, row.zip].filter(Boolean).join(', ');
             const phone = row.phone || row.PHONE || row.telephone || row.TELEPHONE || row.intake1 || row.hotline1 || null;
@@ -113,7 +117,7 @@ export default function ResourceSearch() {
       const elements = extractOverpassElements(osmData);
       if (!elements) throw new Error('Public data service returned an unexpected response format.');
 
-      results.push(...elements.map((el: any) => {
+      results.push(...elements.map((el: OverpassElement) => {
         const tags = el.tags || {};
         const lat = el.lat ?? el.center?.lat;
         const lng = el.lon ?? el.center?.lon;
