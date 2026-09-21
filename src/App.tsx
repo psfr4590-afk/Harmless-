@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Heart, MapPin, PhoneCall, Shield, Calculator, FlaskConical, ArrowLeft, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ResourceSearch from './components/ResourceSearch';
@@ -21,10 +21,17 @@ type Screen =
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('disclaimer');
+  const mainRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (currentScreen !== 'disclaimer') {
+      mainRef.current?.focus({ preventScroll: true });
+    }
+  }, [currentScreen]);
 
   return (
     <div className="min-h-[100dvh] bg-[#121212] text-white antialiased">
-      <main id="main-content" tabIndex={-1} className="outline-none">
+      <main id="main-content" ref={mainRef} tabIndex={-1} className="outline-none">
       <AnimatePresence mode="wait">
         {currentScreen === 'disclaimer' ? (
           <Disclaimer key="disclaimer" onAcknowledge={() => setCurrentScreen('landing')} />
@@ -189,7 +196,7 @@ export default function App() {
               </h2>
             </header>
 
-            <div className="flex-1 overflow-hidden relative" aria-live="polite">
+            <div className="flex-1 overflow-hidden relative">
               {currentScreen === 'interactions' && <InteractionChecker />}
               {currentScreen === 'dose'         && <DoseCalculator />}
               {currentScreen === 'resources'    && <ResourceSearch />}
