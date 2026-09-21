@@ -5,6 +5,8 @@ export interface RxNormResolution {
   sourceUrl: string;
 }
 
+export interface FindTreatmentRecord { [key: string]: string | number | null | undefined; }
+
 export interface InteractionEvidence {
   source: string;
   sourceUrl: string;
@@ -32,7 +34,7 @@ export function searchFindTreatment(options: {
   type?: 'SA' | 'MH' | 'both';
   signal?: AbortSignal;
 }): Promise<{
-  records: unknown[];
+  records: FindTreatmentRecord[];
   source: string;
   sourceUrl: string;
   retrievedAt: string;
