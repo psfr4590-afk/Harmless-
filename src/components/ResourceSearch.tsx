@@ -240,7 +240,7 @@ export default function ResourceSearch() {
                   {res.distance !== null && <div className="text-xs text-white/50">{res.distance.toFixed(1)} km away</div>}
                   {res.phone && <a href={`tel:${res.phone}`} className="flex items-center gap-2 text-sm text-green-400 hover:text-green-300"><Phone className="w-4 h-4" />{res.phone}</a>}
                   {res.website && safeExternalUrl(res.website) && <a href={safeExternalUrl(res.website) as string} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300"><Globe className="w-4 h-4" />Website</a>}
-                  <div className="text-xs font-bold uppercase tracking-widest text-white/40">Source: {res.source}{res.retrievedAt ? ` • Retrieved ${new Date(res.retrievedAt).toLocaleString()}` : ''}</div>
+                  <div className="text-xs font-bold uppercase tracking-widest text-white/40">Source: {res.source}{res.retrievedAt ? ` • Retrieved ${new Date(res.retrievedAt).toLocaleString()}` : ''}</div>{res.sourceUrl && <a href={res.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-300 inline-flex items-center gap-1"><Globe className="w-3 h-3" />Open source</a>}
                 </div>)}
                 {apiResults.length > 0 && <div className="pt-2 text-center"><button onClick={() => openMapFallback(CATEGORIES.find(c => c.id === selectedCategory)?.query || '')} className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold uppercase tracking-wider">Search broader map results</button></div>}
                 {!fetchingData && apiResults.length === 0 && !searchError && <div className="p-6 text-center text-white/60">No results found.</div>}
