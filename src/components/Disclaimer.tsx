@@ -8,7 +8,7 @@ interface DisclaimerProps {
 
 export default function Disclaimer({ onAcknowledge }: DisclaimerProps) {
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -21,38 +21,32 @@ export default function Disclaimer({ onAcknowledge }: DisclaimerProps) {
           </div>
           <h1 className="text-2xl font-black uppercase tracking-widest text-[#FF69B4]">Disclaimer & Permissions</h1>
           <p className="text-white/70 text-sm leading-relaxed">
-            To provide life-saving features, Harm.Less requires certain device permissions. By acknowledging this notice, you understand why these permissions are needed. You will still be prompted by your device to accept or deny them when they are used.
+            Harm.Less provides educational harm-reduction information and links to public resources. It is not a substitute for emergency care, medical advice, diagnosis, treatment, or legal advice. Device permissions are requested only when a current feature needs them.
           </p>
         </div>
 
         <div className="space-y-6">
           <div className="flex items-start gap-4">
-            <div className="bg-blue-500/20 p-3 rounded-full mt-1">
-              <MapPin className="w-6 h-6 text-blue-400" />
-            </div>
+            <div className="bg-blue-500/20 p-3 rounded-full mt-1"><MapPin className="w-6 h-6 text-blue-400" /></div>
             <div>
               <h3 className="font-bold text-white tracking-wide">Location</h3>
-              <p className="text-sm text-white/60 leading-relaxed mt-1">Used exclusively to find nearby harm reduction resources, shelters, and clinics in your exact area.</p>
+              <p className="text-sm text-white/60 leading-relaxed mt-1">Used to find nearby mapped resources. Current GPS coordinates may be sent to public geocoding/search services when those features are used. Manual location search is also available.</p>
             </div>
           </div>
 
           <div className="flex items-start gap-4">
-            <div className="bg-green-500/20 p-3 rounded-full mt-1">
-              <PhoneCall className="w-6 h-6 text-green-400" />
-            </div>
+            <div className="bg-green-500/20 p-3 rounded-full mt-1"><PhoneCall className="w-6 h-6 text-green-400" /></div>
             <div>
               <h3 className="font-bold text-white tracking-wide">Phone Dialing</h3>
-              <p className="text-sm text-white/60 leading-relaxed mt-1">Used to immediately dial emergency services, hotlines, or Never Use Alone without leaving the app.</p>
+              <p className="text-sm text-white/60 leading-relaxed mt-1">National hotline entries use telephone links. The Never Use Alone dashboard button opens the service website rather than directly placing a call.</p>
             </div>
           </div>
 
           <div className="flex items-start gap-4">
-            <div className="bg-purple-500/20 p-3 rounded-full mt-1">
-              <Camera className="w-6 h-6 text-purple-400" />
-            </div>
+            <div className="bg-purple-500/20 p-3 rounded-full mt-1"><Camera className="w-6 h-6 text-purple-400" /></div>
             <div>
-              <h3 className="font-bold text-white tracking-wide">Camera</h3>
-              <p className="text-sm text-white/60 leading-relaxed mt-1">Required for an upcoming update (e.g., visual substance/test strip identification). Not currently active.</p>
+              <h3 className="font-bold text-white tracking-wide">Camera / Photos</h3>
+              <p className="text-sm text-white/60 leading-relaxed mt-1">The Pill Identifier can open the device camera or image picker so you can inspect pill markings. Images are displayed locally for this workflow; the current identifier does not upload the photo to a server.</p>
             </div>
           </div>
         </div>
