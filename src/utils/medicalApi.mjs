@@ -92,7 +92,7 @@ export async function searchFindTreatment({ lat, lng, radiusMeters = 50000, code
   }
 
   const url = new URL(FINDTREATMENT_BASE);
-  url.searchParams.set('sAddr', `${Number(lat)},${Number(lng)}`);
+  url.searchParams.set('sAddr', `${Number(lng)},${Number(lat)}`);
   url.searchParams.set('limitType', '2');
   url.searchParams.set('limitValue', String(Math.min(Math.max(Number(radiusMeters), 1000), 160934)));
   url.searchParams.set('pageSize', '100');
@@ -102,7 +102,8 @@ export async function searchFindTreatment({ lat, lng, radiusMeters = 50000, code
   if (type) url.searchParams.set('sType', type);
 
   const data = await fetchJson(url.toString(), signal);
-  const rows = Array.isArray(data.data) ? data.data : Array.isArray(data.results) ? data.results : [];
+  const rows = Array.isArray(data.rows) ? data.rows : Array.isArray(data.data) ? data.data : Array.isArray(data.results) ? data.results : [];
+  if (!Array.isArray(rows)) throw new Error('FindTreatment.gov returned an unexpected response shape.');
   return {
     records: rows,
     source: 'SAMHSA FindTreatment.gov',
