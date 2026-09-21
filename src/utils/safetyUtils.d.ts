@@ -6,3 +6,5 @@ export function calculateVolumetricDose(massMg: string | number, volumeMl: strin
   concentration: number;
   requiredVolume: number;
 };
+
+export function extractOverpassElements(data: unknown): unknown[] | null;
