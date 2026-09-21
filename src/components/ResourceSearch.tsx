@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { MapPin, Search, Navigation, ExternalLink, Loader2, AlertCircle, Plus } from 'lucide-react';
+import { MapPin, Search, Navigation, ExternalLink, Loader2, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { saveSubmission } from '../lib/storage';
 
 export default function ResourceSearch() {
   const [location, setLocation] = useState<{ lat: number, lng: number } | null>(null);
   const [loadingLoc, setLoadingLoc] = useState(false);
   const [locError, setLocError] = useState<string | null>(null);
-  const [showSubmitModal, setShowSubmitModal] = useState(false);
-  const [submitForm, setSubmitForm] = useState({ name: '', type: 'clinic', address: '', description: '' });
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [fetchingData, setFetchingData] = useState(false);
@@ -154,42 +150,12 @@ export default function ResourceSearch() {
     );
   }
 
-  const handleSubmission = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitStatus('submitting');
-    try {
-      saveSubmission({
-        ...submitForm,
-        lat: location?.lat ?? null,
-        lng: location?.lng ?? null,
-      });
-      setSubmitStatus('success');
-      setTimeout(() => {
-        setShowSubmitModal(false);
-        setSubmitStatus('idle');
-        setSubmitForm({ name: '', type: 'clinic', address: '', description: '' });
-      }, 2000);
-    } catch (error) {
-      console.error(error);
-      setSubmitStatus('error');
-    }
-  };
-
   return (
     <div className="flex flex-col h-full bg-[#121212] overflow-y-auto w-full max-w-4xl mx-auto p-6 space-y-6 relative">
 
-      <div className="flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between bg-gradient-to-r from-[#FF1493]/20 to-[#FF1493]/5 border border-[#FF1493]/30 rounded-2xl p-6">
-        <div>
-          <h2 className="text-xl font-black uppercase text-[#FF69B4] tracking-widest">Community Resources</h2>
-          <p className="mt-2 text-sm text-white/80 max-w-md">Find harm reduction services, shelters, and clinics nearby. We aggregate public health markers and crowdsourced locations.</p>
-        </div>
-        <button
-          onClick={() => setShowSubmitModal(true)}
-          className="px-6 py-3 shrink-0 rounded-full bg-[#FF1493] text-white font-black uppercase tracking-widest text-sm hover:scale-105 transition-transform flex items-center gap-2 justify-center"
-        >
-          <Plus className="w-5 h-5" />
-          Add Resource
-        </button>
+      <div className="bg-gradient-to-r from-[#FF1493]/20 to-[#FF1493]/5 border border-[#FF1493]/30 rounded-2xl p-6">
+        <h2 className="text-xl font-black uppercase text-[#FF69B4] tracking-widest">Local Resources</h2>
+        <p className="mt-2 text-sm text-white/80 max-w-2xl">Find harm reduction services, shelters, clinics, and other support near a location you choose. Results are retrieved from public OpenStreetMap data and may be incomplete.</p>
       </div>
 
       <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
@@ -348,70 +314,6 @@ export default function ResourceSearch() {
         )}
       </AnimatePresence>
 
-      <AnimatePresence>
-        {showSubmitModal && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
-          >
-            <motion.div
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 50, opacity: 0 }}
-              className="bg-[#1a1a1a] border border-white/10 p-6 rounded-3xl w-full max-w-md max-h-[90vh] overflow-y-auto"
-            >
-              <h3 className="text-2xl font-black uppercase text-[#FF69B4] tracking-widest mb-2">Submit Resource</h3>
-              <p className="text-white/60 text-sm mb-6">Contribute to our local directory. Submissions are saved privately on your device.</p>
-
-              <form onSubmit={handleSubmission} className="space-y-4">
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-widest text-white/40 mb-1">Resource Name</label>
-                  <input required value={submitForm.name} onChange={e => setSubmitForm(s => ({...s, name: e.target.value}))} className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-[#FF1493] transition-colors" placeholder="e.g. Hope Clinic" />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-widest text-white/40 mb-1">Type</label>
-                  <select value={submitForm.type} onChange={e => setSubmitForm(s => ({...s, type: e.target.value}))} className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-[#FF1493] appearance-none cursor-pointer">
-                    <option value="clinic">Clinic</option>
-                    <option value="exchange">Syringe Exchange</option>
-                    <option value="shelter">Shelter</option>
-                    <option value="pantry">Food Pantry</option>
-                    <option value="rehab">Rehab / Detox</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-widest text-white/40 mb-1">Location / Address</label>
-                  <input value={submitForm.address} onChange={e => setSubmitForm(s => ({...s, address: e.target.value}))} className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-[#FF1493] transition-colors" placeholder="Full address or nearby cross-streets" />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-widest text-white/40 mb-1">Description / Provided Services</label>
-                  <textarea value={submitForm.description} onChange={e => setSubmitForm(s => ({...s, description: e.target.value}))} className="w-full h-24 bg-white/5 border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-[#FF1493] transition-colors resize-none" placeholder="What services do they offer?"></textarea>
-                </div>
-
-                {submitStatus === 'error' && (
-                  <div className="p-3 bg-red-500/20 border border-red-500/50 rounded-xl text-red-400 text-sm font-bold">
-                    Failed to submit. Please try again.
-                  </div>
-                )}
-                {submitStatus === 'success' && (
-                  <div className="p-3 bg-green-500/20 border border-green-500/50 rounded-xl text-green-400 text-sm font-bold">
-                    Submitted! Saved locally to your device.
-                  </div>
-                )}
-
-                <div className="pt-4 flex gap-3">
-                  <button type="button" onClick={() => setShowSubmitModal(false)} className="flex-1 px-4 py-3 rounded-xl border border-white/10 text-white font-bold hover:bg-white/5 transition-colors">Cancel</button>
-                  <button disabled={submitStatus === 'submitting'} type="submit" className="flex-1 px-4 py-3 rounded-xl bg-[#FF1493] text-white font-bold hover:scale-105 transition-transform flex justify-center items-center">
-                    {submitStatus === 'submitting' ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Submit'}
-                  </button>
-                </div>
-              </form>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }
