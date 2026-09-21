@@ -15,403 +15,411 @@ export const LEGAL_DATA_SOURCE = {
 
 export const STATE_LAWS: LawDetails[] = [
   {
-    state: 'Alabama',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Alabama",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Alaska',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Alaska",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Arizona',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Arizona",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Arkansas',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Arkansas",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'California',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "California",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Colorado',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Colorado",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Connecticut',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Connecticut",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Delaware',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Delaware",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Florida',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "District of Columbia",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Georgia',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Florida",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Hawaii',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Georgia",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Idaho',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Hawaii",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Illinois',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Idaho",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Indiana',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Illinois",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Iowa',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Indiana",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Kansas',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Iowa",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Kentucky',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Kansas",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Louisiana',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Kentucky",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Maine',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Louisiana",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Maryland',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Maine",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Massachusetts',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Maryland",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Michigan',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Massachusetts",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Minnesota',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Michigan",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Mississippi',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Minnesota",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Missouri',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Mississippi",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Montana',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Missouri",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Nebraska',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Montana",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Nevada',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Nebraska",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'New Hampshire',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Nevada",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'New Jersey',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "New Hampshire",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'New Mexico',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "New Jersey",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'New York',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "New Mexico",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'North Carolina',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "New York",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'North Dakota',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "North Carolina",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Ohio',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "North Dakota",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Oklahoma',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Ohio",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Oregon',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Oklahoma",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Pennsylvania',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Oregon",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Rhode Island',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Pennsylvania",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'South Carolina',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Rhode Island",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'South Dakota',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "South Carolina",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Tennessee',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "South Dakota",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Texas',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Tennessee",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Utah',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Texas",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Vermont',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Utah",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Virginia',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Vermont",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Washington',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Virginia",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'West Virginia',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Washington",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Wisconsin',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "West Virginia",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   },
   {
-    state: 'Wyoming',
-    naloxoneAccess: 'Naloxone access and administration rules vary by jurisdiction and can change. Consult the current state-specific legislation and official state guidance before relying on a legal or access claim.',
-    goodSamaritanProtection: 'Overdose Good Samaritan protections are jurisdiction-specific, conditional, and subject to exceptions. This app does not summarize a protection as universal immunity.',
-    sourceName: 'National Conference of State Legislatures (NCSL)',
-    sourceUrl: 'https://www.ncsl.org/health/injury-prevention-legislation-database',
-    reviewedOn: '2026-09-20'
+    state: "Wisconsin",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
+  },
+  {
+    state: "Wyoming",
+    naloxoneAccess: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction. The database tracks rescue-drug legislation and is updated biweekly.',
+    goodSamaritanProtection: 'Use the current NCSL Injury Prevention Legislation Database record for this jurisdiction before relying on any protection, condition, exception, or scope. This app does not represent a generic protection as universal immunity.',
+    sourceName: LEGAL_DATA_SOURCE.name,
+    sourceUrl: LEGAL_DATA_SOURCE.url,
+    reviewedOn: LEGAL_DATA_SOURCE.reviewedOn
   }
 ];
