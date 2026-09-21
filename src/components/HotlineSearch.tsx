@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MapPin, Search, Navigation, ExternalLink, Loader2, AlertCircle, PhoneCall, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { buildOverpassQuery, dedupeById, safeExternalUrl } from '../utils/safetyUtils';
+import { buildOverpassQuery, dedupeById, safeExternalUrl, extractOverpassElements } from '../utils/safetyUtils';
 
 const LOCAL_SEARCHES = [
   { id: 'crisis', name: 'Local Crisis Centers', query: 'mental health crisis center', osm: ['["name"~"crisis|behavioral health|mental health",i]', '["healthcare"="mental_health"]', '["amenity"="clinic"]["name"~"mental|crisis",i]'], color: 'bg-red-500/20 text-red-400 border-red-500/30' },
@@ -60,7 +60,7 @@ export default function HotlineSearch() {
       const res = await fetch('https://overpass-api.de/api/interpreter', { method: 'POST', body: query, signal: controller.signal });
       if (!res.ok) throw new Error(`Public directory returned HTTP ${res.status}`);
       const data = await res.json();
-      const mapped: LocalResult[] = dedupeById<LocalResult>((data.elements || []).map((el: any) => {
+      const mapped: LocalResult[] = dedupeById<LocalResult>((extractOverpassElements(data) || []).map((el: any) => {
         const t = el.tags || {}, lat = el.lat ?? el.center?.lat, lng = el.lon ?? el.center?.lon;
         const address = [[t['addr:housenumber'], t['addr:street']].filter(Boolean).join(' '), t['addr:city'], t['addr:state'], t['addr:postcode']].filter(Boolean).join(', ');
         return { id: `osm-${el.type}-${el.id}`, name: t.name || t.operator || 'Unnamed service', address: address || 'Address not listed', phone: t.phone || t['contact:phone'] || null, website: t.website || t['contact:website'] || null, distance: typeof lat === 'number' && typeof lng === 'number' ? distanceKm(location.lat, location.lng, lat, lng) : null };
