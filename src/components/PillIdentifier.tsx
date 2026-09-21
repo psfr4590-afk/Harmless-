@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Camera, Search, AlertOctagon, ExternalLink, X } from 'lucide-react';
 
 export default function PillIdentifier() {
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
   const [imprint, setImprint] = useState('');
-  const [color, setColor] = useState('12'); // '12' is wildcard for multi on drugs.com, but let's leave blank by default or use standard mapping
+  const [color, setColor] = useState('');
   const [shape, setShape] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -25,6 +25,8 @@ export default function PillIdentifier() {
       fileInputRef.current.value = '';
     }
   };
+
+  useEffect(() => () => { if (photoUrl) URL.revokeObjectURL(photoUrl); }, [photoUrl]);
 
   const handleSearch = () => {
     const params = new URLSearchParams();
