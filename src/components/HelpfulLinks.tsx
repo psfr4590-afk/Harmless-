@@ -42,7 +42,7 @@ export default function HelpfulLinks() {
           About Harm.Less
         </h2>
         <p className="text-white/80 text-sm leading-relaxed">
-          Harm.Less is an anonymous, privacy-focused harm reduction and survival application designed to prevent fatal overdoses, reduce infection risks, and connect individuals with life-saving resources without judgment.
+          Harm.Less is an no-account harm reduction and survival application designed to prevent fatal overdoses, reduce infection risks, and connect individuals with life-saving resources without judgment.
         </p>
         
         <div className="space-y-4 mt-4">
@@ -63,7 +63,7 @@ export default function HelpfulLinks() {
             </ul>
           </div>
           <div>
-            <h3 className="font-bold text-purple-400 uppercase tracking-widest text-xs mb-2">Verified Information</h3>
+            <h3 className="font-bold text-purple-400 uppercase tracking-widest text-xs mb-2">Source-Linked Information</h3>
             <ul className="list-disc list-inside text-sm text-white/70 space-y-1">
               <li>Route of Administration (ROA) Protocol</li>
               <li>Overdose Response Guides</li>
@@ -82,7 +82,7 @@ export default function HelpfulLinks() {
           Guides & Links
         </h2>
         <p className="mt-3 text-white/80 text-sm leading-relaxed">
-          Extended resources, official literature, and peer-support communities to help you stay connected and safe.
+          Extended resources, public-health literature, and peer-support communities. External sites have their own content and policies.
         </p>
       </div>
 
