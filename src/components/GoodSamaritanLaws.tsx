@@ -16,10 +16,10 @@ export default function GoodSamaritanLaws() {
         <div>
           <h2 className="text-xl font-black uppercase text-blue-400 tracking-widest flex items-center gap-2">
             <Shield className="w-6 h-6" />
-            Good Samaritan Laws
+            Good Samaritan Law Sources
           </h2>
           <p className="mt-2 text-sm text-white/80 max-w-2xl">
-            State-by-state information regarding Naloxone (Narcan) access and Good Samaritan protections. 
+            State-by-state source routing for current naloxone and Good Samaritan legislation. Each jurisdiction points to the current NCSL legislative database so conditions and exceptions are not frozen into app text. 
             Legal protections vary by jurisdiction and can contain conditions and exceptions. This screen provides source-linked guidance, not legal advice.
           </p>
         </div>
@@ -28,7 +28,7 @@ export default function GoodSamaritanLaws() {
       <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-2xl p-4 flex gap-3 text-yellow-200">
         <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" />
         <p className="text-xs font-bold leading-relaxed">
-          DISCLAIMER: This is a general summary and does not constitute legal advice. Laws change frequently and specific protections vary widely by state. Always consult official state legislation or a legal professional for exact details.
+          LEGAL DATA POLICY: This screen does not invent or generalize state protections. NCSL is the current source for the jurisdictional legislative record; review the current record and any linked statute before relying on a legal claim.
         </p>
       </div>
 
