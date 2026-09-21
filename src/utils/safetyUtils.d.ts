@@ -11,7 +11,7 @@ export function canonicalPair(a: string, b: string): string | null;
 export function safeExternalUrl(value: unknown): string | null;
 export function dedupeById<T extends { id: string | number }>(items: T[]): T[];
 export function buildOverpassQuery(selectors: string[], lat: number, lng: number, radius?: number): string;
-export function calculateVolumetricDose(massMg: number, volumeMl: number, targetDoseMg: number): {
+export function calculateVolumetricDose(massMg: number | string, volumeMl: number | string, targetDoseMg: number | string): {
   concentration: number;
   requiredVolume: number;
 };
