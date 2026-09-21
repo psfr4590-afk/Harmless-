@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0
+
+- Prepared the repository for public publication with project governance, licensing, documentation, dependency policy, and CI hygiene.
+
 ## Unreleased
 
 - Publication cleanup and repository governance documentation.
