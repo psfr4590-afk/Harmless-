@@ -68,7 +68,7 @@ export default function App() {
                   >
                     <PhoneCall className="w-10 h-10 text-[#FF69B4] group-hover:text-white transition-colors drop-shadow-[0_0_10px_rgba(255,20,147,0.8)] animate-pulse" />
                     <span className="text-xl font-black uppercase tracking-widest text-white drop-shadow-md block">Never Use Alone</span>
-                    <span className="text-sm uppercase text-white/80 font-bold -mt-2">Life-Saving Operator Call Line</span>
+                    <span className="text-sm uppercase text-white/80 font-bold -mt-2">Open Never Use Alone Website</span>
                   </button>
 
                   <button
