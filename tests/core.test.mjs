@@ -53,3 +53,36 @@ test('malformed Overpass responses are rejected by the parser', () => {
   assert.equal(extractOverpassElements({ elements: {} }), null);
   assert.equal(extractOverpassElements(null), null);
 });
+
+
+test('live API adapters normalize RxNorm and FindTreatment response shapes', async () => {
+  const originalFetch = globalThis.fetch;
+  const calls = [];
+  globalThis.fetch = async (url) => {
+    calls.push(String(url));
+    if (String(url).includes('/rxcui.json')) {
+      return new Response(JSON.stringify({ idGroup: { rxnormId: ['12345'] } }), { status: 200, headers: { 'content-type': 'application/json' } });
+    }
+    if (String(url).includes('/rxcui/12345/allProperties.json')) {
+      return new Response(JSON.stringify({ propConceptGroup: { propConcept: [{ propValue: 'Fentanyl' }] } }), { status: 200, headers: { 'content-type': 'application/json' } });
+    }
+    if (String(url).includes('findtreatment.gov/locator/exportsAsJson')) {
+      return new Response(JSON.stringify({ data: [{ facilityName: 'Example Treatment Center' }] }), { status: 200, headers: { 'content-type': 'application/json' } });
+    }
+    throw new Error('unexpected test URL');
+  };
+
+  try {
+    const { resolveRxNormName, searchFindTreatment } = await import('../src/utils/medicalApi.mjs?test=1');
+    const resolved = await resolveRxNormName('fentanyl');
+    assert.equal(resolved.rxcui, '12345');
+    assert.equal(resolved.name, 'Fentanyl');
+
+    const facilities = await searchFindTreatment({ lat: 32.9, lng: -96.2, type: 'SA' });
+    assert.equal(facilities.records.length, 1);
+    assert.equal(facilities.source, 'SAMHSA FindTreatment.gov');
+    assert.ok(calls.some(url => url.includes('sType=SA')));
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
