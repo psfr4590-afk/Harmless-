@@ -33,7 +33,7 @@ test('OSM results are deduplicated by stable id', () => {
 
 test('Overpass query preserves regex backslashes and coordinates', () => {
   const query = buildOverpassQuery(['["name"~"\\bNA\\b|\\bAA\\b",i]'], 32.1, -96.2);
-  assert.match(query, /\\bNA\\b/);
+  assert.ok(query.includes('\\\\bNA\\\\b'));
   assert.match(query, /32\.1,-96\.2/);
 });
 
