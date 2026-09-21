@@ -5,7 +5,7 @@ import { checkInteraction, DRUG_CLASSES } from '../utils/interactionMatrix';
 import { getFdaInteractionEvidence, resolveRxNormName, type InteractionEvidence } from '../utils/medicalApi';
 
 type Severity = 'FATAL' | 'UNSAFE' | 'CAUTION' | 'LOW RISK' | 'UNKNOWN' | 'SAME_SUBSTANCE';
-type LocalEvidence = { source: string; sourceUrl: string; evidence: string; updatedAt: null };
+type LocalEvidence = { source: string; sourceUrl?: string; evidence: string; updatedAt: null };
 type EvidenceItem = InteractionEvidence | LocalEvidence;
 
 export default function InteractionChecker() {
