@@ -1,5 +1,9 @@
 {
   "name": "Harm.Less",
-  "description": "A harm reduction companion for substance use and recovery support.",
-  "requestFramePermissions": ["geolocation", "camera"]
+  "description": "A privacy-conscious harm-reduction companion for safety information, support resources, and practical tools.",
+  "requestFramePermissions": [
+    "geolocation",
+    "camera"
+  ],
+  "version": "1.0.0"
 }
