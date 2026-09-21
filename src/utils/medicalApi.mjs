@@ -40,9 +40,8 @@ function normalizeEvidenceText(value) {
 }
 
 function escapeFdaSearchTerm(term) {
-  return String(term).replace(/[\\\"()]/g, '\\\\function containsTerm(text, term) {');
+  return String(term).replace(/[\\\"()]/g, '\\$&');
 }
-
 function containsTerm(text, term) {
   const haystack = normalizeEvidenceText(text);
   const needle = normalizeEvidenceText(term);
