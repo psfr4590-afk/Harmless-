@@ -8,9 +8,20 @@ export const DATA_SOURCES = [
   { name: 'NIDA Psychedelic and Dissociative Drugs', url: 'https://nida.nih.gov/Infofacts/LSD-Sp.html' }
 ];
 
+const CATEGORY_SOURCES = {
+  Opioids: [DATA_SOURCES[0], DATA_SOURCES[1], DATA_SOURCES[2], DATA_SOURCES[3]],
+  Stimulants: [DATA_SOURCES[0], DATA_SOURCES[3]],
+  'Depressants & Sedatives': [DATA_SOURCES[0], DATA_SOURCES[2], DATA_SOURCES[3]],
+  Dissociatives: [DATA_SOURCES[3], DATA_SOURCES[4]],
+  Psychedelics: [DATA_SOURCES[3], DATA_SOURCES[4]],
+  Cannabinoids: [DATA_SOURCES[3]],
+  Inhalants: [DATA_SOURCES[3]]
+};
+
 export const DRUG_DATA = [
   {
     category: 'Opioids',
+    sources: CATEGORY_SOURCES["Opioids"],
     drugs: [
       {
         name: 'Heroin & Fentanyl',
@@ -167,6 +178,7 @@ export const DRUG_DATA = [
   },
   {
     category: 'Stimulants',
+    sources: CATEGORY_SOURCES["Stimulants"],
     drugs: [
       {
         name: 'Cocaine / Crack',
@@ -318,6 +330,7 @@ export const DRUG_DATA = [
   },
   {
     category: 'Depressants & Sedatives',
+    sources: CATEGORY_SOURCES["Depressants & Sedatives"],
     drugs: [
       {
         name: 'Benzodiazepines (Xanax, Valium, Klonopin, Ativan)',
@@ -385,6 +398,7 @@ export const DRUG_DATA = [
   },
   {
     category: 'Dissociatives',
+    sources: CATEGORY_SOURCES["Dissociatives"],
     drugs: [
       {
         name: 'Ketamine',
@@ -450,6 +464,7 @@ export const DRUG_DATA = [
   },
   {
     category: 'Psychedelics',
+    sources: CATEGORY_SOURCES["Psychedelics"],
     drugs: [
       {
         name: 'LSD (Acid)',
@@ -497,6 +512,7 @@ export const DRUG_DATA = [
   },
   {
     category: 'Cannabinoids',
+    sources: CATEGORY_SOURCES["Cannabinoids"],
     drugs: [
       {
         name: 'Marijuana (THC / Cannabis)',
@@ -531,6 +547,7 @@ export const DRUG_DATA = [
   },
   {
     category: 'Inhalants',
+    sources: CATEGORY_SOURCES["Inhalants"],
     drugs: [
       {
         name: 'Nitrous Oxide (Whip-Its)',
