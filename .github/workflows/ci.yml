@@ -1,4 +1,5 @@
 name: Verify
+# Full dependency, code, type, build, and production-preview verification.
 permissions:
   contents: read
 
