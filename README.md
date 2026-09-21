@@ -21,38 +21,41 @@ Health, emergency, treatment, and legal information is treated as safety-sensiti
 
 The application distinguishes documented evidence from unknown, unavailable, or insufficient evidence. A missing interaction record is not presented as proof of safety. Source links and review metadata are exposed where applicable.
 
-Live integrations currently include NLM RxNorm, FDA openFDA drug labeling, and SAMHSA FindTreatment.gov. External services are queried only when the relevant feature is used.
+Live integrations currently include NLM RxNorm, FDA openFDA drug labeling, and SAMHSA FindTreatment.gov. External services are queried only when the relevant feature is used. Public geographic searches may also use OpenStreetMap/Nominatim and Overpass.
+
+A live-service failure is presented as unavailable evidence rather than silently converted into a reassuring result.
+
+## Architecture
+
+The application is a client-side React/TypeScript application built with Vite. Safety-sensitive logic is separated into small utility modules and covered by regression tests. Static health and legal content carries source metadata, while live integrations are isolated behind explicit adapters.
+
+The application has no application-managed user account or cloud profile. Browser APIs are used only for current feature workflows such as geolocation and local image selection.
 
 ## Privacy
 
 Harm.Less does not require an account or application-managed cloud profile.
 
-Some features communicate with external public services. In particular, location-based resource searches can transmit location information to the selected search providers. The application presents disclosures before relevant use.
+Some features communicate with external public services. Location-based searches can transmit coordinates or a manually entered location to the services required for that search. Pill images are handled locally by the current identifier workflow and are not uploaded by the application.
 
-Do not enter secrets, credentials, or unnecessary personal information into external searches.
-
-## Technology
-
-React · TypeScript · Vite · Tailwind CSS · Framer Motion · local browser APIs
+External providers have their own privacy policies and operational practices. Do not enter secrets, credentials, or unnecessary personal information into external searches.
 
 ## Development
 
 Requires Node.js 20.
 
     npm ci
+    npm run lint
+    npm test
+    npm run build
     npm run dev
 
 Open the local Vite development address shown by the command.
 
 ## Verification
 
-    npm run lint
-    npm test
-    npm run build
+The repository CI workflow runs dependency auditing, linting, regression tests, TypeScript/Vite builds, and a basic production-preview HTTP smoke check on pushes to `main` and pull requests.
 
-GitHub Actions runs the verification suite on pushes to `main` and pull requests.
-
-Runtime/browser verification is environment-dependent and should be performed in the deployment environment before a production release.
+Browser-level interaction testing, camera behavior, geolocation permissions, and live third-party service behavior remain deployment-environment concerns and should be verified before a production release.
 
 ## Project documentation
 
