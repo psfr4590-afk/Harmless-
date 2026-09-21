@@ -66,8 +66,10 @@ export default function ResourceSearch() {
       const osmRes = await fetch('https://overpass-api.de/api/interpreter', { method: 'POST', body: overpassQuery, signal: controller.signal });
       if (!osmRes.ok) throw new Error(`Public data service returned HTTP ${osmRes.status}`);
       const osmData = await osmRes.json();
+      const elements = extractOverpassElements(osmData);
+      if (!elements) throw new Error('Public data service returned an unexpected response format.');
 
-      const results: ResourceResult[] = dedupeById<ResourceResult>((extractOverpassElements(osmData) || []).map((el: any) => {
+      const results: ResourceResult[] = dedupeById<ResourceResult>(elements.map((el: any) => {
         const tags = el.tags || {};
         const lat = el.lat ?? el.center?.lat;
         const lng = el.lon ?? el.center?.lon;
