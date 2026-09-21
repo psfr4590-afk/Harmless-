@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { AlertOctagon, Info, AlertTriangle, ShieldAlert, FlaskConical, Loader2, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { checkInteraction, DRUG_CLASSES } from '../utils/interactionMatrix';
-import { getFdaInteractionEvidence, resolveRxNormName } from '../utils/medicalApi';
+import { getFdaInteractionEvidence, resolveRxNormName, type InteractionEvidence } from '../utils/medicalApi';
 
 type Severity = 'FATAL' | 'UNSAFE' | 'CAUTION' | 'LOW RISK' | 'UNKNOWN' | 'SAME_SUBSTANCE';
 
 export default function InteractionChecker() {
   const [drug1, setDrug1] = useState('');
   const [drug2, setDrug2] = useState('');
-  const [result, setResult] = useState<{ severity: Severity; description: string; evidence?: any[] }>({
+  const [result, setResult] = useState<{ severity: Severity; description: string; evidence?: InteractionEvidence[] }>({
     severity: 'UNKNOWN',
     description: 'Enter two substances and run a live evidence check.'
   });
@@ -89,7 +89,7 @@ export default function InteractionChecker() {
           evidence: []
         });
       }
-    } catch (error) {
+    } catch {
       const fallback = checkInteraction(a, b);
       setResult({
         severity: fallback.severity,
