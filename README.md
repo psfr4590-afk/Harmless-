@@ -46,6 +46,7 @@ Requires Node.js 20.
     npm ci
     npm run lint
     npm test
+    npm run typecheck
     npm run build
     npm run dev
 
