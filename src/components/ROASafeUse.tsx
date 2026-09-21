@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { ChevronRight, Activity, AlertTriangle, Scan, Beaker, Search } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { DRUG_DATA } from '../data/drugDatabase';
+import { DRUG_DATA, DATA_SOURCES, DATA_REVIEW_DATE } from '../data/drugDatabase';
 
 export default function ROASafeUse() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
@@ -36,8 +36,20 @@ export default function ROASafeUse() {
           <h2 className="text-xl font-black uppercase text-[#FF69B4] tracking-widest">Harm Reduction Protocol</h2>
         </div>
         <p className="mt-3 text-white/80 text-sm leading-relaxed">
-          The safest way to use drugs is not to use them. If you do choose to use, these verified harm reduction protocols can minimize the risk of infection, overdose, and tissue damage. Knowledge protects lives.
+          The safest way to use drugs is not to use them. If you do choose to use, these source-linked harm reduction notes are intended to help minimize the risk of infection, overdose, and tissue damage. This content is educational and should not replace emergency care or professional medical advice.
         </p>
+      </div>
+
+      <div className="bg-blue-500/10 border border-blue-500/30 rounded-2xl p-5">
+        <h3 className="font-black uppercase tracking-widest text-blue-300 text-sm">Information Sources</h3>
+        <p className="mt-2 text-sm text-white/70">The current reference set is linked to public health and research sources. Reviewed for source traceability: {DATA_REVIEW_DATE}.</p>
+        <ul className="mt-3 space-y-2">
+          {DATA_SOURCES.map(source => (
+            <li key={source.name}>
+              <a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-300 hover:text-blue-200 underline">{source.name}</a>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className="relative">
