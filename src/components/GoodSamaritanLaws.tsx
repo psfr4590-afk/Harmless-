@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Search as SearchIcon, AlertTriangle } from 'lucide-react';
-import { STATE_LAWS, LawDetails } from '../data/goodSamaritanLaws';
+import { STATE_LAWS, LawDetails, LEGAL_DATA_SOURCE } from '../data/goodSamaritanLaws';
 
 export default function GoodSamaritanLaws() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -20,8 +20,7 @@ export default function GoodSamaritanLaws() {
           </h2>
           <p className="mt-2 text-sm text-white/80 max-w-2xl">
             State-by-state information regarding Naloxone (Narcan) access and Good Samaritan protections. 
-            These laws generally provide immunity or defense against certain possession charges for individuals 
-            who call 911 or seek medical help during an overdose.
+            Legal protections vary by jurisdiction and can contain conditions and exceptions. This screen provides source-linked guidance, not legal advice.
           </p>
         </div>
       </div>
@@ -31,6 +30,10 @@ export default function GoodSamaritanLaws() {
         <p className="text-xs font-bold leading-relaxed">
           DISCLAIMER: This is a general summary and does not constitute legal advice. Laws change frequently and specific protections vary widely by state. Always consult official state legislation or a legal professional for exact details.
         </p>
+      </div>
+
+      <div className="bg-blue-500/10 border border-blue-500/30 rounded-2xl p-4 text-sm text-white/70">
+        Primary source: <a href={LEGAL_DATA_SOURCE.url} target="_blank" rel="noopener noreferrer" className="text-blue-300 underline">{LEGAL_DATA_SOURCE.name}</a>. Last source review: {LEGAL_DATA_SOURCE.reviewedOn}.
       </div>
 
       <div className="relative">
@@ -65,6 +68,9 @@ export default function GoodSamaritanLaws() {
                   <h4 className="text-xs font-bold text-green-400 uppercase tracking-wider">Good Samaritan Protection</h4>
                   <p className="text-sm text-white/80">{law.goodSamaritanProtection}</p>
                 </div>
+              </div>
+              <div className="mt-4 pt-4 border-t border-white/10 text-xs text-white/50">
+                Source: <a href={law.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-blue-300 underline">{law.sourceName}</a> · Reviewed {law.reviewedOn}
               </div>
             </motion.div>
           ))
