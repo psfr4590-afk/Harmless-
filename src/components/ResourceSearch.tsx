@@ -66,6 +66,7 @@ export default function ResourceSearch() {
     const controller = new AbortController();
     try {
       const results: ResourceResult[] = [];
+      let treatmentWarning: string | null = null;
 
       if (categoryId === 'rehab' || categoryId === 'mental') {
         try {
@@ -101,7 +102,7 @@ export default function ResourceSearch() {
           results.push(...treatmentRows);
         } catch (error) {
           if (error instanceof DOMException && error.name === 'AbortError') return;
-          // Keep the secondary geographic source available if the authoritative treatment service is unavailable.
+          treatmentWarning = 'SAMHSA FindTreatment.gov was unavailable for this search. Geographic OpenStreetMap results below are secondary records and do not establish that treatment is absent.';
         }
       }
 
@@ -141,8 +142,9 @@ export default function ResourceSearch() {
 
       if (requestId !== requestIdRef.current) return;
       setApiResults(finalResults);
+      if (treatmentWarning) setSearchError(treatmentWarning);
       if (finalResults.length === 0) {
-        setSearchError('No matching records were returned by the connected sources. Broaden the search area or try another category.');
+        setSearchError(treatmentWarning ? `${treatmentWarning} No matching records were returned by the connected sources.` : 'No matching records were returned by the connected sources. Broaden the search area or try another category.');
       }
     } catch (err) {
       if (err instanceof DOMException && err.name === 'AbortError') return;
