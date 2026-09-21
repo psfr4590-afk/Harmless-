@@ -97,6 +97,15 @@ export default function ROASafeUse() {
                   exit={{ height: 0, opacity: 0 }}
                   className="border-t border-white/5"
                 >
+                  <div className="px-8 pt-4 text-xs text-white/50">
+                    <span className="font-bold uppercase tracking-widest">Sources for this category: </span>
+                    {cat.sources?.map((source: { name: string; url: string }, i: number) => (
+                      <React.Fragment key={source.name}>
+                        {i > 0 && ' · '}
+                        <a href={source.url} target="_blank" rel="noopener noreferrer" className="text-blue-300 underline">{source.name}</a>
+                      </React.Fragment>
+                    ))}
+                  </div>
                   {cat.drugs.map((drug) => (
                     <div key={drug.name} className="border-b border-white/5 last:border-0">
                       <button 
