@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MapPin, Search, Navigation, ExternalLink, Loader2, AlertCircle, Phone, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { buildOverpassQuery, dedupeById, safeExternalUrl } from '../utils/safetyUtils';
+import { buildOverpassQuery, dedupeById, safeExternalUrl, extractOverpassElements } from '../utils/safetyUtils';
 
 interface ResourceResult {
   id: string;
@@ -67,7 +67,7 @@ export default function ResourceSearch() {
       if (!osmRes.ok) throw new Error(`Public data service returned HTTP ${osmRes.status}`);
       const osmData = await osmRes.json();
 
-      const results: ResourceResult[] = dedupeById<ResourceResult>((osmData.elements || []).map((el: any) => {
+      const results: ResourceResult[] = dedupeById<ResourceResult>((extractOverpassElements(osmData) || []).map((el: any) => {
         const tags = el.tags || {};
         const lat = el.lat ?? el.center?.lat;
         const lng = el.lon ?? el.center?.lon;
