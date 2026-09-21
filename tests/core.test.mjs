@@ -67,7 +67,7 @@ test('live API adapters normalize RxNorm and FindTreatment response shapes', asy
       return new Response(JSON.stringify({ propConceptGroup: { propConcept: [{ propValue: 'Fentanyl' }] } }), { status: 200, headers: { 'content-type': 'application/json' } });
     }
     if (String(url).includes('findtreatment.gov/locator/exportsAsJson')) {
-      assert.match(String(url), /sAddr=-96\.2,32\.9/);
+      assert.match(String(url), /sAddr=-96\.2%2C32\.9/);
       return new Response(JSON.stringify({ page: 1, totalPages: 1, recordCount: 1, rows: [{ name1: 'Example', name2: 'Treatment Center', street1: '1 Main St', city: 'Testville', state: 'TX', zip: '75000', phone: '555-0100', latitude: '32.91', longitude: '-96.21', type_facility: 'SA' }] }), { status: 200, headers: { 'content-type': 'application/json' } });
     }
     throw new Error('unexpected test URL');
