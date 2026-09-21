@@ -60,7 +60,9 @@ export default function HotlineSearch() {
       const res = await fetch('https://overpass-api.de/api/interpreter', { method: 'POST', body: query, signal: controller.signal });
       if (!res.ok) throw new Error(`Public directory returned HTTP ${res.status}`);
       const data = await res.json();
-      const mapped: LocalResult[] = dedupeById<LocalResult>((extractOverpassElements(data) || []).map((el: any) => {
+      const elements = extractOverpassElements(data);
+      if (!elements) throw new Error('Public directory returned an unexpected response format.');
+      const mapped: LocalResult[] = dedupeById<LocalResult>(elements.map((el: any) => {
         const t = el.tags || {}, lat = el.lat ?? el.center?.lat, lng = el.lon ?? el.center?.lon;
         const address = [[t['addr:housenumber'], t['addr:street']].filter(Boolean).join(' '), t['addr:city'], t['addr:state'], t['addr:postcode']].filter(Boolean).join(', ');
         return { id: `osm-${el.type}-${el.id}`, name: t.name || t.operator || 'Unnamed service', address: address || 'Address not listed', phone: t.phone || t['contact:phone'] || null, website: t.website || t['contact:website'] || null, distance: typeof lat === 'number' && typeof lng === 'number' ? distanceKm(location.lat, location.lng, lat, lng) : null };
