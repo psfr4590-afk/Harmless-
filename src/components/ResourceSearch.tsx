@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MapPin, Search, Navigation, ExternalLink, Loader2, AlertCircle, Phone, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { buildOverpassQuery, dedupeById, safeExternalUrl } from '../utils/safetyUtils';
 
 interface ResourceResult {
   id: string;
@@ -46,6 +47,7 @@ export default function ResourceSearch() {
   const [manualLocationQuery, setManualLocationQuery] = useState('');
   const [geocoding, setGeocoding] = useState(false);
   const [activeLocationName, setActiveLocationName] = useState<string | null>(null);
+  const requestIdRef = useRef(0);
 
   useEffect(() => { requestLocation(); }, []);
 
@@ -57,15 +59,15 @@ export default function ResourceSearch() {
     setSearchError(null);
     setApiResults([]);
 
+    const requestId = ++requestIdRef.current;
+    const controller = new AbortController();
     try {
-      const radius = 20000;
-      const clauses = category.osm.map(selector => `nwr${selector}(around:${radius},${location.lat},${location.lng});`).join('\n');
-      const overpassQuery = `[out:json][timeout:25];(${clauses});out center tags;`;
-      const osmRes = await fetch('https://overpass-api.de/api/interpreter', { method: 'POST', body: overpassQuery });
+      const overpassQuery = buildOverpassQuery(category.osm, location.lat, location.lng);
+      const osmRes = await fetch('https://overpass-api.de/api/interpreter', { method: 'POST', body: overpassQuery, signal: controller.signal });
       if (!osmRes.ok) throw new Error(`Public data service returned HTTP ${osmRes.status}`);
       const osmData = await osmRes.json();
 
-      const results: ResourceResult[] = (osmData.elements || []).map((el: any) => {
+      const results: ResourceResult[] = dedupeById<ResourceResult>((osmData.elements || []).map((el: any) => {
         const tags = el.tags || {};
         const lat = el.lat ?? el.center?.lat;
         const lng = el.lon ?? el.center?.lon;
@@ -84,17 +86,19 @@ export default function ResourceSearch() {
           distance: typeof lat === 'number' && typeof lng === 'number' ? distanceKm(location.lat, location.lng, lat, lng) : null,
           source: 'OpenStreetMap'
         };
-      })
+      }))
         .filter((item: ResourceResult) => item.name !== 'Unnamed facility' || item.phone || item.website)
         .sort((a: ResourceResult, b: ResourceResult) => (a.distance ?? 9999) - (b.distance ?? 9999))
         .slice(0, 50);
 
+      if (requestId !== requestIdRef.current) return;
       setApiResults(results);
       if (results.length === 0) setSearchError('No matching public records were found within 20 km. Coverage depends on what has been mapped in OpenStreetMap.');
     } catch (err) {
-      setSearchError(err instanceof Error ? err.message : 'Unable to query the public resource database.');
+      if (err instanceof DOMException && err.name === 'AbortError') return;
+      if (requestId === requestIdRef.current) setSearchError(err instanceof Error ? err.message : 'Unable to query the public resource database.');
     } finally {
-      setFetchingData(false);
+      if (requestId === requestIdRef.current) setFetchingData(false);
     }
   };
 
@@ -137,6 +141,8 @@ export default function ResourceSearch() {
       { enableHighAccuracy: true, timeout: 10000, maximumAge: 300000 }
     );
   }
+
+  useEffect(() => () => { requestIdRef.current += 1; }, []);
 
   return (
     <div className="flex flex-col h-full bg-[#121212] overflow-y-auto w-full max-w-4xl mx-auto p-6 space-y-6 relative">
@@ -183,7 +189,7 @@ export default function ResourceSearch() {
                   <div className="flex items-start gap-2 text-sm text-white/80"><MapPin className="w-4 h-4 shrink-0 mt-0.5" /><span>{res.address}</span></div>
                   {res.distance !== null && <div className="text-xs text-white/50">{res.distance.toFixed(1)} km away</div>}
                   {res.phone && <a href={`tel:${res.phone}`} className="flex items-center gap-2 text-sm text-green-400 hover:text-green-300"><Phone className="w-4 h-4" />{res.phone}</a>}
-                  {res.website && <a href={res.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300"><Globe className="w-4 h-4" />Website</a>}
+                  {res.website && safeExternalUrl(res.website) && <a href={safeExternalUrl(res.website) as string} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300"><Globe className="w-4 h-4" />Website</a>}
                   <div className="text-xs font-bold uppercase tracking-widest text-white/40">Source: {res.source}</div>
                 </div>)}
                 {apiResults.length > 0 && <div className="pt-2 text-center"><button onClick={() => openMapFallback(CATEGORIES.find(c => c.id === selectedCategory)?.query || '')} className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold uppercase tracking-wider">Search broader map results</button></div>}
