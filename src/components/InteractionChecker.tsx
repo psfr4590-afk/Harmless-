@@ -78,7 +78,7 @@ export default function InteractionChecker() {
         setResult({
           severity: fallback.severity,
           description: fallback.description + ' Live FDA labeling did not identify this exact pair in the queried label set.',
-          evidence: []
+          evidence: fallback.source ? [{ source: fallback.source, sourceUrl: fallback.sourceUrl, evidence: fallback.description, updatedAt: null }] : []
         });
       } else {
         setResult({
@@ -96,7 +96,7 @@ export default function InteractionChecker() {
         description: fallback.severity === 'UNKNOWN'
           ? 'Live medical data could not be reached. The local rapid-check matrix also has no explicit entry. Do not interpret this as safe.'
           : fallback.description + ' Live medical data was unavailable, so this result is from the local rapid-check matrix.',
-        evidence: []
+        evidence: fallback.source ? [{ source: fallback.source, sourceUrl: fallback.sourceUrl, evidence: fallback.description, updatedAt: null }] : []
       });
     } finally {
       setLoading(false);
