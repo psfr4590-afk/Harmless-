@@ -21,7 +21,7 @@ export function getFdaInteractionEvidence(
   drugB: string,
   signal?: AbortSignal
 ): Promise<{
-  status: string;
+  status: 'DOCUMENTED_INTERACTION' | 'NO_DOCUMENTED_PAIR_IN_MATCHED_LABELS' | 'UPSTREAM_UNAVAILABLE' | 'INSUFFICIENT_EVIDENCE';
   records: InteractionEvidence[];
 }>;
 export function searchFindTreatment(options: {
