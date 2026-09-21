@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { canonicalPair, safeExternalUrl, dedupeById, buildOverpassQuery, calculateVolumetricDose } from '../src/utils/safetyUtils.mjs';
+import { canonicalPair, safeExternalUrl, dedupeById, buildOverpassQuery, calculateVolumetricDose, extractOverpassElements } from '../src/utils/safetyUtils.mjs';
 import { checkInteraction } from '../src/utils/interactionMatrix.mjs';
 
 test('interaction lookup is order-independent', () => {
@@ -46,4 +46,10 @@ test('volumetric calculation returns expected concentration and volume', () => {
 test('volumetric calculation rejects non-positive inputs', () => {
   assert.deepEqual(calculateVolumetricDose(0, 10, 5), { concentration: 0, requiredVolume: 0 });
   assert.deepEqual(calculateVolumetricDose(100, -10, 5), { concentration: 0, requiredVolume: 0 });
+});
+
+test('malformed Overpass responses are rejected by the parser', () => {
+  assert.deepEqual(extractOverpassElements({ elements: [] }), []);
+  assert.equal(extractOverpassElements({ elements: {} }), null);
+  assert.equal(extractOverpassElements(null), null);
 });
