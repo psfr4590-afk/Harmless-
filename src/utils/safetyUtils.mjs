@@ -43,3 +43,7 @@ export function calculateVolumetricDose(massMg, volumeMl, targetDoseMg) {
   const concentration = mass / volume;
   return { concentration, requiredVolume: target / concentration };
 }
+
+export function extractOverpassElements(data) {
+  return data && typeof data === 'object' && Array.isArray(data.elements) ? data.elements : null;
+}
