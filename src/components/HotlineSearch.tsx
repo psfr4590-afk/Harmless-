@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MapPin, Search, Navigation, ExternalLink, Loader2, AlertCircle, PhoneCall, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { buildOverpassQuery, dedupeById, safeExternalUrl } from '../utils/safetyUtils';
 
 const LOCAL_SEARCHES = [
   { id: 'crisis', name: 'Local Crisis Centers', query: 'mental health crisis center', osm: ['["name"~"crisis|behavioral health|mental health",i]', '["healthcare"="mental_health"]', '["amenity"="clinic"]["name"~"mental|crisis",i]'], color: 'bg-red-500/20 text-red-400 border-red-500/30' },
