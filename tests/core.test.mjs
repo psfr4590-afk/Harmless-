@@ -109,3 +109,91 @@ test('live API adapters normalize RxNorm and FindTreatment response shapes', asy
     globalThis.fetch = originalFetch;
   }
 });
+
+
+test('MedlinePlus adapter parses authoritative topic records and preserves retrieval metadata', async () => {
+  const originalFetch = globalThis.fetch;
+  const originalDOMParser = globalThis.DOMParser;
+  globalThis.fetch = async url => {
+    assert.match(String(url), /wsearch\.nlm\.nih\.gov\/ws\/query/);
+    return new Response('<?xml version="1.0"?><nlmSearchResult><list><document><content name="title">Naloxone</content><content name="url">https://medlineplus.gov/naloxone.html</content><content name="snippet">Naloxone information</content></document></list></nlmSearchResult>', { status: 200 });
+  };
+  globalThis.DOMParser = class {
+    parseFromString() {
+      return {
+        querySelector: selector => selector === 'parsererror' ? null : null,
+        querySelectorAll: selector => selector === 'document' ? [{
+          querySelector: name => ({
+            'content[name="title"]': { textContent: 'Naloxone' },
+            'content[name="url"]': { textContent: 'https://medlineplus.gov/naloxone.html' },
+            'content[name="snippet"]': { textContent: 'Naloxone information' }
+          }[name] || null)
+        }] : []
+      };
+    }
+  };
+  try {
+    const { searchMedlinePlus } = await import('../src/utils/medicalApi.mjs?medlineplus-test=1');
+    const result = await searchMedlinePlus('naloxone');
+    assert.equal(result.records[0].title, 'Naloxone');
+    assert.equal(result.records[0].source, 'NLM MedlinePlus');
+    assert.match(result.records[0].url, /^https:\/\//);
+    assert.ok(result.retrievedAt);
+  } finally {
+    globalThis.fetch = originalFetch;
+    globalThis.DOMParser = originalDOMParser;
+  }
+});
+
+test('FDA safety adapter separates labels, recalls, and shortages without turning missing data into reassurance', async () => {
+  const originalFetch = globalThis.fetch;
+  const calls = [];
+  globalThis.fetch = async url => {
+    const value = String(url);
+    calls.push(value);
+    if (value.includes('/drug/label.json')) {
+      return new Response(JSON.stringify({ results: [{ openfda: { generic_name: ['fentanyl'], spl_set_id: ['set-1'] }, effective_time: '20260911', boxed_warning: ['Warning text'], drug_interactions: ['Do not combine with alcohol.'] }] }), { status: 200 });
+    }
+    if (value.includes('/drug/enforcement.json')) {
+      return new Response(JSON.stringify({ results: [{ product_description: 'Fentanyl product', report_date: '20260912', reason_for_recall: 'Recall reason', status: 'Ongoing' }] }), { status: 200 });
+    }
+    if (value.includes('/drug/shortages.json')) {
+      return new Response(JSON.stringify({ results: [{ generic_name: 'fentanyl', status: 'Current', update_date: '20260913' }] }), { status: 200 });
+    }
+    throw new Error('unexpected FDA test URL');
+  };
+  try {
+    const { searchFdaDrugSafety } = await import('../src/utils/medicalApi.mjs?fda-safety-test=1');
+    const result = await searchFdaDrugSafety('fentanyl');
+    assert.equal(result.labels.length, 1);
+    assert.equal(result.recalls.length, 1);
+    assert.equal(result.shortages.length, 1);
+    assert.equal(result.labels[0].effectiveDate, '20260911');
+    assert.equal(result.recalls[0].reportDate, '20260912');
+    assert.equal(result.shortages[0].updateDate, '20260913');
+    assert.deepEqual(result.upstream, { labels: true, recalls: true, shortages: true });
+    assert.equal(calls.length, 3);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test('FDA safety adapter reports partial upstream failure instead of inventing a complete result', async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async url => {
+    const value = String(url);
+    if (value.includes('/drug/label.json')) return new Response(JSON.stringify({ results: [] }), { status: 200 });
+    if (value.includes('/drug/enforcement.json')) throw new Error('service unavailable');
+    if (value.includes('/drug/shortages.json')) return new Response(JSON.stringify({ results: [] }), { status: 200 });
+    throw new Error('unexpected FDA test URL');
+  };
+  try {
+    const { searchFdaDrugSafety } = await import('../src/utils/medicalApi.mjs?fda-partial-test=1');
+    const result = await searchFdaDrugSafety('fentanyl');
+    assert.equal(result.upstream.recalls, false);
+    assert.equal(result.upstream.labels, true);
+    assert.equal(result.upstream.shortages, true);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});

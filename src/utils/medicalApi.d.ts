@@ -26,6 +26,29 @@ export function getFdaInteractionEvidence(
   status: 'DOCUMENTED_INTERACTION' | 'NO_DOCUMENTED_PAIR_IN_MATCHED_LABELS' | 'UPSTREAM_UNAVAILABLE' | 'INSUFFICIENT_EVIDENCE';
   records: InteractionEvidence[];
 }>;
+export interface MedlinePlusRecord {
+  title: string;
+  url: string;
+  snippet: string;
+  source: string;
+}
+export interface FdaLabelRecord {
+  source: string; sourceUrl: string; title: string; effectiveDate: string | null; setId: string | null; warnings: string; interactions: string;
+}
+export interface FdaRecallRecord {
+  source: string; sourceUrl: string; product: string; reportDate: string | null; reason: string; status: string;
+}
+export interface FdaShortageRecord {
+  source: string; sourceUrl: string; product: string; status: string; updateDate: string | null;
+}
+export function searchMedlinePlus(query: string, signal?: AbortSignal): Promise<{
+  records: MedlinePlusRecord[]; source: string; sourceUrl: string; retrievedAt: string;
+}>;
+export function searchFdaDrugSafety(query: string, signal?: AbortSignal): Promise<{
+  labels: FdaLabelRecord[]; recalls: FdaRecallRecord[]; shortages: FdaShortageRecord[];
+  source: string; sourceUrl: string; retrievedAt: string;
+  upstream: { labels: boolean; recalls: boolean; shortages: boolean };
+}>;
 export function searchFindTreatment(options: {
   lat: number;
   lng: number;

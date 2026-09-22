@@ -1,6 +1,7 @@
-export const DATA_REVIEW_DATE = '2026-09-20';
+export const DATA_REVIEW_DATE = '2026-09-22';
 
 export const DATA_SOURCES = [
+  { name: 'CDC Overdose Prevention Data Channel', url: 'https://www.cdc.gov/overdose-prevention/data-channel/' },
   { name: 'CDC Overdose Prevention', url: 'https://www.cdc.gov/overdose-prevention/' },
   { name: 'CDC Fentanyl Information', url: 'https://www.cdc.gov/overdose-prevention/about/fentanyl.html' },
   { name: 'SAMHSA Opioid Overdose Prevention and Reversal', url: 'https://www.samhsa.gov/substance-use/treatment/overdose-prevention' },
@@ -9,9 +10,9 @@ export const DATA_SOURCES = [
 ];
 
 const CATEGORY_SOURCES = {
-  Opioids: [DATA_SOURCES[0], DATA_SOURCES[1], DATA_SOURCES[2], DATA_SOURCES[3]],
-  Stimulants: [DATA_SOURCES[0], DATA_SOURCES[3]],
-  'Depressants & Sedatives': [DATA_SOURCES[0], DATA_SOURCES[2], DATA_SOURCES[3]],
+  Opioids: [DATA_SOURCES[0], DATA_SOURCES[1], DATA_SOURCES[2], DATA_SOURCES[3], DATA_SOURCES[4]],
+  Stimulants: [DATA_SOURCES[0], DATA_SOURCES[3], DATA_SOURCES[4]],
+  'Depressants & Sedatives': [DATA_SOURCES[0], DATA_SOURCES[2], DATA_SOURCES[3], DATA_SOURCES[4]],
   Dissociatives: [DATA_SOURCES[3], DATA_SOURCES[4]],
   Psychedelics: [DATA_SOURCES[3], DATA_SOURCES[4]],
   Cannabinoids: [DATA_SOURCES[3]],
@@ -59,9 +60,9 @@ export const DRUG_DATA = [
         ],
         overdose: [
           'Recognize: Blue/gray lips or nails, pinpoint pupils, shallow/stopped breathing, pale/clammy skin, "death rattle" gurgling sound.',
-          'IMMEDIATELY CALL 911. The Good Samaritan Law protects you from prosecution for calling in an overdose in most states.',
+          'IMMEDIATELY CALL 911. Legal protections for calling for help vary by jurisdiction; check the current state law reference in this app.',
           'Administer NARCAN (Naloxone) nasal spray into one nostril. If no response in 2-3 minutes, administer a second dose in the other nostril.',
-          'Begin rescue breathing (1 breath every 5 seconds) if they are not breathing. Narcan needs oxygen to work effectively.',
+          'Begin rescue breathing (1 breath every 5 seconds) if they are not breathing. Naloxone reverses opioid effects but does not replace rescue breathing or emergency medical care when breathing is absent or inadequate.',
           'If you must leave them, place them in the Recovery Position (on their side, knee bent, head supported) to prevent choking on vomit.'
         ],
         mixes: [
@@ -101,12 +102,12 @@ export const DRUG_DATA = [
           }
         ],
         overdose: [
-          'See Opioid/Heroin overdose protocol. Narcan works on ALL prescription opioids, including Tramadol, Codeine, and Morphine.'
+          'See Opioid/Heroin overdose protocol. Naloxone can reverse opioid effects, but response varies by opioid and dose. Repeat doses and emergency medical care may be needed, especially with long-acting or high-potency opioids.'
         ],
         mixes: [
           'Avoid mixing with Benzos, Alcohol, Sleep Aids (Ambien), or other sedatives.'
         ],
-        identification: 'Counterfeit M30s are rampant. Real pharmaceutical pills have sharp, crisp edges, uniform coloring, a glossy coating, and a distinct snap when broken. Counterfeits crumble easily.',
+        identification: 'Counterfeit M30s are rampant. Appearance alone cannot reliably distinguish genuine medication from counterfeit pills. Use a pharmacist or an authoritative imprint/product-identification service rather than treating visual traits as proof of authenticity.',
         pillId: 'FAKE M30 WARNING: If the "M" stamp on an M30 pill has curved/rounded armpits (like an archway) instead of sharp, straight V-shaped armpits, IT IS FAKE AND CONTAINS FENTANYL. Fake pills also crumble easily, have chalky textures, or feature inconsistent blue dye spots.'
       },
       {
@@ -143,7 +144,7 @@ export const DRUG_DATA = [
         ],
         overdose: [
           'Causes severe, prolonged respiratory depression.',
-          'Narcan works, but because Methadone outlasts Narcan\'s effect, the person WILL slip back into an overdose. Constant monitoring and repeated Narcan doses in an ER are necessary.'
+          'Naloxone may wear off before methadone does. Continue monitoring, call emergency services, and follow the naloxone product instructions for repeat doses.'
         ],
         mixes: [
           'NEVER MIX WITH: Benzodiazepines. This is a very common fatal combination.',
@@ -158,7 +159,7 @@ export const DRUG_DATA = [
             method: 'Oral',
             safety: [
               'Use a scale to weigh doses; measuring by "teaspoons" is highly inaccurate and leads to high tolerance.',
-              'Drink massive amounts of water, as kratom powder is severely dehydrating and causes severe constipation.',
+              'Avoid excessive water intake. Sip fluids as needed and seek medical care for severe vomiting, confusion, fainting, breathing problems, or other concerning symptoms.',
               'Buy from vendors who provide third-party lab testing (heavy metals and adulterants are common in gas-station kratom).'
             ]
           }
@@ -213,7 +214,7 @@ export const DRUG_DATA = [
         overdose: [
           '"Overamping" causes racing heart, extreme paranoia, hyperthermia, chest pain, stroke, or seizures.',
           'If seizing: Clear the floor of hazards, place on their side, put NOTHING in their mouth.',
-          'If experiencing severe chest pain / heart attack symptoms, call 911 immediately. Tell paramedics they took cocaine so they don\'t administer beta-blockers.',
+          'If experiencing severe chest pain / heart attack symptoms, call 911 immediately. Tell paramedics about cocaine or stimulant use so they can choose treatment based on the full clinical situation.',
           'Cool them down with ice packs on the back of the neck/armpits.'
         ],
         mixes: [
@@ -224,7 +225,7 @@ export const DRUG_DATA = [
         identification: 'White flaky powder. Crack is hard off-white rocks. Use Marquis, Mecke, or Mandelin reagents to test purity.',
         testStrips: [
           'FTS on cocaine are critical due to accidental cross-contamination on dealer scales.',
-          'Cocaine requires MORE dilution than opioids or you will trigger a False Positive. Add 10 teaspoons of water per 10mg of cocaine.',
+          'Fentanyl test-strip instructions vary by product and substance. Follow the current instructions supplied with the specific test strip; stimulant samples can require substantially more dilution than opioid samples, and an incorrect dilution can affect results.',
           'Testing the residue: Add water directly to the empty baggie, swish to capture everything, then test that water.',
           'ONE line = POSITIVE. TWO lines = NEGATIVE.'
         ]
@@ -279,7 +280,7 @@ export const DRUG_DATA = [
             safety: [
               'If taking pills, swallow half first. Wait 90 minutes. Do not redose early.',
               'Regulate body temperature. Take breaks from dancing/hot environments every 30 minutes.',
-              'Sip water slowly (1-2 cups an hour max). Do not chug massive amounts to avoid fatal hyponatremia.'
+              'Sip fluids as needed rather than forcing large amounts. Excessive water intake can itself be dangerous.'
             ] 
           }
         ],
