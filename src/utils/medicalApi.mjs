@@ -1,6 +1,9 @@
 const RXNORM_BASE = 'https://rxnav.nlm.nih.gov/REST';
 const OPENFDA_BASE = 'https://api.fda.gov/drug/label.json';
 const FINDTREATMENT_BASE = 'https://findtreatment.gov/locator/exportsAsJson/v2';
+const MEDLINEPLUS_BASE = 'https://wsearch.nlm.nih.gov/ws/query';
+const FDA_ENFORCEMENT_BASE = 'https://api.fda.gov/drug/enforcement.json';
+const FDA_SHORTAGES_BASE = 'https://api.fda.gov/drug/shortages.json';
 
 async function fetchJson(url, signal) {
   const response = await fetch(url, { signal, headers: { Accept: 'application/json' } });
@@ -86,6 +89,67 @@ export async function getFdaInteractionEvidence(drugA, drugB, signal) {
   if (unique.length) return { status: 'DOCUMENTED_INTERACTION', records: unique };
   if (successfulQueries === 0) return { status: 'UPSTREAM_UNAVAILABLE', records: [] };
   return { status: 'NO_DOCUMENTED_PAIR_IN_MATCHED_LABELS', records: [] };
+}
+export async function searchMedlinePlus(query, signal) {
+  const term = String(query || '').trim();
+  if (!term) return { records: [], source: 'NLM MedlinePlus', sourceUrl: 'https://medlineplus.gov/', retrievedAt: new Date().toISOString() };
+  const url = new URL(MEDLINEPLUS_BASE);
+  url.searchParams.set('db', 'healthTopics');
+  url.searchParams.set('term', term);
+  url.searchParams.set('retmax', '10');
+  url.searchParams.set('rettype', 'brief');
+  url.searchParams.set('tool', 'harm-less');
+  const response = await fetch(url.toString(), { signal, headers: { Accept: 'application/xml, text/xml' } });
+  if (!response.ok) throw new Error(`MedlinePlus returned HTTP ${response.status}`);
+  const xml = await response.text();
+  const doc = new DOMParser().parseFromString(xml, 'application/xml');
+  if (doc.querySelector('parsererror')) throw new Error('MedlinePlus returned malformed XML.');
+  const records = Array.from(doc.querySelectorAll('document')).map(document => ({
+    title: document.querySelector('content[name="title"]')?.textContent?.trim() || 'MedlinePlus health topic',
+    url: document.querySelector('content[name="url"]')?.textContent?.trim() || null,
+    snippet: document.querySelector('content[name="snippet"]')?.textContent?.trim() || '',
+    source: 'NLM MedlinePlus'
+  })).filter(record => record.url);
+  return { records, source: 'NLM MedlinePlus', sourceUrl: 'https://medlineplus.gov/', retrievedAt: new Date().toISOString() };
+}
+async function searchFdaEndpoint(base, search, signal) {
+  const url = new URL(base);
+  url.searchParams.set('search', search);
+  url.searchParams.set('limit', '10');
+  return fetchJson(url.toString(), signal);
+}
+export async function searchFdaDrugSafety(query, signal) {
+  const term = String(query || '').trim();
+  if (!term) return { labels: [], recalls: [], shortages: [], source: 'FDA openFDA', sourceUrl: 'https://open.fda.gov/', retrievedAt: new Date().toISOString(), upstream: { labels: true, recalls: true, shortages: true } };
+  const escaped = escapeFdaSearchTerm(term);
+  const [labelsResult, recallsResult, shortagesResult] = await Promise.allSettled([
+    searchFdaEndpoint(OPENFDA_BASE, `openfda.generic_name:"${escaped}" OR openfda.brand_name:"${escaped}"`, signal),
+    searchFdaEndpoint(FDA_ENFORCEMENT_BASE, `product_description:"${escaped}"`, signal),
+    searchFdaEndpoint(FDA_SHORTAGES_BASE, `generic_name:"${escaped}"`, signal)
+  ]);
+  const normalize = result => result.status === 'fulfilled' && Array.isArray(result.value.results) ? result.value.results : [];
+  const labels = normalize(labelsResult).map(record => ({
+    source: 'FDA openFDA Drug Labeling', sourceUrl: 'https://open.fda.gov/apis/drug/label/',
+    title: record.openfda?.brand_name?.[0] || record.openfda?.generic_name?.[0] || term,
+    effectiveDate: record.effective_time || null, setId: record.openfda?.spl_set_id?.[0] || null,
+    warnings: Array.isArray(record.boxed_warning) ? record.boxed_warning.join(' ') : record.boxed_warning || '',
+    interactions: Array.isArray(record.drug_interactions) ? record.drug_interactions.join(' ') : record.drug_interactions || ''
+  }));
+  const recalls = normalize(recallsResult).map(record => ({
+    source: 'FDA Drug Enforcement Reports', sourceUrl: 'https://open.fda.gov/apis/drug/enforcement/',
+    product: record.product_description || term, reportDate: record.report_date || null,
+    reason: record.reason_for_recall || '', status: record.status || ''
+  }));
+  const shortages = normalize(shortagesResult).map(record => ({
+    source: 'FDA Drug Shortages', sourceUrl: 'https://open.fda.gov/apis/drug/drugshortages/',
+    product: record.product_name || record.generic_name || term,
+    status: record.status || record.update_type || '', updateDate: record.update_date || record.report_date || null
+  }));
+  return {
+    labels: labels.slice(0, 10), recalls: recalls.slice(0, 10), shortages: shortages.slice(0, 10),
+    source: 'FDA openFDA', sourceUrl: 'https://open.fda.gov/', retrievedAt: new Date().toISOString(),
+    upstream: { labels: labelsResult.status === 'fulfilled', recalls: recallsResult.status === 'fulfilled', shortages: shortagesResult.status === 'fulfilled' }
+  };
 }
 export async function searchFindTreatment({ lat, lng, radiusMeters = 50000, codes = [], type, signal }) {
   if (!Number.isFinite(Number(lat)) || !Number.isFinite(Number(lng))) {
