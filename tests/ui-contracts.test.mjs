@@ -37,7 +37,7 @@ test('current trusted evidence UI exposes NLM and FDA source boundaries', () => 
   assert.match(source, /Current Trusted Evidence/);
   assert.match(source, /searchMedlinePlus/);
   assert.match(source, /searchFdaDrugSafety/);
-  assert.match(source, /not a safety clearance/);
+  assert.match(source, /not personalized medical advice or a safety clearance/);
   assert.match(source, /FDA recall/);
   assert.match(source, /FDA shortage/);
 });
