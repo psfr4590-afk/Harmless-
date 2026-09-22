@@ -1,4 +1,4 @@
-export const DATA_REVIEW_DATE = '2026-09-20';
+export const DATA_REVIEW_DATE = '2026-09-22';
 
 export const DATA_SOURCES = [
   { name: 'CDC Overdose Prevention', url: 'https://www.cdc.gov/overdose-prevention/' },
@@ -59,7 +59,7 @@ export const DRUG_DATA = [
         ],
         overdose: [
           'Recognize: Blue/gray lips or nails, pinpoint pupils, shallow/stopped breathing, pale/clammy skin, "death rattle" gurgling sound.',
-          'IMMEDIATELY CALL 911. The Good Samaritan Law protects you from prosecution for calling in an overdose in most states.',
+          'IMMEDIATELY CALL 911. Legal protections for calling for help vary by jurisdiction; check the current state law reference in this app.',
           'Administer NARCAN (Naloxone) nasal spray into one nostril. If no response in 2-3 minutes, administer a second dose in the other nostril.',
           'Begin rescue breathing (1 breath every 5 seconds) if they are not breathing. Narcan needs oxygen to work effectively.',
           'If you must leave them, place them in the Recovery Position (on their side, knee bent, head supported) to prevent choking on vomit.'
@@ -158,7 +158,7 @@ export const DRUG_DATA = [
             method: 'Oral',
             safety: [
               'Use a scale to weigh doses; measuring by "teaspoons" is highly inaccurate and leads to high tolerance.',
-              'Drink massive amounts of water, as kratom powder is severely dehydrating and causes severe constipation.',
+              'Avoid excessive water intake. Sip fluids as needed and seek medical care for severe vomiting, confusion, fainting, breathing problems, or other concerning symptoms.',
               'Buy from vendors who provide third-party lab testing (heavy metals and adulterants are common in gas-station kratom).'
             ]
           }
@@ -224,7 +224,7 @@ export const DRUG_DATA = [
         identification: 'White flaky powder. Crack is hard off-white rocks. Use Marquis, Mecke, or Mandelin reagents to test purity.',
         testStrips: [
           'FTS on cocaine are critical due to accidental cross-contamination on dealer scales.',
-          'Cocaine requires MORE dilution than opioids or you will trigger a False Positive. Add 10 teaspoons of water per 10mg of cocaine.',
+          'Fentanyl test-strip instructions vary by product and substance. Follow the current instructions supplied with the specific test strip; stimulant samples can require substantially more dilution than opioid samples, and an incorrect dilution can affect results.',
           'Testing the residue: Add water directly to the empty baggie, swish to capture everything, then test that water.',
           'ONE line = POSITIVE. TWO lines = NEGATIVE.'
         ]
