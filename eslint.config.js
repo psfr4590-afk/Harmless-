@@ -15,6 +15,7 @@ export default [
         fetch: "readonly",
         URL: "readonly",
         Response: "readonly",
+        DOMParser: "readonly",
       },
     },
   },
