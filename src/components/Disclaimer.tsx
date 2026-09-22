@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldAlert, MapPin, PhoneCall, Camera, Check } from 'lucide-react';
+import { ShieldAlert, MapPin, PhoneCall, Camera, FlaskConical, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface DisclaimerProps {
@@ -31,6 +31,14 @@ export default function Disclaimer({ onAcknowledge }: DisclaimerProps) {
             <div>
               <h3 className="font-bold text-white tracking-wide">Location</h3>
               <p className="text-sm text-white/60 leading-relaxed mt-1">Used to find nearby mapped resources. Current GPS coordinates may be sent to public geocoding/search services when those features are used. Manual location search is also available.</p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-4">
+            <div className="bg-purple-500/20 p-3 rounded-full mt-1"><FlaskConical className="w-6 h-6 text-purple-400" /></div>
+            <div>
+              <h3 className="font-bold text-white tracking-wide">Interaction Searches</h3>
+              <p className="text-sm text-white/60 leading-relaxed mt-1">Substance names entered into the interaction checker may be sent to NLM RxNorm and used in FDA openFDA label searches. Results are evidence lookups, not personalized medical clearance.</p>
             </div>
           </div>
 

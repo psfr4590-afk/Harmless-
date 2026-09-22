@@ -54,6 +54,27 @@ test('malformed Overpass responses are rejected by the parser', () => {
   assert.equal(extractOverpassElements(null), null);
 });
 
+test('FDA interaction search terms escape only FDA query syntax characters', async () => {
+  const originalFetch = globalThis.fetch;
+  const queries = [];
+  globalThis.fetch = async (url) => {
+    const parsed = new URL(String(url));
+    queries.push(parsed.searchParams.get('search'));
+    return new Response(JSON.stringify({ results: [] }), { status: 200, headers: { 'content-type': 'application/json' } });
+  };
+
+  try {
+    const { getFdaInteractionEvidence } = await import('../src/utils/medicalApi.mjs?fda-escape-test=1');
+    const result = await getFdaInteractionEvidence('fentanyl', 'alcohol');
+    assert.equal(result.status, 'NO_DOCUMENTED_PAIR_IN_MATCHED_LABELS');
+    assert.deepEqual(queries, [
+      'drug_interactions:"fentanyl"',
+      'drug_interactions:"alcohol"'
+    ]);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
 
 test('live API adapters normalize RxNorm and FindTreatment response shapes', async () => {
   const originalFetch = globalThis.fetch;

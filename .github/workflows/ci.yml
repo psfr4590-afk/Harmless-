@@ -10,12 +10,16 @@ on:
 
 jobs:
   verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: ['20.20.2', '24.18.0']
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ matrix.node-version }}
           cache: npm
       - run: npm ci
       - run: npm audit --audit-level=high
