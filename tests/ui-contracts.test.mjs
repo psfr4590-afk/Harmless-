@@ -30,3 +30,14 @@ test('harm-reduction data exposes category-level source provenance', () => {
   assert.match(source, /const CATEGORY_SOURCES/);
   assert.match(source, /sources: CATEGORY_SOURCES/);
 });
+
+
+test('current trusted evidence UI exposes NLM and FDA source boundaries', () => {
+  const source = read('src/components/ROASafeUse.tsx');
+  assert.match(source, /Current Trusted Evidence/);
+  assert.match(source, /searchMedlinePlus/);
+  assert.match(source, /searchFdaDrugSafety/);
+  assert.match(source, /not a safety clearance/);
+  assert.match(source, /FDA recall/);
+  assert.match(source, /FDA shortage/);
+});
