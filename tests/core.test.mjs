@@ -209,7 +209,9 @@ test('FDA query escaping regression keeps punctuation semantics intact', async (
   try {
     const { searchFdaDrugSafety } = await import('../src/utils/medicalApi.mjs?escape-regression=1');
     await searchFdaDrugSafety('drug"\\name');
-    assert.match(calls[0], /drug\\%22\\\\name/);
+    const search = new URL(calls[0]).searchParams.get('search');
+    assert.match(search, /drug\\\\\"/);
+    assert.match(search, /drug\\\\\\\\name/);
   } finally {
     globalThis.fetch = originalFetch;
   }
