@@ -197,3 +197,21 @@ test('FDA safety adapter reports partial upstream failure instead of inventing a
     globalThis.fetch = originalFetch;
   }
 });
+
+
+test('FDA query escaping regression keeps punctuation semantics intact', async () => {
+  const originalFetch = globalThis.fetch;
+  const calls = [];
+  globalThis.fetch = async url => {
+    calls.push(String(url));
+    return new Response(JSON.stringify({ results: [] }), { status: 200 });
+  };
+  try {
+    const { searchFdaDrugSafety } = await import('../src/utils/medicalApi.mjs?escape-regression=1');
+    await searchFdaDrugSafety('drug"\\name');
+    const search = new URL(calls[0]).searchParams.get('search');
+    assert.equal(search, 'openfda.generic_name:"drug\\"\\\\name" OR openfda.brand_name:"drug\\"\\\\name"');
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
