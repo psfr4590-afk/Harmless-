@@ -1,6 +1,7 @@
 export const DATA_REVIEW_DATE = '2026-09-22';
 
 export const DATA_SOURCES = [
+  { name: 'CDC Overdose Prevention Data Channel', url: 'https://www.cdc.gov/overdose-prevention/data-channel/' },
   { name: 'CDC Overdose Prevention', url: 'https://www.cdc.gov/overdose-prevention/' },
   { name: 'CDC Fentanyl Information', url: 'https://www.cdc.gov/overdose-prevention/about/fentanyl.html' },
   { name: 'SAMHSA Opioid Overdose Prevention and Reversal', url: 'https://www.samhsa.gov/substance-use/treatment/overdose-prevention' },
@@ -9,9 +10,9 @@ export const DATA_SOURCES = [
 ];
 
 const CATEGORY_SOURCES = {
-  Opioids: [DATA_SOURCES[0], DATA_SOURCES[1], DATA_SOURCES[2], DATA_SOURCES[3]],
-  Stimulants: [DATA_SOURCES[0], DATA_SOURCES[3]],
-  'Depressants & Sedatives': [DATA_SOURCES[0], DATA_SOURCES[2], DATA_SOURCES[3]],
+  Opioids: [DATA_SOURCES[0], DATA_SOURCES[1], DATA_SOURCES[2], DATA_SOURCES[3], DATA_SOURCES[4]],
+  Stimulants: [DATA_SOURCES[0], DATA_SOURCES[3], DATA_SOURCES[4]],
+  'Depressants & Sedatives': [DATA_SOURCES[0], DATA_SOURCES[2], DATA_SOURCES[3], DATA_SOURCES[4]],
   Dissociatives: [DATA_SOURCES[3], DATA_SOURCES[4]],
   Psychedelics: [DATA_SOURCES[3], DATA_SOURCES[4]],
   Cannabinoids: [DATA_SOURCES[3]],
