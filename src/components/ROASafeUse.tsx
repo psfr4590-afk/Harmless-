@@ -2,11 +2,42 @@ import React, { useState, useMemo } from 'react';
 import { ChevronRight, Activity, AlertTriangle, Scan, Beaker, Search } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { DRUG_DATA, DATA_SOURCES, DATA_REVIEW_DATE } from '../data/drugDatabase';
+import { searchMedlinePlus, searchFdaDrugSafety } from '../utils/medicalApi';
+import { safeExternalUrl } from '../utils/safetyUtils';
 
 export default function ROASafeUse() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [activeDrug, setActiveDrug] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [evidenceQuery, setEvidenceQuery] = useState('');
+  const [evidenceLoading, setEvidenceLoading] = useState(false);
+  const [evidenceError, setEvidenceError] = useState<string | null>(null);
+  const [evidence, setEvidence] = useState<{ medline: Awaited<ReturnType<typeof searchMedlinePlus>> | null; fda: Awaited<ReturnType<typeof searchFdaDrugSafety>> | null }>({ medline: null, fda: null });
+
+  const runEvidenceSearch = async () => {
+    const query = evidenceQuery.trim();
+    if (!query) return;
+    setEvidenceLoading(true);
+    setEvidenceError(null);
+    setEvidence({ medline: null, fda: null });
+    const controller = new AbortController();
+    try {
+      const [medlineResult, fdaResult] = await Promise.allSettled([
+        searchMedlinePlus(query, controller.signal),
+        searchFdaDrugSafety(query, controller.signal)
+      ]);
+      if (medlineResult.status === 'rejected' && fdaResult.status === 'rejected') throw new Error('Trusted evidence services were unavailable. No safety conclusion was inferred from the failure.');
+      setEvidence({
+        medline: medlineResult.status === 'fulfilled' ? medlineResult.value : null,
+        fda: fdaResult.status === 'fulfilled' ? fdaResult.value : null
+      });
+      if (medlineResult.status === 'rejected' || fdaResult.status === 'rejected') setEvidenceError('One trusted evidence source was unavailable. Results shown below are incomplete.');
+    } catch (error) {
+      if (!(error instanceof DOMException && error.name === 'AbortError')) setEvidenceError(error instanceof Error ? error.message : 'Trusted evidence search failed.');
+    } finally {
+      setEvidenceLoading(false);
+    }
+  };
 
   const filteredData = useMemo(() => {
     if (!searchQuery.trim()) return DRUG_DATA;
@@ -50,6 +81,52 @@ export default function ROASafeUse() {
             </li>
           ))}
         </ul>
+      </div>
+
+      <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-5">
+        <h3 className="font-black uppercase tracking-widest text-emerald-300 text-sm">Current Trusted Evidence</h3>
+        <p className="mt-2 text-sm text-white/70">Search NLM MedlinePlus and FDA public data for current source material. These results are evidence and source links, not personalized medical advice or a safety clearance.</p>
+        <form onSubmit={(event) => { event.preventDefault(); void runEvidenceSearch(); }} className="mt-4 flex flex-col sm:flex-row gap-2">
+          <input aria-label="Search trusted health evidence" value={evidenceQuery} onChange={(event) => setEvidenceQuery(event.target.value)} placeholder="e.g. fentanyl, naloxone, methadone" className="flex-1 bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-400/60" />
+          <button type="submit" disabled={evidenceLoading || !evidenceQuery.trim()} className="px-5 py-3 rounded-xl bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 font-bold uppercase tracking-wider text-xs disabled:opacity-40">{evidenceLoading ? 'Searching...' : 'Search evidence'}</button>
+        </form>
+        {evidenceError && <p role="status" className="mt-3 text-sm text-amber-300">{evidenceError}</p>}
+        {(evidence.medline || evidence.fda) && (
+          <div className="mt-4 space-y-3">
+            {evidence.medline?.records.map((item) => (
+              <a key={item.url} href={safeExternalUrl(item.url) || '#'} target="_blank" rel="noopener noreferrer" className="block p-3 rounded-xl bg-black/20 border border-white/10 hover:bg-white/5">
+                <div className="font-bold text-white">{item.title}</div>
+                {item.snippet && <div className="mt-1 text-xs text-white/60">{item.snippet}</div>}
+                <div className="mt-2 text-[11px] uppercase tracking-wider text-emerald-300">NLM MedlinePlus · Retrieved {evidence.medline?.retrievedAt}</div>
+              </a>
+            ))}
+            {evidence.fda?.labels.slice(0, 3).map((item) => (
+              <div key={item.setId || item.title} className="p-3 rounded-xl bg-black/20 border border-white/10">
+                <div className="font-bold text-white">FDA label: {item.title}</div>
+                {item.effectiveDate && <div className="mt-1 text-xs text-white/60">Effective date: {item.effectiveDate}</div>}
+                {item.warnings && <div className="mt-2 text-xs text-amber-200"><span className="font-bold">Warnings:</span> {item.warnings}</div>}
+                {item.interactions && <div className="mt-2 text-xs text-white/70"><span className="font-bold">Interactions:</span> {item.interactions}</div>}
+                <a href={safeExternalUrl(item.sourceUrl) || '#'} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex text-[11px] uppercase tracking-wider text-blue-300">FDA source</a>
+              </div>
+            ))}
+            {evidence.fda?.recalls.slice(0, 3).map((item) => (
+              <div key={item.product + String(item.reportDate)} className="p-3 rounded-xl bg-red-500/5 border border-red-500/20">
+                <div className="font-bold text-red-200">FDA recall: {item.product}</div>
+                {item.reportDate && <div className="mt-1 text-xs text-white/60">Report date: {item.reportDate}</div>}
+                {item.reason && <div className="mt-2 text-xs text-white/70">{item.reason}</div>}
+                <a href={safeExternalUrl(item.sourceUrl) || '#'} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex text-[11px] uppercase tracking-wider text-blue-300">FDA enforcement source</a>
+              </div>
+            ))}
+            {evidence.fda?.shortages.slice(0, 3).map((item) => (
+              <div key={item.product + String(item.updateDate)} className="p-3 rounded-xl bg-orange-500/5 border border-orange-500/20">
+                <div className="font-bold text-orange-200">FDA shortage: {item.product}</div>
+                {item.updateDate && <div className="mt-1 text-xs text-white/60">Updated: {item.updateDate}</div>}
+                {item.status && <div className="mt-2 text-xs text-white/70">{item.status}</div>}
+                <a href={safeExternalUrl(item.sourceUrl) || '#'} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex text-[11px] uppercase tracking-wider text-blue-300">FDA shortage source</a>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="relative">
