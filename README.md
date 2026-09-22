@@ -21,13 +21,13 @@ Health, emergency, treatment, and legal information is treated as safety-sensiti
 
 The application distinguishes documented evidence from unknown, unavailable, or insufficient evidence. A missing interaction record is not presented as proof of safety. Source links and review metadata are exposed where applicable.
 
-Live integrations currently include NLM RxNorm, FDA openFDA drug labeling, and SAMHSA FindTreatment.gov. External services are queried only when the relevant feature is used. Public geographic searches may also use OpenStreetMap/Nominatim and Overpass.
+Live integrations currently include NLM RxNorm, NLM MedlinePlus, FDA openFDA drug labeling/recalls/shortages, and SAMHSA FindTreatment.gov. CDC's Overdose Prevention Data Channel is linked as an authoritative current-data reference; its page combines NVSS, SUDORS, and DOSE data and explicitly distinguishes provisional from final data. External services are queried only when the relevant feature is used. Public geographic searches may also use OpenStreetMap/Nominatim and Overpass.
 
 A live-service failure is presented as unavailable evidence rather than silently converted into a reassuring result.
 
 ## Architecture
 
-The application is a client-side React/TypeScript application built with Vite. Safety-sensitive logic is separated into small utility modules and covered by regression tests. Static health and legal content carries source metadata, while live integrations are isolated behind explicit adapters.
+The application is a client-side React/TypeScript application built with Vite. Safety-sensitive logic is separated into small utility modules and covered by regression tests. Static health and legal content carries source metadata, while live integrations are isolated behind explicit adapters. The current-evidence search layer preserves source identity, retrieval timestamps, and partial-upstream states rather than converting unavailable data into reassurance.
 
 The application has no application-managed user account or cloud profile. Browser APIs are used only for current feature workflows such as geolocation and local image selection.
 
@@ -72,3 +72,16 @@ Browser-level interaction testing, camera behavior, geolocation permissions, and
 Harm.Less provides educational harm-reduction information and access to resources. It does not replace emergency services, medical diagnosis, treatment, or professional legal advice.
 
 If someone is in immediate danger, contact local emergency services.
+
+
+## Trusted public evidence sources
+
+The current evidence layer uses public services from NLM, FDA, and SAMHSA:
+
+- **NLM MedlinePlus**: searchable health-topic summaries and links. NLM states that its web-service data is updated daily Tuesday-Saturday and recommends caching for 12-24 hours.
+- **FDA openFDA**: current public drug-labeling, drug-enforcement/recall, and drug-shortage datasets. FDA documents daily weekday updates for Drugs@FDA and provides endpoint-specific update metadata.
+- **CDC Overdose Prevention Data Channel**: authoritative current overdose surveillance reference. CDC identifies NVSS, SUDORS, and DOSE as its underlying systems and warns that provisional data may be incomplete.
+- **SAMHSA FindTreatment.gov**: current treatment-resource locator used for location-based treatment searches.
+- **NLM RxNorm**: medication-name normalization used before interaction evidence lookup.
+
+The app does not treat any public API response as automatically equivalent to clinical verification. FDA explicitly warns that openFDA data should not be relied on alone for medical-care decisions, and CDC distinguishes provisional surveillance from final data. Search results therefore retain source, date, and limitation context.
