@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, MessageSquare, ExternalLink, Globe, Info, AlertOctagon, LifeBuoy } from 'lucide-react';
+import { MessageSquare, ExternalLink, Globe, Info, AlertOctagon, LifeBuoy } from 'lucide-react';
 
 const LINKS = [
   {
