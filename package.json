@@ -1,7 +1,7 @@
 {
   "name": "harm-less",
   "private": true,
-  "version": "1.1.0-rc.1",
+  "version": "1.1.0-rc.2",
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000",
@@ -9,7 +9,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "test": "node --test tests/*.test.mjs",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "verify:release": "npm run lint && npm test && npm run typecheck && npm run build"
   },
   "dependencies": {
     "framer-motion": "^12.38.0",
