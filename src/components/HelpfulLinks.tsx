@@ -1,20 +1,20 @@
 import React from 'react';
-import { BookOpen, MessageSquare, ExternalLink, Globe, Info, AlertOctagon } from 'lucide-react';
+import { BookOpen, MessageSquare, ExternalLink, Globe, Info, AlertOctagon, LifeBuoy } from 'lucide-react';
 
 const LINKS = [
   {
-    id: 'book',
-    title: 'Harm Reduction Survival Guide',
-    desc: 'Official comprehensive harm reduction guide book available on Amazon.',
-    url: 'https://www.amazon.com/dp/B0DC7X9BZP?ref=cm_sw_r_ffobk_cso_sms_apan_dp_5J6HHHEJBFFZ3WE6Q6BE&ref_=cm_sw_r_ffobk_cso_sms_apan_dp_5J6HHHEJBFFZ3WE6Q6BE&social_share=cm_sw_r_ffobk_cso_sms_apan_dp_5J6HHHEJBFFZ3WE6Q6BE&bestFormat=true',
-    icon: <BookOpen className="w-8 h-8 text-[#FF1493] group-hover:scale-110 transition-transform" />,
+    id: 'helpline',
+    title: 'Find A Helpline',
+    desc: 'Country-specific crisis and emotional-support helplines with verified listings in 175+ countries.',
+    url: 'https://findahelpline.com/',
+    icon: <LifeBuoy className="w-8 h-8 text-[#FF1493] group-hover:scale-110 transition-transform" />,
     color: 'bg-[#FF1493]/10 border-[#FF1493]/30'
   },
   {
-    id: 'tripsit',
-    title: 'TripSit Discord',
-    desc: 'Live 24/7 harm reduction chat and guided peer-support tripsitting.',
-    url: 'https://discord.gg/tripsit',
+    id: 'na',
+    title: 'Narcotics Anonymous',
+    desc: 'International recovery support and local meeting information.',
+    url: 'https://na.org/e-lit/na-a-resource-in-your-community/',
     icon: <MessageSquare className="w-8 h-8 text-[#00E5FF] group-hover:scale-110 transition-transform" />,
     color: 'bg-[#00E5FF]/10 border-[#00E5FF]/30'
   }
@@ -31,7 +31,7 @@ export default function HelpfulLinks() {
           Medical Disclaimer
         </h2>
         <p className="mt-3 text-white/80 text-xs leading-relaxed font-mono">
-          Harm.Less is an educational tool designed for harm reduction and survival purposes only. It is not a replacement for professional medical advice, diagnosis, or treatment. The creators of this application hold no liability for actions taken based on the information provided. In a medical emergency, immediately call 911 or your local emergency services.
+          Harm.Less is an educational tool designed for harm reduction and survival purposes only. It is not a replacement for professional medical advice, diagnosis, or treatment. The creators of this application hold no liability for actions taken based on the information provided. In a medical emergency, immediately call the emergency service for the country you are currently in.
         </p>
       </div>
 
