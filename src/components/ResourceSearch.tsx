@@ -320,7 +320,7 @@ export default function ResourceSearch() {
                 </div>)}
                 <div className="pt-2 flex flex-wrap justify-center gap-2">
                   <button onClick={() => openMapFallback(CATEGORIES.find(c => c.id === selectedCategory)?.query || '')} className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold uppercase tracking-wider">Search broader map results</button>
-                  <a href={`https://www.openstreetmap.org/search?query=${encodeURIComponent(CATEGORIES.find(c => c.id === selectedCategory)?.query || '')}`} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-green-500/10 hover:bg-green-500/20 border border-green-500/20 text-green-300 rounded-xl text-xs font-bold uppercase tracking-wider">OpenStreetMap worldwide search</a>}
+                  <a href={`https://www.openstreetmap.org/search?query=${encodeURIComponent(CATEGORIES.find(c => c.id === selectedCategory)?.query || '')}`} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-green-500/10 hover:bg-green-500/20 border border-green-500/20 text-green-300 rounded-xl text-xs font-bold uppercase tracking-wider">OpenStreetMap worldwide search</a>
                   <a href="https://findahelpline.com/" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 text-blue-300 rounded-xl text-xs font-bold uppercase tracking-wider">Find A Helpline</a>
                 </div>
                 {!fetchingData && apiResults.length === 0 && !searchError && <div className="p-6 text-center text-white/60">No records from connected geographic sources. This is not evidence that no help exists.</div>}
