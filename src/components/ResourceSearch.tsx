@@ -21,18 +21,18 @@ interface ResourceResult {
 }
 
 const CATEGORIES = [
-  { id: 'narcan', name: 'Narcan / Naloxone', query: 'Narcan Naloxone harm reduction overdose', osm: ['["healthcare"="pharmacy"]', '["name"~"naloxone|narcan|harm reduction|overdose",i]', '["description"~"naloxone|narcan|harm reduction|overdose",i]'], color: 'bg-red-500/20 text-red-400 border-red-500/30' },
-  { id: 'needle', name: 'Needle Exchange Programs', query: 'syringe needle exchange harm reduction', osm: ['["social_facility"="syringe_exchange"]', '["name"~"syringe|needle exchange|harm reduction",i]', '["description"~"syringe|needle exchange|harm reduction",i]'], color: 'bg-blue-500/20 text-blue-400 border-blue-500/30' },
-  { id: 'housing', name: 'Homeless Shelters & Housing', query: 'homeless shelter housing assistance', osm: ['["social_facility"="shelter"]', '["amenity"="shelter"]', '["name"~"shelter|homeless|housing",i]'], color: 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30' },
-  { id: 'food', name: 'Food Pantries & Meals', query: 'food pantry food bank soup kitchen', osm: ['["social_facility"="food_bank"]', '["amenity"="food_bank"]', '["amenity"="social_centre"]["name"~"food|pantry|soup kitchen|meal",i]', '["amenity"="community_centre"]["name"~"food|pantry|soup kitchen|meal",i]', '["name"~"food pantry|food bank|soup kitchen|community food|food assistance",i]', '["description"~"food pantry|food bank|soup kitchen|food assistance|free food",i]'], color: 'bg-green-500/20 text-green-400 border-green-500/30' },
-  { id: 'mental', name: 'Mental Health Services', query: 'mental health counseling crisis services', osm: ['["healthcare"="psychotherapist"]', '["healthcare"="mental_health"]', '["name"~"mental health|behavioral health|crisis",i]'], color: 'bg-fuchsia-500/20 text-fuchsia-400 border-fuchsia-500/30' },
-  { id: 'financial', name: 'Rental & Utility Assistance', query: 'rental utility financial assistance community action', osm: ['["office"="ngo"]["name"~"community action|utility|rental|housing assistance",i]', '["name"~"rental assistance|utility assistance|community action",i]', '["description"~"rental assistance|utility assistance",i]'], color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' },
-  { id: 'health', name: 'Free Health Clinics', query: 'free low income community health clinic', osm: ['["amenity"="clinic"]', '["healthcare"="clinic"]', '["name"~"free clinic|community health|low income",i]'], color: 'bg-orange-500/20 text-orange-400 border-orange-500/30' },
-  { id: 'rehab', name: 'Rehab & Detox Clinics', query: 'substance use rehabilitation detox treatment', osm: ['["healthcare"="rehabilitation"]', '["healthcare"="addiction"]', '["name"~"rehab|detox|addiction|substance use",i]'], color: 'bg-teal-500/20 text-teal-400 border-teal-500/30' },
-  { id: 'advocacy', name: 'Advocacy & Legal Aid', query: 'legal aid advocacy services', osm: ['["office"="lawyer"]["name"~"legal aid|advocacy|pro bono",i]', '["name"~"legal aid|legal services|advocacy|pro bono",i]'], color: 'bg-purple-500/20 text-purple-400 border-purple-500/30' },
-  { id: 'employment', name: 'Employment & Job Help', query: 'job employment workforce assistance', osm: ['["office"="employment_agency"]', '["name"~"workforce|employment|job center|career",i]'], color: 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30' },
-  { id: 'domestic', name: 'Domestic Violence Support', query: 'domestic violence shelter support', osm: ['["name"~"domestic violence|women.s shelter|family violence",i]', '["description"~"domestic violence|family violence",i]', '["social_facility"="shelter"]["name"~"women|family",i]'], color: 'bg-pink-500/20 text-pink-400 border-pink-500/30' },
-  { id: 'youth', name: 'Youth & Family Services', query: 'youth family services', osm: ['["social_facility"="group_home"]', '["name"~"youth|teen|family services|children",i]'], color: 'bg-lime-500/20 text-lime-400 border-lime-500/30' },
+  { id: 'narcan', name: 'Narcan / Naloxone', query: 'Narcan Naloxone harm reduction overdose', searchTerms: ['Narcan Naloxone harm reduction overdose'], osm: ['["healthcare"="pharmacy"]', '["name"~"naloxone|narcan|harm reduction|overdose",i]', '["description"~"naloxone|narcan|harm reduction|overdose",i]'], color: 'bg-red-500/20 text-red-400 border-red-500/30' },
+  { id: 'needle', name: 'Needle Exchange Programs', query: 'syringe needle exchange harm reduction', searchTerms: ['syringe needle exchange harm reduction'], osm: ['["social_facility"="syringe_exchange"]', '["name"~"syringe|needle exchange|harm reduction",i]', '["description"~"syringe|needle exchange|harm reduction",i]'], color: 'bg-blue-500/20 text-blue-400 border-blue-500/30' },
+  { id: 'housing', name: 'Homeless Shelters & Housing', query: 'homeless shelter housing assistance', searchTerms: ['homeless shelter housing assistance'], osm: ['["social_facility"="shelter"]', '["amenity"="shelter"]', '["name"~"shelter|homeless|housing",i]'], color: 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30' },
+  { id: 'food', name: 'Food Pantries & Meals', query: 'food pantry food bank soup kitchen', searchTerms: ['food pantry food bank soup kitchen'], osm: ['["social_facility"="food_bank"]', '["amenity"="food_bank"]', '["amenity"="social_centre"]["name"~"food|pantry|soup kitchen|meal",i]', '["amenity"="community_centre"]["name"~"food|pantry|soup kitchen|meal",i]', '["name"~"food pantry|food bank|soup kitchen|community food|food assistance",i]', '["description"~"food pantry|food bank|soup kitchen|food assistance|free food",i]'], color: 'bg-green-500/20 text-green-400 border-green-500/30' },
+  { id: 'mental', name: 'Mental Health Services', query: 'mental health counseling crisis services', searchTerms: ['mental health counseling crisis services'], osm: ['["healthcare"="psychotherapist"]', '["healthcare"="mental_health"]', '["name"~"mental health|behavioral health|crisis",i]'], color: 'bg-fuchsia-500/20 text-fuchsia-400 border-fuchsia-500/30' },
+  { id: 'financial', name: 'Rental & Utility Assistance', query: 'rental utility financial assistance community action', searchTerms: ['rental utility financial assistance community action'], osm: ['["office"="ngo"]["name"~"community action|utility|rental|housing assistance",i]', '["name"~"rental assistance|utility assistance|community action",i]', '["description"~"rental assistance|utility assistance",i]'], color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' },
+  { id: 'health', name: 'Free Health Clinics', query: 'free low income community health clinic', searchTerms: ['free low income community health clinic'], osm: ['["amenity"="clinic"]', '["healthcare"="clinic"]', '["name"~"free clinic|community health|low income",i]'], color: 'bg-orange-500/20 text-orange-400 border-orange-500/30' },
+  { id: 'rehab', name: 'Rehab & Detox Clinics', query: 'substance use rehabilitation detox treatment', searchTerms: ['substance use rehabilitation detox treatment'], osm: ['["healthcare"="rehabilitation"]', '["healthcare"="addiction"]', '["name"~"rehab|detox|addiction|substance use",i]'], color: 'bg-teal-500/20 text-teal-400 border-teal-500/30' },
+  { id: 'advocacy', name: 'Advocacy & Legal Aid', query: 'legal aid advocacy services', searchTerms: ['legal aid advocacy services'], osm: ['["office"="lawyer"]["name"~"legal aid|advocacy|pro bono",i]', '["name"~"legal aid|legal services|advocacy|pro bono",i]'], color: 'bg-purple-500/20 text-purple-400 border-purple-500/30' },
+  { id: 'employment', name: 'Employment & Job Help', query: 'job employment workforce assistance', searchTerms: ['job employment workforce assistance'], osm: ['["office"="employment_agency"]', '["name"~"workforce|employment|job center|career",i]'], color: 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30' },
+  { id: 'domestic', name: 'Domestic Violence Support', query: 'domestic violence shelter support', searchTerms: ['domestic violence shelter support'], osm: ['["name"~"domestic violence|women.s shelter|family violence",i]', '["description"~"domestic violence|family violence",i]', '["social_facility"="shelter"]["name"~"women|family",i]'], color: 'bg-pink-500/20 text-pink-400 border-pink-500/30' },
+  { id: 'youth', name: 'Youth & Family Services', query: 'youth family services', searchTerms: ['youth family services'], osm: ['["social_facility"="group_home"]', '["name"~"youth|teen|family services|children",i]'], color: 'bg-lime-500/20 text-lime-400 border-lime-500/30' },
 ];
 
 function distanceKm(aLat: number, aLng: number, bLat: number, bLng: number) {
@@ -144,25 +144,34 @@ export default function ResourceSearch() {
       // Overpass selectors return nothing, use Nominatim text search as a
       // second OSM-backed discovery path. An empty Overpass result is not
       // evidence that a service does not exist.
-      if (results.length === 0) {
-        const delta = 0.35;
+      // OSM coverage is incomplete and community services are tagged inconsistently.
+      // Run several bounded text searches when structured discovery returns few records.
+      if (results.length < 3) {
+        const delta = 0.45;
         const viewbox = [location.lng - delta, location.lat + delta, location.lng + delta, location.lat - delta].join(',');
-        const nominatimUrl = new URL('https://nominatim.openstreetmap.org/search');
-        nominatimUrl.searchParams.set('format', 'jsonv2');
-        nominatimUrl.searchParams.set('q', category.query);
-        nominatimUrl.searchParams.set('limit', '20');
-        nominatimUrl.searchParams.set('viewbox', viewbox);
-        nominatimUrl.searchParams.set('bounded', '1');
-        const nominatimRes = await fetch(nominatimUrl.toString(), { signal: controller.signal, headers: { Accept: 'application/json' } });
-        if (nominatimRes.ok) {
-          const nominatimData = await nominatimRes.json();
-          if (Array.isArray(nominatimData)) {
-            results.push(...nominatimData.map((item: { place_id?: number; display_name?: string; lat?: string; lon?: string; name?: string; address?: Record<string, string> }, index: number) => {
+        const terms = category.searchTerms || [category.query];
+        const existingNames = new Set(results.map(item => item.name.toLowerCase()));
+        for (const term of terms.slice(0, 5)) {
+          if (existingNames.size >= 20) break;
+          try {
+            const nominatimUrl = new URL('https://nominatim.openstreetmap.org/search');
+            nominatimUrl.searchParams.set('format', 'jsonv2');
+            nominatimUrl.searchParams.set('q', term);
+            nominatimUrl.searchParams.set('limit', '10');
+            nominatimUrl.searchParams.set('viewbox', viewbox);
+            nominatimUrl.searchParams.set('bounded', '1');
+            const nominatimRes = await fetch(nominatimUrl.toString(), { signal: controller.signal, headers: { Accept: 'application/json' } });
+            if (!nominatimRes.ok) continue;
+            const nominatimData = await nominatimRes.json();
+            if (!Array.isArray(nominatimData)) continue;
+            for (const [index, item] of nominatimData.entries()) {
+              const name = item.name || item.display_name?.split(',')[0] || 'Unnamed facility';
+              if (name === 'Unnamed facility' || existingNames.has(String(name).toLowerCase())) continue;
               const lat = Number(item.lat);
               const lng = Number(item.lon);
-              return {
-                id: `nominatim-${item.place_id || index}`,
-                name: item.name || item.display_name?.split(',')[0] || 'Unnamed facility',
+              results.push({
+                id: 'nominatim-' + (item.place_id || term) + '-' + index,
+                name: String(name),
                 address: item.display_name || item.address?.road || 'Address not listed',
                 phone: null,
                 website: null,
@@ -170,8 +179,12 @@ export default function ResourceSearch() {
                 source: 'OpenStreetMap Nominatim',
                 sourceUrl: 'https://nominatim.openstreetmap.org/',
                 retrievedAt: new Date().toISOString()
-              } as ResourceResult;
-            }).filter((item: ResourceResult) => item.name !== 'Unnamed facility'));
+              } as ResourceResult);
+              existingNames.add(String(name).toLowerCase());
+              if (existingNames.size >= 20) break;
+            }
+          } catch (error) {
+            if (error instanceof DOMException && error.name === 'AbortError') return;
           }
         }
       }
