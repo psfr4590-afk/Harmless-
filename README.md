@@ -19,9 +19,9 @@ Harm.Less brings harm-reduction education, emergency support, treatment-resource
 
 Health, emergency, treatment, and legal information is treated as safety-sensitive content.
 
-The application distinguishes documented evidence from unknown, unavailable, or insufficient evidence. A missing interaction record is not presented as proof of safety. Source links and review metadata are exposed where applicable.
+The application distinguishes documented evidence from unknown, unavailable, or insufficient evidence. A missing interaction record is not presented as proof of safety. Source links and retrieval metadata are exposed where applicable.
 
-Live integrations currently include NLM RxNorm, NLM MedlinePlus, FDA openFDA drug labeling/recalls/shortages, and SAMHSA FindTreatment.gov. CDC's Overdose Prevention Data Channel is linked as an authoritative current-data reference; its page combines NVSS, SUDORS, and DOSE data and explicitly distinguishes provisional from final data. External services are queried only when the relevant feature is used. Public geographic searches may also use OpenStreetMap/Nominatim and Overpass.
+Live integrations currently include NLM RxNorm, NLM MedlinePlus, FDA openFDA drug labeling/recalls/shortages, and SAMHSA FindTreatment.gov. CDC's Overdose Prevention Data Channel is linked as an authoritative current-data reference. Public geographic searches may also use OpenStreetMap/Nominatim and Overpass.
 
 A live-service failure is presented as unavailable evidence rather than silently converted into a reassuring result.
 
@@ -41,7 +41,7 @@ External providers have their own privacy policies and operational practices. Do
 
 ## Development
 
-Requires Node.js 20.19 through 24.x. The repository pins Node 20.20.2 in .nvmrc and CI verifies both Node 20.20.2 and Node 24.18.0.
+Requires Node.js 20.19 through 24.x. The repository pins Node 20.20.2 in `.nvmrc` and CI verifies Node 20.20.2 and Node 24.18.0.
 
     npm ci
     npm run lint
@@ -50,18 +50,29 @@ Requires Node.js 20.19 through 24.x. The repository pins Node 20.20.2 in .nvmrc 
     npm run build
     npm run dev
 
-The development server binds to localhost by default. If you intentionally need LAN access for device testing, use npm run dev -- --host 0.0.0.0 and only do so on a trusted network.
+The development server binds to localhost by default. If you intentionally need LAN access for device testing, use `npm run dev -- --host 0.0.0.0` and only do so on a trusted network.
 
-Open the local Vite development address shown by the command.
+## Release candidate verification
 
-## Verification
+The release candidate gate is the same verification path used by CI:
 
-The repository CI workflow runs dependency auditing, linting, regression tests, TypeScript/Vite builds, and a basic production-preview HTTP smoke check on pushes to main and pull requests.
+    npm ci
+    npm audit --audit-level=high
+    npm run lint
+    npm test
+    npm run typecheck
+    npm run build
+    npm run preview -- --host 127.0.0.1
 
-Browser-level interaction testing, camera behavior, geolocation permissions, and live third-party service behavior remain deployment-environment concerns and should be verified before a production release.
+CI executes that gate on Node 20.20.2 and Node 24.18.0 and performs an HTTP smoke check against the production preview. A release candidate is not considered verified until the corresponding GitHub Actions run is successful.
+
+The CI gate verifies the repository build and local production preview. Browser permissions, camera behavior, geolocation behavior, live third-party service behavior, and the final hosting environment remain deployment-environment checks and must be verified against the actual deployment target.
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for the deployment procedure and post-deploy checks.
 
 ## Project documentation
 
+- [Deployment](DEPLOYMENT.md)
 - [Contributing](CONTRIBUTING.md)
 - [Security Policy](SECURITY.md)
 - [Changelog](CHANGELOG.md)
@@ -73,15 +84,14 @@ Harm.Less provides educational harm-reduction information and access to resource
 
 If someone is in immediate danger, contact local emergency services.
 
-
 ## Trusted public evidence sources
 
 The current evidence layer uses public services from NLM, FDA, and SAMHSA:
 
-- **NLM MedlinePlus**: searchable health-topic summaries and links. NLM states that its web-service data is updated daily Tuesday-Saturday and recommends caching for 12-24 hours.
-- **FDA openFDA**: current public drug-labeling, drug-enforcement/recall, and drug-shortage datasets. FDA documents daily weekday updates for Drugs@FDA and provides endpoint-specific update metadata.
-- **CDC Overdose Prevention Data Channel**: authoritative current overdose surveillance reference. CDC identifies NVSS, SUDORS, and DOSE as its underlying systems and warns that provisional data may be incomplete.
-- **SAMHSA FindTreatment.gov**: current treatment-resource locator used for location-based treatment searches.
+- **NLM MedlinePlus**: searchable health-topic summaries and links.
+- **FDA openFDA**: public drug-labeling, drug-enforcement/recall, and drug-shortage datasets.
+- **CDC Overdose Prevention Data Channel**: current overdose surveillance reference.
+- **SAMHSA FindTreatment.gov**: current treatment-resource locator.
 - **NLM RxNorm**: medication-name normalization used before interaction evidence lookup.
 
-The app does not treat any public API response as automatically equivalent to clinical verification. FDA explicitly warns that openFDA data should not be relied on alone for medical-care decisions, and CDC distinguishes provisional surveillance from final data. Search results therefore retain source, date, and limitation context.
+The app does not treat any public API response as automatically equivalent to clinical verification. Search results retain source, date, and limitation context.
