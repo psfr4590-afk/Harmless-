@@ -69,3 +69,25 @@ test('resource search has multi-source discovery terms for every user-facing cat
   assert.match(source, /results\.length < 3/);
   assert.match(source, /OpenStreetMap Nominatim/);
 });
+
+
+test('resource discovery is explicitly worldwide and does not hard-code Texas as the only fallback', () => {
+  const source = read('src/components/ResourceSearch.tsx');
+  assert.match(source, /intended for people anywhere in the world/);
+  assert.match(source, /OpenStreetMap worldwide search/);
+  assert.match(source, /findahelpline\.com/);
+  assert.doesNotMatch(source, /211texas|feedingtexas/i);
+});
+
+test('global crisis UI does not present U.S. emergency numbers as universal', () => {
+  const source = read('src/components/HotlineSearch.tsx');
+  assert.match(source, /does not assume 911, 112, or another single number worldwide/);
+  assert.match(source, /findahelpline\.com/);
+  assert.doesNotMatch(source, /number: '911'|number: '988'|SAMHSA National Helpline/);
+});
+
+test('U.S.-specific legal data is explicitly scoped', () => {
+  const source = read('src/components/GoodSamaritanLaws.tsx');
+  assert.match(source, /U\.S\. Good Samaritan Law Sources/);
+  assert.match(source, /United States state-by-state/);
+});
