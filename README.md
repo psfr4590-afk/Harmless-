@@ -1,13 +1,13 @@
 # Harm.Less
 
-A privacy-conscious harm-reduction companion for people seeking practical safety information and real-world support.
+A privacy-conscious harm-reduction companion for people seeking practical safety information and real-world support, designed for use worldwide.
 
 Harm.Less brings harm-reduction education, emergency support, treatment-resource discovery, and safety tools into one focused interface. It is designed to reduce friction when someone needs useful information quickly.
 
 ## Features
 
 - **Urgent support** for emergency and crisis resources.
-- **Local resources** using connected public-service data when an online search is requested.
+- **Local resources** using connected public-service data when an online search is requested, with worldwide geographic discovery and explicit source-coverage boundaries.
 - **Interaction checking** with medication-name normalization, live evidence lookup, and explicit unverified states.
 - **Volumetric calculations** for mathematical conversion, with safety-focused framing.
 - **Pill identification** through imprint information supplied by the user.
@@ -21,7 +21,7 @@ Health, emergency, treatment, and legal information is treated as safety-sensiti
 
 The application distinguishes documented evidence from unknown, unavailable, or insufficient evidence. A missing interaction record is not presented as proof of safety. Source links and retrieval metadata are exposed where applicable.
 
-Live integrations currently include NLM RxNorm, NLM MedlinePlus, FDA openFDA drug labeling/recalls/shortages, and SAMHSA FindTreatment.gov. CDC's Overdose Prevention Data Channel is linked as an authoritative current-data reference. Public geographic searches may also use OpenStreetMap/Nominatim and Overpass.
+Live integrations currently include NLM RxNorm, NLM MedlinePlus, FDA openFDA drug labeling/recalls/shortages, and SAMHSA FindTreatment.gov for U.S. treatment searches. CDC's Overdose Prevention Data Channel is linked as an authoritative current-data reference. Worldwide local-resource discovery uses OpenStreetMap/Nominatim and Overpass, with broader external directories offered when structured local data is insufficient.
 
 A live-service failure is presented as unavailable evidence rather than silently converted into a reassuring result.
 
@@ -29,7 +29,7 @@ A live-service failure is presented as unavailable evidence rather than silently
 
 The application is a client-side React/TypeScript application built with Vite. Safety-sensitive logic is separated into small utility modules and covered by regression tests. Static health and legal content carries source metadata, while live integrations are isolated behind explicit adapters. The current-evidence search layer preserves source identity, retrieval timestamps, and partial-upstream states rather than converting unavailable data into reassurance.
 
-The application has no application-managed user account or cloud profile. Browser APIs are used only for current feature workflows such as geolocation and local image selection.
+The application has no application-managed user account or cloud profile. It is intended to be usable worldwide, but worldwide does not mean every country has identical data coverage. Browser APIs are used only for current feature workflows such as geolocation and local image selection.
 
 ## Privacy
 
@@ -51,6 +51,12 @@ Requires Node.js 20.19 through 24.x. The repository pins Node 20.20.2 in `.nvmrc
     npm run dev
 
 The development server binds to localhost by default. If you intentionally need LAN access for device testing, use `npm run dev -- --host 0.0.0.0` and only do so on a trusted network.
+
+## Worldwide coverage contract
+
+Harm.Less is intended for a person anywhere in the world who has a cellphone and needs help. The application must attempt local discovery wherever geographic data is available, must not equate missing records with absence of help, and must not present a country-specific emergency number or legal rule as universal. U.S.-specific sources are explicitly scoped to the United States.
+
+The application cannot guarantee that a public directory contains every real-world service. Its contract is to make a good-faith, source-attributed search and expose uncertainty when coverage is incomplete.
 
 ## Release candidate verification
 
