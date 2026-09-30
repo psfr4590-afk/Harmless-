@@ -20,12 +20,10 @@ function distanceKm(aLat: number, aLng: number, bLat: number, bLng: number) {
   return 2 * r * Math.asin(Math.sqrt(x));
 }
 
-const NATIONAL_HOTLINES = [
-  { id: 'emergency', name: 'Emergency Services', number: '911', desc: 'Immediate medical or safety emergencies', source: 'https://www.usa.gov/911' },
-  { id: 'suicide', name: 'Suicide & Crisis Lifeline', number: '988', desc: '24/7 free and confidential support', source: 'https://www.samhsa.gov/find-support/in-crisis' },
-  { id: 'samhsa', name: 'SAMHSA National Helpline', number: '1-800-662-4357', desc: 'Treatment referral and info service', source: 'https://www.samhsa.gov/find-help/helplines/national-helpline' },
-  { id: 'nua', name: 'Never Use Alone', number: '1-800-484-3731', desc: 'Harm reduction & overdose prevention', source: 'https://neverusealone.com/' },
-  { id: 'na', name: 'Narcotics Anonymous', number: '1-818-773-9999', desc: 'NA World Services general information', source: 'https://na.org/e-lit/na-a-resource-in-your-community/' }
+const GLOBAL_SUPPORT_LINKS = [
+  { id: 'emergency', name: 'Local Emergency Services', desc: 'Use the emergency number for the country you are currently in. Harmless does not assume 911, 112, or another single number worldwide.', url: null },
+  { id: 'helpline', name: 'Find A Helpline', desc: 'Country-specific crisis and emotional-support helplines with coverage in 175+ countries.', url: 'https://findahelpline.com/' },
+  { id: 'na', name: 'Narcotics Anonymous', desc: 'International recovery support with local meeting and helpline information.', url: 'https://na.org/e-lit/na-a-resource-in-your-community/' }
 ];
 
 export default function HotlineSearch() {
@@ -92,8 +90,8 @@ export default function HotlineSearch() {
           location ? <div className="flex items-center gap-3 text-green-400"><Navigation className="w-5 h-5" /><span className="text-sm uppercase tracking-widest font-bold">Location Active - Local Search Enabled</span></div> : null}
       </div>
       <div className="space-y-4">
-        <h3 className="text-white/40 font-black uppercase tracking-widest text-xs ml-2">Direct Dial National Hotlines</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">{NATIONAL_HOTLINES.map(hl => <a key={hl.id} aria-label={`Call ${hl.name} at ${hl.number}`} href={`tel:${hl.number}`} className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all flex items-center justify-between group"><div><h4 className="font-black uppercase text-lg tracking-wide text-white">{hl.name}</h4><p className="text-xs text-white/60 font-medium mt-1">{hl.desc}</p><p className="text-sm font-bold text-[#FF69B4] mt-2">{hl.number}</p><p className="text-xs text-white/40 mt-1">Source: official organization/service information</p></div><PhoneCall className="w-8 h-8 text-[#FF1493] group-hover:scale-110 transition-transform" /></a>)}</div>
+        <h3 className="text-white/40 font-black uppercase tracking-widest text-xs ml-2">Global Support & Emergency Guidance</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">{GLOBAL_SUPPORT_LINKS.map(link => link.url ? <a key={link.id} href={link.url} target="_blank" rel="noopener noreferrer" className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all flex items-center justify-between group"><div><h4 className="font-black uppercase text-lg tracking-wide text-white">{link.name}</h4><p className="text-xs text-white/60 font-medium mt-1">{link.desc}</p><p className="text-xs text-white/40 mt-2">Open verified external directory</p></div><Globe className="w-8 h-8 text-[#FF1493] group-hover:scale-110 transition-transform" /></a> : <div key={link.id} className="p-6 rounded-2xl bg-red-500/10 border border-red-500/30 flex items-center gap-4"><PhoneCall className="w-8 h-8 text-red-400 shrink-0" /><div><h4 className="font-black uppercase text-lg tracking-wide text-white">{link.name}</h4><p className="text-xs text-white/70 font-medium mt-1">{link.desc}</p></div></div>)}</div>
       </div>
       <div className="space-y-4 pb-8">
         <h3 className="text-white/40 font-black uppercase tracking-widest text-xs ml-2">Find Local Services & Contact Numbers</h3>
