@@ -24,7 +24,7 @@ const CATEGORIES = [
   { id: 'narcan', name: 'Narcan / Naloxone', query: 'Narcan Naloxone harm reduction overdose', osm: ['["healthcare"="pharmacy"]', '["name"~"naloxone|narcan|harm reduction|overdose",i]', '["description"~"naloxone|narcan|harm reduction|overdose",i]'], color: 'bg-red-500/20 text-red-400 border-red-500/30' },
   { id: 'needle', name: 'Needle Exchange Programs', query: 'syringe needle exchange harm reduction', osm: ['["social_facility"="syringe_exchange"]', '["name"~"syringe|needle exchange|harm reduction",i]', '["description"~"syringe|needle exchange|harm reduction",i]'], color: 'bg-blue-500/20 text-blue-400 border-blue-500/30' },
   { id: 'housing', name: 'Homeless Shelters & Housing', query: 'homeless shelter housing assistance', osm: ['["social_facility"="shelter"]', '["amenity"="shelter"]', '["name"~"shelter|homeless|housing",i]'], color: 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30' },
-  { id: 'food', name: 'Food Pantries & Meals', query: 'food pantry food bank soup kitchen', osm: ['["social_facility"="food_bank"]', '["amenity"="social_centre"]["name"~"food|pantry|soup kitchen",i]', '["name"~"food pantry|food bank|soup kitchen",i]'], color: 'bg-green-500/20 text-green-400 border-green-500/30' },
+  { id: 'food', name: 'Food Pantries & Meals', query: 'food pantry food bank soup kitchen', osm: ['["social_facility"="food_bank"]', '["amenity"="food_bank"]', '["amenity"="social_centre"]["name"~"food|pantry|soup kitchen|meal",i]', '["amenity"="community_centre"]["name"~"food|pantry|soup kitchen|meal",i]', '["name"~"food pantry|food bank|soup kitchen|community food|food assistance",i]', '["description"~"food pantry|food bank|soup kitchen|food assistance|free food",i]'], color: 'bg-green-500/20 text-green-400 border-green-500/30' },
   { id: 'mental', name: 'Mental Health Services', query: 'mental health counseling crisis services', osm: ['["healthcare"="psychotherapist"]', '["healthcare"="mental_health"]', '["name"~"mental health|behavioral health|crisis",i]'], color: 'bg-fuchsia-500/20 text-fuchsia-400 border-fuchsia-500/30' },
   { id: 'financial', name: 'Rental & Utility Assistance', query: 'rental utility financial assistance community action', osm: ['["office"="ngo"]["name"~"community action|utility|rental|housing assistance",i]', '["name"~"rental assistance|utility assistance|community action",i]', '["description"~"rental assistance|utility assistance",i]'], color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' },
   { id: 'health', name: 'Free Health Clinics', query: 'free low income community health clinic', osm: ['["amenity"="clinic"]', '["healthcare"="clinic"]', '["name"~"free clinic|community health|low income",i]'], color: 'bg-orange-500/20 text-orange-400 border-orange-500/30' },
@@ -140,6 +140,42 @@ export default function ResourceSearch() {
         } as ResourceResult;
       }).filter((item: ResourceResult) => item.name !== 'Unnamed facility' || item.phone || item.website));
 
+      // OSM tagging is inconsistent for community resources. If structured
+      // Overpass selectors return nothing, use Nominatim text search as a
+      // second OSM-backed discovery path. An empty Overpass result is not
+      // evidence that a service does not exist.
+      if (results.length === 0) {
+        const delta = 0.35;
+        const viewbox = [location.lng - delta, location.lat + delta, location.lng + delta, location.lat - delta].join(',');
+        const nominatimUrl = new URL('https://nominatim.openstreetmap.org/search');
+        nominatimUrl.searchParams.set('format', 'jsonv2');
+        nominatimUrl.searchParams.set('q', category.query);
+        nominatimUrl.searchParams.set('limit', '20');
+        nominatimUrl.searchParams.set('viewbox', viewbox);
+        nominatimUrl.searchParams.set('bounded', '1');
+        const nominatimRes = await fetch(nominatimUrl.toString(), { signal: controller.signal, headers: { Accept: 'application/json' } });
+        if (nominatimRes.ok) {
+          const nominatimData = await nominatimRes.json();
+          if (Array.isArray(nominatimData)) {
+            results.push(...nominatimData.map((item: { place_id?: number; display_name?: string; lat?: string; lon?: string; name?: string; address?: Record<string, string> }, index: number) => {
+              const lat = Number(item.lat);
+              const lng = Number(item.lon);
+              return {
+                id: `nominatim-${item.place_id || index}`,
+                name: item.name || item.display_name?.split(',')[0] || 'Unnamed facility',
+                address: item.display_name || item.address?.road || 'Address not listed',
+                phone: null,
+                website: null,
+                distance: Number.isFinite(lat) && Number.isFinite(lng) ? distanceKm(location.lat, location.lng, lat, lng) : null,
+                source: 'OpenStreetMap Nominatim',
+                sourceUrl: 'https://nominatim.openstreetmap.org/',
+                retrievedAt: new Date().toISOString()
+              } as ResourceResult;
+            }).filter((item: ResourceResult) => item.name !== 'Unnamed facility'));
+          }
+        }
+      }
+
       const finalResults = dedupeById(results.map(item => ({ ...item, website: item.website && safeExternalUrl(item.website) ? safeExternalUrl(item.website) : null })))
         .sort((a, b) => (a.distance ?? 9999) - (b.distance ?? 9999))
         .slice(0, 50);
@@ -148,7 +184,7 @@ export default function ResourceSearch() {
       setApiResults(finalResults);
       if (treatmentWarning) setSearchError(treatmentWarning);
       if (finalResults.length === 0) {
-        setSearchError(treatmentWarning ? `${treatmentWarning} No matching records were returned by the connected sources.` : 'No matching records were returned by the connected sources. Broaden the search area or try another category.');
+        setSearchError(treatmentWarning ? treatmentWarning + ' No matching records were returned by the connected sources. Use the broader directory links below rather than treating this as proof that services are absent.' : 'No matching records were returned by the connected sources. The connected geographic sources may not contain this service. Use the broader directory links below rather than treating this as proof that services are absent.');
       }
     } catch (err) {
       if (err instanceof DOMException && err.name === 'AbortError') return;
@@ -248,8 +284,12 @@ export default function ResourceSearch() {
                   {res.website && safeExternalUrl(res.website) && <a href={safeExternalUrl(res.website) as string} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300"><Globe className="w-4 h-4" />Website</a>}
                   <div className="text-xs font-bold uppercase tracking-widest text-white/40">Source: {res.source}{res.retrievedAt ? ` • Retrieved ${new Date(res.retrievedAt).toLocaleString()}` : ''}</div>{res.sourceUrl && <a href={res.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-300 inline-flex items-center gap-1"><Globe className="w-3 h-3" />Open source</a>}
                 </div>)}
-                {apiResults.length > 0 && <div className="pt-2 text-center"><button onClick={() => openMapFallback(CATEGORIES.find(c => c.id === selectedCategory)?.query || '')} className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold uppercase tracking-wider">Search broader map results</button></div>}
-                {!fetchingData && apiResults.length === 0 && !searchError && <div className="p-6 text-center text-white/60">No results found.</div>}
+                <div className="pt-2 flex flex-wrap justify-center gap-2">
+                  <button onClick={() => openMapFallback(CATEGORIES.find(c => c.id === selectedCategory)?.query || '')} className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold uppercase tracking-wider">Search broader map results</button>
+                  {selectedCategory === 'food' && <a href="https://www.211texas.org/" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-green-500/10 hover:bg-green-500/20 border border-green-500/20 text-green-300 rounded-xl text-xs font-bold uppercase tracking-wider">Texas 2-1-1 food directory</a>}
+                  {selectedCategory === 'food' && <a href="https://www.feedingtexas.org/food-banks/" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-green-500/10 hover:bg-green-500/20 border border-green-500/20 text-green-300 rounded-xl text-xs font-bold uppercase tracking-wider">Feeding Texas directory</a>}
+                </div>
+                {!fetchingData && apiResults.length === 0 && !searchError && <div className="p-6 text-center text-white/60">No records from connected geographic sources. This is not evidence that no help exists.</div>}
               </div>}
           </motion.div>
         </motion.div>}
