@@ -55,3 +55,17 @@ test('current trusted evidence UI exposes NLM and FDA source boundaries', () => 
   assert.match(source, /FDA recall/);
   assert.match(source, /FDA shortage/);
 });
+
+test('resource search has multi-source discovery terms for every user-facing category', () => {
+  const source = read('src/components/ResourceSearch.tsx');
+  for (const term of [
+    'naloxone', 'syringe service', 'emergency shelter', 'food pantry',
+    'mental health', 'utility assistance', 'community health clinic',
+    'substance use treatment', 'legal aid', 'workforce center',
+    'domestic violence', 'youth services'
+  ]) {
+    assert.match(source, new RegExp(term.replace(/[.*+?^{}()|[\]\\]/g, '\\$&')));
+  }
+  assert.match(source, /results\.length < 3/);
+  assert.match(source, /OpenStreetMap Nominatim/);
+});
