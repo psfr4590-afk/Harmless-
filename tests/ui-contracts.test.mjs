@@ -27,10 +27,11 @@ test('resource search broadens food discovery beyond one OSM tag', () => {
   assert.match(source, /No records from connected geographic sources/);
 });
 
-test('food search exposes authoritative broader directory paths instead of implying absence', () => {
+test('food search exposes worldwide fallback paths instead of implying absence', () => {
   const source = read('src/components/ResourceSearch.tsx');
-  assert.match(source, /www\.211texas\.org/);
-  assert.match(source, /www\.feedingtexas\.org\/food-banks/);
+  assert.match(source, /OpenStreetMap worldwide search/);
+  assert.match(source, /findahelpline\.com/);
+  assert.doesNotMatch(source, /211texas|feedingtexas/i);
 });
 
 test('legal UI routes users to current jurisdictional source data instead of generic immunity claims', () => {
