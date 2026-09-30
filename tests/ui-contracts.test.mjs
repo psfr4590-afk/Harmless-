@@ -19,6 +19,20 @@ test('resource UI maps the documented FindTreatment.gov row schema', () => {
   assert.match(source, /SAMHSA FindTreatment\.gov/);
 });
 
+test('resource search broadens food discovery beyond one OSM tag', () => {
+  const source = read('src/components/ResourceSearch.tsx');
+  assert.match(source, /amenity"="food_bank/);
+  assert.match(source, /community food/);
+  assert.match(source, /OpenStreetMap Nominatim/);
+  assert.match(source, /No records from connected geographic sources/);
+});
+
+test('food search exposes authoritative broader directory paths instead of implying absence', () => {
+  const source = read('src/components/ResourceSearch.tsx');
+  assert.match(source, /www\.211texas\.org/);
+  assert.match(source, /www\.feedingtexas\.org\/food-banks/);
+});
+
 test('legal UI routes users to current jurisdictional source data instead of generic immunity claims', () => {
   const source = read('src/components/GoodSamaritanLaws.tsx');
   assert.match(source, /current NCSL legislative database/);
