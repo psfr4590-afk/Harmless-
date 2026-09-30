@@ -16,10 +16,10 @@ export default function GoodSamaritanLaws() {
         <div>
           <h2 className="text-xl font-black uppercase text-blue-400 tracking-widest flex items-center gap-2">
             <Shield className="w-6 h-6" />
-            Good Samaritan Law Sources
+            U.S. Good Samaritan Law Sources
           </h2>
           <p className="mt-2 text-sm text-white/80 max-w-2xl">
-            State-by-state source routing for current naloxone and Good Samaritan legislation. Each jurisdiction points to the current NCSL legislative database so conditions and exceptions are not frozen into app text. 
+            United States state-by-state source routing for current naloxone and Good Samaritan legislation. Each jurisdiction points to the current NCSL legislative database so conditions and exceptions are not frozen into app text. 
             Legal protections vary by jurisdiction and can contain conditions and exceptions. This screen provides source-linked guidance, not legal advice.
           </p>
         </div>
@@ -33,7 +33,7 @@ export default function GoodSamaritanLaws() {
       </div>
 
       <div className="bg-blue-500/10 border border-blue-500/30 rounded-2xl p-4 text-sm text-white/70">
-        Primary source: <a href={LEGAL_DATA_SOURCE.url} target="_blank" rel="noopener noreferrer" className="text-blue-300 underline">{LEGAL_DATA_SOURCE.name}</a>. Last source review: {LEGAL_DATA_SOURCE.reviewedOn}.
+        United States source: <a href={LEGAL_DATA_SOURCE.url} target="_blank" rel="noopener noreferrer" className="text-blue-300 underline">{LEGAL_DATA_SOURCE.name}</a>. Last source review: {LEGAL_DATA_SOURCE.reviewedOn}.
       </div>
 
       <div className="relative">
