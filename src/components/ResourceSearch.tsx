@@ -73,7 +73,28 @@ export default function ResourceSearch() {
       let treatmentWarning: string | null = null;
 
       if (categoryId === 'rehab' || categoryId === 'mental') {
+        // FindTreatment.gov is a U.S. federal directory. Do not query or
+        // describe it as worldwide coverage. All locations still use the
+        // broader OpenStreetMap discovery path below.
+        let countryCode: string | null = null;
         try {
+          const reverse = new URL('https://nominatim.openstreetmap.org/reverse');
+          reverse.searchParams.set('format', 'jsonv2');
+          reverse.searchParams.set('lat', String(location.lat));
+          reverse.searchParams.set('lon', String(location.lng));
+          reverse.searchParams.set('zoom', '3');
+          const reverseRes = await fetch(reverse.toString(), { signal: controller.signal, headers: { Accept: 'application/json' } });
+          if (reverseRes.ok) {
+            const reverseData = await reverseRes.json();
+            countryCode = typeof reverseData?.address?.country_code === 'string'
+              ? reverseData.address.country_code.toLowerCase()
+              : null;
+          }
+        } catch (error) {
+          if (error instanceof DOMException && error.name === 'AbortError') return;
+        }
+
+        if (countryCode === 'us') try {
           const treatment = await searchFindTreatment({
             lat: location.lat,
             lng: location.lng,
@@ -106,7 +127,7 @@ export default function ResourceSearch() {
           results.push(...treatmentRows);
         } catch (error) {
           if (error instanceof DOMException && error.name === 'AbortError') return;
-          treatmentWarning = 'SAMHSA FindTreatment.gov was unavailable for this search. Geographic OpenStreetMap results below are secondary records and do not establish that treatment is absent.';
+          treatmentWarning = 'SAMHSA FindTreatment.gov was unavailable for this U.S. search. Geographic OpenStreetMap results below are secondary records and do not establish that treatment is absent.';
         }
       }
 
@@ -253,7 +274,7 @@ export default function ResourceSearch() {
     <div className="flex flex-col h-full bg-[#121212] overflow-y-auto w-full max-w-4xl mx-auto p-6 space-y-6 relative">
       <div className="bg-gradient-to-r from-[#FF1493]/20 to-[#FF1493]/5 border border-[#FF1493]/30 rounded-2xl p-6">
         <h2 className="text-xl font-black uppercase text-[#FF69B4] tracking-widest">Local Resources</h2>
-        <p className="mt-2 text-sm text-white/80 max-w-2xl">Search connected treatment and geographic sources near the selected location. Substance-use and mental-health treatment searches query SAMHSA FindTreatment.gov and supplement it with OpenStreetMap. Other categories use OpenStreetMap. Results include source and retrieval metadata, and a missing result does not establish that a service is absent.</p>
+        <p className="mt-2 text-sm text-white/80 max-w-2xl">Search connected treatment and geographic sources near the selected location. Harmless is intended for people anywhere in the world. Geographic discovery uses OpenStreetMap sources worldwide; U.S. substance-use and mental-health searches may also use SAMHSA FindTreatment.gov. Results include source and retrieval metadata, and a missing result does not establish that a service is absent.</p>
       </div>
 
       <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
@@ -299,8 +320,8 @@ export default function ResourceSearch() {
                 </div>)}
                 <div className="pt-2 flex flex-wrap justify-center gap-2">
                   <button onClick={() => openMapFallback(CATEGORIES.find(c => c.id === selectedCategory)?.query || '')} className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold uppercase tracking-wider">Search broader map results</button>
-                  {selectedCategory === 'food' && <a href="https://www.211texas.org/" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-green-500/10 hover:bg-green-500/20 border border-green-500/20 text-green-300 rounded-xl text-xs font-bold uppercase tracking-wider">Texas 2-1-1 food directory</a>}
-                  {selectedCategory === 'food' && <a href="https://www.feedingtexas.org/food-banks/" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-green-500/10 hover:bg-green-500/20 border border-green-500/20 text-green-300 rounded-xl text-xs font-bold uppercase tracking-wider">Feeding Texas directory</a>}
+                  <a href={`https://www.openstreetmap.org/search?query=${encodeURIComponent(CATEGORIES.find(c => c.id === selectedCategory)?.query || '')}`} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-green-500/10 hover:bg-green-500/20 border border-green-500/20 text-green-300 rounded-xl text-xs font-bold uppercase tracking-wider">OpenStreetMap worldwide search</a>}
+                  <a href="https://findahelpline.com/" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 text-blue-300 rounded-xl text-xs font-bold uppercase tracking-wider">Find A Helpline</a>
                 </div>
                 {!fetchingData && apiResults.length === 0 && !searchError && <div className="p-6 text-center text-white/60">No records from connected geographic sources. This is not evidence that no help exists.</div>}
               </div>}
