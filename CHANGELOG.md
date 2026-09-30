@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.1.0-rc.2 - 2026-09-30
+
+Worldwide beta and publication hardening.
+
+- Made the resource-discovery contract explicitly worldwide.
+- Restricted SAMHSA FindTreatment.gov enrichment to U.S. locations instead of implying global treatment coverage.
+- Replaced U.S.-only food-directory fallbacks with worldwide OpenStreetMap and crisis-directory paths.
+- Removed universal 911/988 assumptions from the crisis-support screen.
+- Scoped Good Samaritan legal information explicitly to the United States.
+- Added verified GitHub Pages deployment and tagged-release publication workflows.
+- Added regression contracts for worldwide coverage and jurisdiction-specific behavior.
+
 ## 1.1.0-rc.1 - 2026-09-30
 
 Release candidate hardening and deployment documentation.
