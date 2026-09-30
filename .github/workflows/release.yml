@@ -19,10 +19,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm audit --audit-level=high
-      - run: npm run lint
-      - run: npm test
-      - run: npm run typecheck
-      - run: npm run build
+      - run: npm run verify:release
       - name: Package deployment artifact
         run: |
           tar -czf "harm-less-${GITHUB_REF_NAME}-dist.tar.gz" -C dist .
