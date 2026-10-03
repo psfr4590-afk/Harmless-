@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { DRUG_DATA, DATA_SOURCES, DATA_REVIEW_DATE } from '../data/drugDatabase';
 import { searchMedlinePlus, searchFdaDrugSafety } from '../utils/medicalApi';
 import { safeExternalUrl } from '../utils/safetyUtils';
+import { CONTENT_AUDIT_DATE, CONTENT_EVIDENCE_POLICY } from '../data/contentGovernance';
 
 export default function ROASafeUse() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
