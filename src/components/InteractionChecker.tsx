@@ -98,9 +98,9 @@ export default function InteractionChecker() {
     } catch {
       const fallback = checkInteraction(a, b);
       setResult({
-        severity: fallback.severity,
+        severity: fallback.severity === 'UNKNOWN' ? 'UPSTREAM UNAVAILABLE' : fallback.severity,
         description: fallback.severity === 'UNKNOWN'
-          ? 'Live medical data could not be reached. The local rapid-check matrix also has no explicit entry. Do not interpret this as safe.'
+          ? 'Live medical data could not be reached, and the local rapid-check matrix has no explicit entry. This is an availability/evidence limitation, not a safety clearance.'
           : fallback.description + ' Live medical data was unavailable, so this result is from the local rapid-check matrix.',
         evidence: fallback.source ? [{ source: fallback.source, sourceUrl: fallback.sourceUrl, evidence: fallback.description, updatedAt: null }] : []
       });
