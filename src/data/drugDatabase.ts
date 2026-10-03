@@ -1,4 +1,4 @@
-export const DATA_REVIEW_DATE = '2026-09-22';
+export const DATA_REVIEW_DATE = '2026-10-02';
 
 export const DATA_SOURCES = [
   { name: 'CDC Overdose Prevention Data Channel', url: 'https://www.cdc.gov/overdose-prevention/data-channel/' },
