@@ -120,7 +120,7 @@ export default function App() {
                   <button onClick={() => setCurrentScreen('pill-id')} className="col-span-1 md:col-span-2 flex flex-col sm:flex-row items-center justify-center text-center gap-4 p-6 rounded-2xl border border-white/10 bg-white/5 hover:border-[#FF1493]/50 hover:bg-white/10 hover:-translate-y-1 transition-all duration-300 group">
                     <SearchIcon className="w-8 h-8 text-[#FF69B4] group-hover:scale-110 transition-transform" />
                     <div>
-                      <span className="text-md font-black uppercase tracking-widest text-white block">Pill Identifier</span>
+                      <span className="text-md font-black uppercase tracking-widest text-white block">Pill Lookup & Scanner</span>
                       <span className="text-xs uppercase text-white/50 font-bold">Local photo + imprint lookup</span>
                     </div>
                   </button>
@@ -194,7 +194,7 @@ export default function App() {
                 {currentScreen === 'hotlines'     && 'Hotlines & Support'}
                 {currentScreen === 'links'        && 'Helpful Links'}
                 {currentScreen === 'testing'      && 'Mail-In Lab Testing'}
-                {currentScreen === 'pill-id'      && 'Pill Identifier & Scanner'}
+                {currentScreen === 'pill-id'      && 'Pill Lookup & Scanner'}
                 {currentScreen === 'laws'         && 'Good Samaritan Laws'}
               </h2>
             </header>
