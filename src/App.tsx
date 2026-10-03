@@ -65,6 +65,8 @@ export default function App() {
               <button onClick={() => document.getElementById('local')?.scrollIntoView({ behavior: 'smooth' })} className="px-4 py-2 rounded-full border border-white/10 text-white/70 text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition-colors">Services</button>
             </div>
 
+            <CoverageNotice text="Harm.Less is designed for worldwide use. Coverage varies by source and jurisdiction: a global discovery path is not a guarantee that every service, law, or safety claim is complete or current everywhere." />
+
             <div className="space-y-12">
 
               {/* SECTION: Urgent Response */}
