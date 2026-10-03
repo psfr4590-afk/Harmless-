@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { checkInteraction, DRUG_CLASSES } from '../utils/interactionMatrix';
 import { getFdaInteractionEvidence, resolveRxNormName, type InteractionEvidence } from '../utils/medicalApi';
 
-type Severity = 'FATAL' | 'UNSAFE' | 'CAUTION' | 'LOW RISK' | 'UNKNOWN' | 'SAME_SUBSTANCE';
+type Severity = 'DOCUMENTED INTERACTION' | 'FATAL' | 'UNSAFE' | 'CAUTION' | 'LOW RISK' | 'UNKNOWN' | 'UPSTREAM UNAVAILABLE' | 'SAME_SUBSTANCE';
 type LocalEvidence = { source: string; sourceUrl?: string; evidence: string; updatedAt: null };
 type EvidenceItem = InteractionEvidence | LocalEvidence;
 
@@ -19,6 +19,8 @@ export default function InteractionChecker() {
 
   const getStyle = (severity: Severity) => {
     switch (severity) {
+      case 'DOCUMENTED INTERACTION': return 'bg-orange-500/10 border-orange-500/50 text-orange-300';
+      case 'UPSTREAM UNAVAILABLE': return 'bg-white/5 border-white/20 text-white/60';
       case 'FATAL': return 'bg-red-500/10 border-red-500/50 text-red-500';
       case 'UNSAFE': return 'bg-orange-500/10 border-orange-500/50 text-orange-400';
       case 'CAUTION': return 'bg-yellow-500/10 border-yellow-500/50 text-yellow-400';
@@ -30,6 +32,8 @@ export default function InteractionChecker() {
 
   const getIcon = (severity: Severity) => {
     switch (severity) {
+      case 'DOCUMENTED INTERACTION': return <AlertOctagon className="w-8 h-8 text-orange-400" />;
+      case 'UPSTREAM UNAVAILABLE': return <Info className="w-8 h-8 text-white/50" />;
       case 'FATAL': return <ShieldAlert className="w-8 h-8 animate-pulse text-red-500" />;
       case 'UNSAFE': return <AlertOctagon className="w-8 h-8 text-orange-400" />;
       case 'CAUTION': return <AlertTriangle className="w-8 h-8 text-yellow-400" />;
@@ -68,8 +72,8 @@ export default function InteractionChecker() {
       const live = await getFdaInteractionEvidence(canonicalA, canonicalB);
       if (live.status === 'DOCUMENTED_INTERACTION') {
         setResult({
-          severity: 'UNSAFE',
-          description: 'FDA drug labeling contains interaction information connecting these substances. Review the source evidence below. This is not a personalized medical safety determination.',
+          severity: 'DOCUMENTED INTERACTION',
+          description: 'FDA drug labeling contains interaction information connecting these substances. This establishes documented label evidence, not a universal severity rating or personalized medical safety determination. Review the source evidence below.',
           evidence: live.records
         });
         return;
@@ -94,9 +98,9 @@ export default function InteractionChecker() {
     } catch {
       const fallback = checkInteraction(a, b);
       setResult({
-        severity: fallback.severity,
+        severity: fallback.severity === 'UNKNOWN' ? 'UPSTREAM UNAVAILABLE' : fallback.severity,
         description: fallback.severity === 'UNKNOWN'
-          ? 'Live medical data could not be reached. The local rapid-check matrix also has no explicit entry. Do not interpret this as safe.'
+          ? 'Live medical data could not be reached, and the local rapid-check matrix has no explicit entry. This is an availability/evidence limitation, not a safety clearance.'
           : fallback.description + ' Live medical data was unavailable, so this result is from the local rapid-check matrix.',
         evidence: fallback.source ? [{ source: fallback.source, sourceUrl: fallback.sourceUrl, evidence: fallback.description, updatedAt: null }] : []
       });

@@ -19,7 +19,7 @@ export default function DoseCalculator() {
           <h2 className="text-xl font-black uppercase text-[#00E5FF] tracking-widest">Volumetric Dosing</h2>
         </div>
         <p className="mt-3 text-white/80 text-sm leading-relaxed">
-          This calculator performs a mathematical concentration-to-volume conversion for a solution whose concentration is already known. It does not determine a safe dose, drug purity, drug identity, or whether a solution is safe to consume. 
+          This calculator performs a mathematical concentration-to-volume conversion. The target amount is supplied entirely by the user; Harm.Less does not determine or recommend that amount. It does not determine a safe dose, drug purity, drug identity, or whether a solution is safe to consume. 
         </p>
       </div>
 
@@ -57,7 +57,7 @@ export default function DoseCalculator() {
         <div className="border-t border-white/10 pt-6">
           <label className="flex flex-col gap-2 max-w-sm mx-auto">
             <span className="text-xs font-bold uppercase tracking-widest text-[#FF1493] text-center">
-              Desired Dose (mg)
+              Target Amount for Mathematical Conversion (mg)
             </span>
             <input 
               type="number"

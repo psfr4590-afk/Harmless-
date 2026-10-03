@@ -3,6 +3,7 @@ import { MapPin, Search, Navigation, ExternalLink, Loader2, AlertCircle, Phone, 
 import { motion, AnimatePresence } from 'framer-motion';
 import { buildOverpassQuery, dedupeById, safeExternalUrl, extractOverpassElements } from '../utils/safetyUtils';
 import { searchFindTreatment } from '../utils/medicalApi';
+import CoverageNotice from './CoverageNotice';
 
 interface OverpassElement { type: string; id: string | number; lat?: number; lon?: number; center?: { lat: number; lon: number }; tags?: Record<string, string>; }
 
@@ -56,7 +57,8 @@ export default function ResourceSearch() {
   const [activeLocationName, setActiveLocationName] = useState<string | null>(null);
   const requestIdRef = useRef(0);
 
-  useEffect(() => { requestLocation(); }, []);
+  // Location is requested only after an explicit user action.
+
 
   const fetchPublicData = async (categoryId: string) => {
     const category = CATEGORIES.find(c => c.id === categoryId);
@@ -276,6 +278,7 @@ export default function ResourceSearch() {
         <h2 className="text-xl font-black uppercase text-[#FF69B4] tracking-widest">Local Resources</h2>
         <p className="mt-2 text-sm text-white/80 max-w-2xl">Search connected treatment and geographic sources near the selected location. Harmless is intended for people anywhere in the world. Geographic discovery uses OpenStreetMap sources worldwide; U.S. substance-use and mental-health searches may also use SAMHSA FindTreatment.gov. Results include source and retrieval metadata, and a missing result does not establish that a service is absent.</p>
       </div>
+      <CoverageNotice text="Worldwide discovery is source-dependent. OpenStreetMap coverage is directory-based; SAMHSA FindTreatment.gov is used only for U.S. locations. No-result does not establish that a service is absent." />
 
       <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
         <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between mb-4">
@@ -283,6 +286,7 @@ export default function ResourceSearch() {
             <MapPin className="w-6 h-6 text-[#FF1493]" />
             <div><h3 className="text-xl font-black uppercase tracking-wider text-white">Active Location</h3><p className="text-xs text-white/50 uppercase font-bold tracking-widest mt-1">{activeLocationName || 'Unknown'}</p></div>
           </div>
+          {!location && !loadingLoc && <button type="button" onClick={requestLocation} className="px-5 py-3 mb-4 bg-[#FF1493]/20 border border-[#FF1493]/40 text-[#FF69B4] rounded-xl text-xs font-black uppercase tracking-widest">Use My Location</button>}
           <form onSubmit={handleGeocode} className="w-full md:w-auto flex flex-col sm:flex-row gap-2">
             <input type="text" placeholder="e.g. Dallas County, TX" className="flex-1 w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-[#FF1493]/50" value={manualLocationQuery} onChange={e => setManualLocationQuery(e.target.value)} disabled={geocoding} />
             <button type="submit" disabled={geocoding || !manualLocationQuery.trim()} className="px-6 py-2 bg-white/10 hover:bg-white/20 disabled:opacity-50 text-white flex items-center justify-center rounded-xl transition-colors font-bold uppercase tracking-wider text-xs whitespace-nowrap">{geocoding ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Search World'}</button>

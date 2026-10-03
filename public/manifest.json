@@ -2,14 +2,14 @@
   "name": "Harm.Less",
   "short_name": "Harm.Less",
   "description": "A privacy-conscious harm-reduction companion for safety information, support resources, and practical tools.",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#121212",
   "theme_color": "#121212",
   "icons": [
     {
-      "src": "/icon.svg",
+      "src": "./icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
