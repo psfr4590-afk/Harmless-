@@ -57,7 +57,7 @@ export default function DoseCalculator() {
         <div className="border-t border-white/10 pt-6">
           <label className="flex flex-col gap-2 max-w-sm mx-auto">
             <span className="text-xs font-bold uppercase tracking-widest text-[#FF1493] text-center">
-              Desired Dose (mg)
+              Target Amount for Mathematical Conversion (mg)
             </span>
             <input 
               type="number"
