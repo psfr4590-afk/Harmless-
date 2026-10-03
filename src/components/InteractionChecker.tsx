@@ -72,8 +72,8 @@ export default function InteractionChecker() {
       const live = await getFdaInteractionEvidence(canonicalA, canonicalB);
       if (live.status === 'DOCUMENTED_INTERACTION') {
         setResult({
-          severity: 'UNSAFE',
-          description: 'FDA drug labeling contains interaction information connecting these substances. Review the source evidence below. This is not a personalized medical safety determination.',
+          severity: 'DOCUMENTED INTERACTION',
+          description: 'FDA drug labeling contains interaction information connecting these substances. This establishes documented label evidence, not a universal severity rating or personalized medical safety determination. Review the source evidence below.',
           evidence: live.records
         });
         return;
