@@ -433,7 +433,7 @@ export const DRUG_DATA = [
       {
         name: 'DXM (Dextromethorphan)',
         roas: [
-          { method: 'Oral', safety: ['Only use products where Dextromethorphan (DXM) is the EXACT AND ONLY active ingredient.'] }
+          { method: 'Oral', safety: ['Products containing multiple active ingredients can create additional risks; check the label and pharmacist guidance for the specific product.'] }
         ],
         overdose: [
           'Taking products with Acetaminophen (Tylenol), Guaifenesin, or CPM will cause liver failure, severe vomiting, or internal bleeding.',
@@ -505,7 +505,7 @@ export const DRUG_DATA = [
           'Lasts only 5-15 minutes, but feels like an eternity. Sitters should remain quiet and simply ensure physical safety until they return.'
         ],
         mixes: [
-          'Mixing with MAOIs (like Syrian Rue) turns DMT into an hours-long Ayahuasca trip. Do not do this without extensive research and dietary restriction preparation.'
+          'MAOIs can substantially change the effects and duration of some psychoactive substances and can create serious interactions. Combining prescription medicines or psychoactive substances warrants professional guidance.'
         ],
         identification: 'Yellow, orange, or white crystalline powder smelling distinctly like mothballs or new sneakers.'
       }
@@ -553,7 +553,7 @@ export const DRUG_DATA = [
       {
         name: 'Nitrous Oxide (Whip-Its)',
         roas: [
-          { method: 'Inhalation', safety: ['Do not use an enclosed bag or mask over the face because it can impair oxygen delivery.', 'Always sit down before inhaling.', 'Direct inhalation from pressurized dispensers can cause cold injury and other harm; follow the safety instructions for the specific product.', 'Heavy nitrous oxide exposure can interfere with vitamin B12 function and cause neurologic injury; persistent or severe symptoms warrant medical evaluation.'] }
+          { method: 'Inhalation', safety: ['Do not use an enclosed bag or mask over the face because it can impair oxygen delivery.', 'Sitting before use can reduce fall and injury risk.', 'Direct inhalation from pressurized dispensers can cause cold injury and other harm; follow the safety instructions for the specific product.', 'Heavy nitrous oxide exposure can interfere with vitamin B12 function and cause neurologic injury; persistent or severe symptoms warrant medical evaluation.'] }
         ],
         overdose: [
           'Nitrous risk is asphyxiation (displacing oxygen to the point of passing out/brain damage).',
