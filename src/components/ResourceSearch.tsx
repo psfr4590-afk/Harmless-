@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { buildOverpassQuery, dedupeById, safeExternalUrl, extractOverpassElements } from '../utils/safetyUtils';
 import { searchFindTreatment } from '../utils/medicalApi';
 import CoverageNotice from './CoverageNotice';
-import { requestJson } from '../utils/httpClient';
+import { ExternalServiceError, requestJson } from '../utils/httpClient';
 
 interface OverpassElement { type: string; id: string | number; lat?: number; lon?: number; center?: { lat: number; lon: number }; tags?: Record<string, string>; }
 
@@ -218,7 +218,18 @@ export default function ResourceSearch() {
       }
     } catch (err) {
       if (err instanceof DOMException && err.name === 'AbortError') return;
-      if (requestId === requestIdRef.current) setSearchError(err instanceof Error ? err.message : 'Unable to query the connected resource databases.');
+      if (requestId === requestIdRef.current) {
+        if (err instanceof ExternalServiceError) {
+          const message = err.kind === 'RATE_LIMIT'
+            ? `${err.service} is rate-limited. The directory may be temporarily incomplete; no absence conclusion is inferred.`
+            : err.kind === 'TIMEOUT'
+              ? `${err.service} timed out. Current upstream evidence is unavailable; no absence conclusion is inferred.`
+              : `${err.service} is currently unavailable or returned invalid data. No absence conclusion is inferred.`;
+          setSearchError(message);
+        } else {
+          setSearchError(err instanceof Error ? err.message : 'Unable to query the connected resource databases.');
+        }
+      }
     } finally {
       if (requestId === requestIdRef.current) setFetchingData(false);
     }
