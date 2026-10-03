@@ -92,3 +92,40 @@ test('U.S.-specific legal data is explicitly scoped', () => {
   assert.match(source, /U\.S\. Good Samaritan Law Sources/);
   assert.match(source, /United States state-by-state/);
 });
+
+
+test('coverage governance is surfaced and location access is user initiated', () => {
+  const resource = read('src/components/ResourceSearch.tsx');
+  const hotline = read('src/components/HotlineSearch.tsx');
+  const app = read('src/App.tsx');
+  assert.match(app, /CoverageNotice/);
+  assert.match(resource, /source-dependent/);
+  assert.match(hotline, /does not assume 911, 112/);
+  assert.doesNotMatch(resource, /useEffect\(\(\) => \{ requestLocation\(\); \}, \[\]\)/);
+  assert.doesNotMatch(hotline, /useEffect\(\(\) => \{ requestLocation\(\); \}, \[\]\)/);
+});
+
+test('PWA metadata is relative for project-subpath deployment and version is synchronized', () => {
+  const manifest = JSON.parse(read('public/manifest.json'));
+  const metadata = JSON.parse(read('metadata.json'));
+  const pkg = JSON.parse(read('package.json'));
+  assert.equal(manifest.start_url, './');
+  assert.equal(manifest.scope, './');
+  assert.equal(manifest.icons[0].src, './icon.svg');
+  assert.equal(metadata.version, pkg.version);
+});
+
+test('interaction evidence and availability are distinct UI states', () => {
+  const source = read('src/components/InteractionChecker.tsx');
+  assert.match(source, /DOCUMENTED INTERACTION/);
+  assert.match(source, /UPSTREAM UNAVAILABLE/);
+  assert.match(source, /not a universal severity rating/);
+});
+
+test('tool labels do not imply capabilities the implementation does not provide', () => {
+  const pill = read('src/components/PillIdentifier.tsx');
+  const dose = read('src/components/DoseCalculator.tsx');
+  assert.match(pill, /Imprint Lookup/);
+  assert.match(pill, /Visual match is not proof of identity or safety|Pill identification cannot confirm contents/);
+  assert.match(dose, /does not determine or recommend/);
+});
