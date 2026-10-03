@@ -84,10 +84,28 @@ export default function InteractionChecker() {
         return;
       }
 
-      if (liveStatus === 'NO_DOCUMENTED_INTERACTION' || liveStatus === 'NO_PAIR_FOUND' || liveStatus === 'DOCUMENTED_LACK_OF_INTERACTION') {
+      if (liveStatus === 'NO_DOCUMENTED_INTERACTION' || liveStatus === 'NO_DOCUMENTED_PAIR_IN_MATCHED_LABELS' || liveStatus === 'NO_PAIR_FOUND' || liveStatus === 'DOCUMENTED_LACK_OF_INTERACTION') {
         setResult({
           severity: 'NO PAIR FOUND',
           description: 'The queried FDA label set did not identify a documented interaction for this pair. This is not evidence that the combination is safe and is not a documented lack-of-interaction finding across all medicines or circumstances.',
+          evidence: live.records
+        });
+        return;
+      }
+
+      if (liveStatus === 'UPSTREAM_UNAVAILABLE') {
+        setResult({
+          severity: 'UPSTREAM UNAVAILABLE',
+          description: 'The live medical evidence provider reported that current upstream evidence was unavailable. No interaction severity is inferred from that failure.',
+          evidence: live.records
+        });
+        return;
+      }
+
+      if (liveStatus === 'INSUFFICIENT_EVIDENCE') {
+        setResult({
+          severity: 'UNKNOWN',
+          description: 'The live medical evidence provider returned insufficient evidence for a safety conclusion. This is not a safety clearance.',
           evidence: live.records
         });
         return;
