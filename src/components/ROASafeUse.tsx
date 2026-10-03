@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { DRUG_DATA, DATA_SOURCES, DATA_REVIEW_DATE } from '../data/drugDatabase';
 import { searchMedlinePlus, searchFdaDrugSafety } from '../utils/medicalApi';
 import { safeExternalUrl } from '../utils/safetyUtils';
-import { CONTENT_AUDIT_DATE, CONTENT_EVIDENCE_POLICY } from '../data/contentGovernance';
+import { CONTENT_AUDIT_DATE, CONTENT_EVIDENCE_POLICY, claimProvenanceForDrug, CONTENT_EVIDENCE_SOURCES } from '../data/contentGovernance';
 
 export default function ROASafeUse() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
@@ -189,7 +189,10 @@ export default function ROASafeUse() {
                       </React.Fragment>
                     ))}
                   </div>
-                  {cat.drugs.map((drug) => (
+                  {cat.drugs.map((drug) => {
+                    const provenance = claimProvenanceForDrug(drug.name, cat.category);
+                    const sources = provenance.sourceIds.map(id => CONTENT_EVIDENCE_SOURCES.find(source => source.id === id)).filter(Boolean);
+                    return (
                     <div key={drug.name} className="border-b border-white/5 last:border-0">
                       <button 
                         onClick={() => setActiveDrug(activeDrug === drug.name ? null : drug.name)}
@@ -207,6 +210,21 @@ export default function ROASafeUse() {
                             exit={{ height: 0, opacity: 0 }}
                             className="p-4 pl-12 bg-black/20 space-y-6"
                           >
+                            <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-4">
+                              <div className="font-black uppercase tracking-widest text-xs text-amber-300">Claim provenance</div>
+                              <p className="mt-2 text-xs text-white/60 leading-relaxed">
+                                Status: {provenance.reviewStatus === 'REVIEWED' ? 'Reviewed source-backed' : 'Educational guidance · review required'} · Jurisdiction: {provenance.jurisdiction} · Evidence type: {provenance.evidenceType} · Review: {provenance.publicationOrUpdateDate}
+                              </p>
+                              <p className="mt-2 text-xs text-white/50 leading-relaxed">{provenance.notes}</p>
+                              <div className="mt-3 flex flex-wrap gap-2">
+                                {sources.map(source => source ? (
+                                  <a key={source.id} href={source.url} target="_blank" rel="noopener noreferrer" className="rounded-full border border-blue-400/20 bg-blue-400/5 px-2 py-1 text-[10px] text-blue-300 underline">
+                                    {source.name}
+                                  </a>
+                                ) : null)}
+                              </div>
+                            </div>
+
                             {drug.roas && drug.roas.map((roa, i) => (
                               <div key={i}>
                                 <h4 className="font-bold uppercase text-xs tracking-widest text-[#FF1493] mb-3 flex items-center gap-2">
@@ -305,7 +323,8 @@ export default function ROASafeUse() {
                         )}
                       </AnimatePresence>
                     </div>
-                  ))}
+                    );
+                  })}
                 </motion.div>
               )}
             </AnimatePresence>

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { buildOverpassQuery, dedupeById, safeExternalUrl, extractOverpassElements } from '../utils/safetyUtils';
 import { emergencyGuidance } from '../utils/evidenceGovernance';
 import CoverageNotice from './CoverageNotice';
+import { requestJson } from '../utils/httpClient';
 
 const LOCAL_SEARCHES = [
   { id: 'crisis', name: 'Local Crisis Centers', query: 'mental health crisis center', osm: ['["name"~"crisis|behavioral health|mental health",i]', '["healthcare"="mental_health"]', '["amenity"="clinic"]["name"~"mental|crisis",i]'], color: 'bg-red-500/20 text-red-400 border-red-500/30' },
@@ -59,9 +60,7 @@ export default function HotlineSearch() {
     const controller = new AbortController();
     try {
       const query = buildOverpassQuery(category.osm, location.lat, location.lng);
-      const res = await fetch('https://overpass-api.de/api/interpreter', { method: 'POST', body: query, signal: controller.signal });
-      if (!res.ok) throw new Error(`Public directory returned HTTP ${res.status}`);
-      const data = await res.json();
+      const data = await requestJson<any>('Overpass', 'https://overpass-api.de/api/interpreter', { method: 'POST', body: query }, { signal: controller.signal, timeoutMs: 20000, retries: 1 });
       const elements = extractOverpassElements(data);
       if (!elements) throw new Error('Public directory returned an unexpected response format.');
       const mapped: LocalResult[] = dedupeById<LocalResult>(elements.map((el: OverpassElement) => {
@@ -71,7 +70,7 @@ export default function HotlineSearch() {
       })).filter((x: LocalResult) => x.phone || x.website || x.name !== 'Unnamed service').sort((a: LocalResult,b: LocalResult) => (a.distance ?? 9999) - (b.distance ?? 9999)).slice(0, 50);
       if (requestId !== requestIdRef.current) return;
       setResults(mapped);
-      if (!mapped.length) setSearchError('No mapped local services with contact information were found within 20 km.');
+      if (!mapped.length) setSearchError('No matching mapped records were returned. This does not establish that local services are absent; directory coverage varies by region.');
     } catch (err) {
       if (err instanceof DOMException && err.name === 'AbortError') return;
       if (requestId === requestIdRef.current) setSearchError(err instanceof Error ? err.message : 'Unable to search the public directory.');

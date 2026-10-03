@@ -10,7 +10,9 @@
     "test": "node --test tests/*.test.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "verify:release": "npm run lint && npm test && npm run typecheck && npm run build"
+    "verify:release": "npm run lint && npm test && npm run typecheck && npm run build",
+    "test:tap": "node --test --test-reporter=tap tests/*.test.mjs",
+    "release:evidence": "node scripts/write-release-evidence.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.38.0",

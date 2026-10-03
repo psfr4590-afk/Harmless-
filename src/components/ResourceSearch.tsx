@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { buildOverpassQuery, dedupeById, safeExternalUrl, extractOverpassElements } from '../utils/safetyUtils';
 import { searchFindTreatment } from '../utils/medicalApi';
 import CoverageNotice from './CoverageNotice';
+import { requestJson } from '../utils/httpClient';
 
 interface OverpassElement { type: string; id: string | number; lat?: number; lon?: number; center?: { lat: number; lon: number }; tags?: Record<string, string>; }
 
@@ -85,13 +86,10 @@ export default function ResourceSearch() {
           reverse.searchParams.set('lat', String(location.lat));
           reverse.searchParams.set('lon', String(location.lng));
           reverse.searchParams.set('zoom', '3');
-          const reverseRes = await fetch(reverse.toString(), { signal: controller.signal, headers: { Accept: 'application/json' } });
-          if (reverseRes.ok) {
-            const reverseData = await reverseRes.json();
-            countryCode = typeof reverseData?.address?.country_code === 'string'
-              ? reverseData.address.country_code.toLowerCase()
-              : null;
-          }
+          const reverseData = await requestJson<any>('Nominatim reverse geocoder', reverse.toString(), { headers: { Accept: 'application/json' } }, { signal: controller.signal, timeoutMs: 12000, retries: 1 });
+          countryCode = typeof reverseData?.address?.country_code === 'string'
+            ? reverseData.address.country_code.toLowerCase()
+            : null;
         } catch (error) {
           if (error instanceof DOMException && error.name === 'AbortError') return;
         }
@@ -134,9 +132,7 @@ export default function ResourceSearch() {
       }
 
       const overpassQuery = buildOverpassQuery(category.osm, location.lat, location.lng);
-      const osmRes = await fetch('https://overpass-api.de/api/interpreter', { method: 'POST', body: overpassQuery, signal: controller.signal });
-      if (!osmRes.ok) throw new Error(`Public data service returned HTTP ${osmRes.status}`);
-      const osmData = await osmRes.json();
+      const osmData = await requestJson<any>('Overpass', 'https://overpass-api.de/api/interpreter', { method: 'POST', body: overpassQuery }, { signal: controller.signal, timeoutMs: 20000, retries: 1 });
       const elements = extractOverpassElements(osmData);
       if (!elements) throw new Error('Public data service returned an unexpected response format.');
 
@@ -183,9 +179,7 @@ export default function ResourceSearch() {
             nominatimUrl.searchParams.set('limit', '10');
             nominatimUrl.searchParams.set('viewbox', viewbox);
             nominatimUrl.searchParams.set('bounded', '1');
-            const nominatimRes = await fetch(nominatimUrl.toString(), { signal: controller.signal, headers: { Accept: 'application/json' } });
-            if (!nominatimRes.ok) continue;
-            const nominatimData = await nominatimRes.json();
+            const nominatimData = await requestJson<any[]>('Nominatim search', nominatimUrl.toString(), { headers: { Accept: 'application/json' } }, { signal: controller.signal, timeoutMs: 12000, retries: 1 });
             if (!Array.isArray(nominatimData)) continue;
             for (const [index, item] of nominatimData.entries()) {
               const name = item.name || item.display_name?.split(',')[0] || 'Unnamed facility';
@@ -241,9 +235,7 @@ export default function ResourceSearch() {
     setGeocoding(true);
     setLocError(null);
     try {
-      const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(manualLocationQuery)}`);
-      if (!res.ok) throw new Error(`Location service returned HTTP ${res.status}`);
-      const data = await res.json();
+      const data = await requestJson<any[]>('Nominatim geocoder', `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(manualLocationQuery)}`, { headers: { Accept: 'application/json' } }, { timeoutMs: 12000, retries: 1 });
       if (!data?.length) throw new Error('Could not find that location. Try a city, ZIP code, or address.');
       setLocation({ lat: Number(data[0].lat), lng: Number(data[0].lon) });
       setActiveLocationName(data[0].display_name);

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { checkInteraction, DRUG_CLASSES } from '../utils/interactionMatrix';
 import { getFdaInteractionEvidence, resolveRxNormName, type InteractionEvidence } from '../utils/medicalApi';
 
-type Severity = 'DOCUMENTED INTERACTION' | 'FATAL' | 'UNSAFE' | 'CAUTION' | 'LOW RISK' | 'UNKNOWN' | 'UPSTREAM UNAVAILABLE' | 'SAME_SUBSTANCE';
+type Severity = 'DOCUMENTED INTERACTION' | 'LOCAL EDUCATIONAL WARNING' | 'NO PAIR FOUND' | 'FATAL' | 'UNSAFE' | 'CAUTION' | 'LOW RISK' | 'UNKNOWN' | 'UPSTREAM UNAVAILABLE' | 'SAME_SUBSTANCE';
 type LocalEvidence = { source: string; sourceUrl?: string; evidence: string; updatedAt: null };
 type EvidenceItem = InteractionEvidence | LocalEvidence;
 
@@ -21,6 +21,8 @@ export default function InteractionChecker() {
     switch (severity) {
       case 'DOCUMENTED INTERACTION': return 'bg-orange-500/10 border-orange-500/50 text-orange-300';
       case 'UPSTREAM UNAVAILABLE': return 'bg-white/5 border-white/20 text-white/60';
+      case 'NO PAIR FOUND': return 'bg-blue-500/10 border-blue-500/30 text-blue-300';
+      case 'LOCAL EDUCATIONAL WARNING': return 'bg-amber-500/10 border-amber-500/40 text-amber-300';
       case 'FATAL': return 'bg-red-500/10 border-red-500/50 text-red-500';
       case 'UNSAFE': return 'bg-orange-500/10 border-orange-500/50 text-orange-400';
       case 'CAUTION': return 'bg-yellow-500/10 border-yellow-500/50 text-yellow-400';
@@ -34,6 +36,8 @@ export default function InteractionChecker() {
     switch (severity) {
       case 'DOCUMENTED INTERACTION': return <AlertOctagon className="w-8 h-8 text-orange-400" />;
       case 'UPSTREAM UNAVAILABLE': return <Info className="w-8 h-8 text-white/50" />;
+      case 'NO PAIR FOUND': return <Info className="w-8 h-8 text-blue-300" />;
+      case 'LOCAL EDUCATIONAL WARNING': return <AlertTriangle className="w-8 h-8 text-amber-300" />;
       case 'FATAL': return <ShieldAlert className="w-8 h-8 animate-pulse text-red-500" />;
       case 'UNSAFE': return <AlertOctagon className="w-8 h-8 text-orange-400" />;
       case 'CAUTION': return <AlertTriangle className="w-8 h-8 text-yellow-400" />;
@@ -70,7 +74,8 @@ export default function InteractionChecker() {
       }
 
       const live = await getFdaInteractionEvidence(canonicalA, canonicalB);
-      if (live.status === 'DOCUMENTED_INTERACTION') {
+      const liveStatus = String(live.status);
+      if (liveStatus === 'DOCUMENTED_INTERACTION') {
         setResult({
           severity: 'DOCUMENTED INTERACTION',
           description: 'FDA drug labeling contains interaction information connecting these substances. This establishes documented label evidence, not a universal severity rating or personalized medical safety determination. Review the source evidence below.',
@@ -79,11 +84,38 @@ export default function InteractionChecker() {
         return;
       }
 
+      if (liveStatus === 'NO_DOCUMENTED_INTERACTION' || liveStatus === 'NO_DOCUMENTED_PAIR_IN_MATCHED_LABELS' || liveStatus === 'NO_PAIR_FOUND' || liveStatus === 'DOCUMENTED_LACK_OF_INTERACTION') {
+        setResult({
+          severity: 'NO PAIR FOUND',
+          description: 'The queried FDA label set did not identify a documented interaction for this pair. This is not evidence that the combination is safe and is not a documented lack-of-interaction finding across all medicines or circumstances.',
+          evidence: live.records
+        });
+        return;
+      }
+
+      if (liveStatus === 'UPSTREAM_UNAVAILABLE') {
+        setResult({
+          severity: 'UPSTREAM UNAVAILABLE',
+          description: 'The live medical evidence provider reported that current upstream evidence was unavailable. No interaction severity is inferred from that failure.',
+          evidence: live.records
+        });
+        return;
+      }
+
+      if (liveStatus === 'INSUFFICIENT_EVIDENCE') {
+        setResult({
+          severity: 'UNKNOWN',
+          description: 'The live medical evidence provider returned insufficient evidence for a safety conclusion. This is not a safety clearance.',
+          evidence: live.records
+        });
+        return;
+      }
+
       const fallback = checkInteraction(a, b);
       if (fallback.severity !== 'UNKNOWN') {
         setResult({
-          severity: fallback.severity,
-          description: fallback.description + ' Live FDA labeling did not identify this exact pair in the queried label set.',
+          severity: 'LOCAL EDUCATIONAL WARNING',
+          description: fallback.description + ' This is a local educational warning. It is not a clinically verified interaction severity result, and the live FDA label search did not identify this exact pair in the queried label set.',
           evidence: fallback.source ? [{ source: fallback.source, sourceUrl: fallback.sourceUrl, evidence: fallback.description, updatedAt: null }] : []
         });
       } else {
@@ -98,7 +130,7 @@ export default function InteractionChecker() {
     } catch {
       const fallback = checkInteraction(a, b);
       setResult({
-        severity: fallback.severity === 'UNKNOWN' ? 'UPSTREAM UNAVAILABLE' : fallback.severity,
+        severity: fallback.severity === 'UNKNOWN' ? 'UPSTREAM UNAVAILABLE' : 'LOCAL EDUCATIONAL WARNING',
         description: fallback.severity === 'UNKNOWN'
           ? 'Live medical data could not be reached, and the local rapid-check matrix has no explicit entry. This is an availability/evidence limitation, not a safety clearance.'
           : fallback.description + ' Live medical data was unavailable, so this result is from the local rapid-check matrix.',
@@ -157,7 +189,8 @@ export default function InteractionChecker() {
         <div className="flex items-start gap-4">
           <div className="shrink-0 mt-1">{getIcon(result.severity)}</div>
           <div className="min-w-0">
-            <h3 className="font-black uppercase tracking-widest text-lg mb-2">
+            <div className="mb-2 text-[10px] font-black uppercase tracking-widest text-white/40">Evidence state</div>
+          <h3 className="font-black uppercase tracking-widest text-lg mb-2">
               {result.severity === 'UNKNOWN' ? 'INSUFFICIENT / UNVERIFIED' : result.severity}
             </h3>
             <p className="opacity-90 leading-relaxed text-sm">{result.description}</p>

@@ -1,4 +1,4 @@
-export const DATA_REVIEW_DATE = '2026-09-22';
+export const DATA_REVIEW_DATE = '2026-10-02';
 
 export const DATA_SOURCES = [
   { name: 'CDC Overdose Prevention Data Channel', url: 'https://www.cdc.gov/overdose-prevention/data-channel/' },
@@ -34,7 +34,7 @@ export const DRUG_DATA = [
               'Clean the injection site with an alcohol swab before hitting.',
               'Use sterile water and clean cookers/cottons. Never share any prep equipment.',
               'Rotate injection sites allowing veins to heal.',
-              'Push the plunger slowly to gauge strength.',
+              'Do not use subjective effect as a reliable measure of potency or safety.',
               'Test the supply for fentanyl and xylazine before use.',
               'Always keep Narcan (Naloxone) visible and accessible. Never use alone.'
             ]
@@ -43,7 +43,7 @@ export const DRUG_DATA = [
             method: 'Snorting / Sniffing',
             safety: [
               'Use your own sterile sniffing device (clean straws/paper). NEVER share bills to prevent Hep C.',
-              'Chop powder as finely as possible to aid rapid absorption and prevent nasal tearing.',
+              'Do not treat preparation technique as a guarantee of reduced harm; nasal injury and unpredictable absorption remain possible.',
               'Rinse nostrils with sterile saline before and after to protect mucous membranes.',
               'Test the supply for fentanyl, especially when switching batches.'
             ]
@@ -53,7 +53,7 @@ export const DRUG_DATA = [
             safety: [
               'Use clean foil or a proper pipe.',
               'Avoid using plastic or painted materials as inhalers.',
-              'Inhale slowly to gauge the potency, as fentanyl hits rapidly when smoked.',
+              'Do not use subjective onset or intensity to estimate potency or safety.',
               'Use lip balm to prevent chapped/cracked lips from transferring blood.'
             ]
           }
@@ -66,13 +66,13 @@ export const DRUG_DATA = [
           'If you must leave them, place them in the Recovery Position (on their side, knee bent, head supported) to prevent choking on vomit.'
         ],
         mixes: [
-          'NEVER MIX WITH: BENZODIAZEPINES (Xanax, Valium) - Overwhelmingly the highest cause of fatal overdoses due to compound respiratory depression.',
-          'NEVER MIX WITH: ALCOHOL - Greatly increases the chance of stopping breathing and choking on vomit.',
-          'NEVER MIX WITH: GHB, Pregabalin, or other CNS Sedatives.'
+          'Avoid combining opioids with benzodiazepines, alcohol, or other central-nervous-system depressants because combined use can substantially increase overdose and respiratory-depression risk.',
+          'Avoid combining with: ALCOHOL - Greatly increases the chance of stopping breathing and choking on vomit.',
+          'Avoid combining with: GHB, Pregabalin, or other CNS Sedatives.'
         ],
         identification: 'Fentanyl often appears as white, tan, or blue-ish powder, or stamped into counterfeit pills (M30s). Black Tar heroin looks like dark sticky residue or dark rock.',
         testStrips: [
-          'You MUST test all powders, crystals, and pressed pills for Fentanyl.',
+          'Fentanyl test strips may provide limited screening information when used according to the specific product instructions. A negative result does not prove absence.',
           '1. Put a small amount of powder (approx. the size of a match head) in a clean cooker or cup.',
           '2. Add 1/2 teaspoon of water and mix well.',
           '3. Hold the test strip in the water by the blue end for 15 seconds.',
@@ -89,7 +89,7 @@ export const DRUG_DATA = [
             safety: [
               'Do not crush, chew, or alter extended-release medicines unless the product instructions or a pharmacist specifically says the formulation can be altered.',
               'Beware of counterfeit pressed pills—most street pills contain varying, lethal hotspots of fentanyl.',
-              'Do NOT mix with alcohol or benzos (extreme risk of fatal respiratory depression).'
+              'Combining opioids with alcohol, benzodiazepines, or other depressants can substantially increase respiratory-depression and overdose risk.'
             ]
           },
           {
@@ -97,7 +97,7 @@ export const DRUG_DATA = [
             safety: [
               'Use your own straw/device. Do not share.',
               'Pill binders can heavily clog and damage nasal cavities; flush with saline.',
-              'Start with a small fraction to test strength.'
+              'Do not rely on a small test amount as a reliable measure of potency; potency can be unpredictable.'
             ]
           }
         ],
@@ -116,7 +116,7 @@ export const DRUG_DATA = [
           {
             method: 'Sublingual (Under the tongue)',
             safety: [
-              'Wait until you are in moderate to severe opioid withdrawal before taking, otherwise it will cause Precipitated Withdrawal (immediate, severe, agonizing withdrawal symptoms).',
+              'Buprenorphine initiation timing can affect withdrawal symptoms. Follow the current prescribing instructions and clinician guidance for the specific formulation and treatment plan.',
               'Do not chew or swallow; it must absorb through mucous membranes.',
               'Transmucosal buprenorphine can cause serious dental problems. After the medicine has completely dissolved, follow the current FDA oral-care guidance, including rinsing gently with water and waiting at least 1 hour before brushing.'
             ]
@@ -138,7 +138,7 @@ export const DRUG_DATA = [
             method: 'Oral',
             safety: [
               'Extremely long half-life (up to 36+ hours). Do not re-dose quickly if you don\'t feel it immediately, as it builds up in the system.',
-              'Measure liquid doses accurately with an oral syringe.'
+              'For prescribed liquid medication, use the measuring device supplied or recommended by the pharmacist.'
             ]
           }
         ],
@@ -147,8 +147,8 @@ export const DRUG_DATA = [
           'Naloxone may wear off before methadone does. Continue monitoring, call emergency services, and follow the naloxone product instructions for repeat doses.'
         ],
         mixes: [
-          'NEVER MIX WITH: Benzodiazepines. This is a very common fatal combination.',
-          'Drugs that prolong the QT interval (certain antipsychotics) can cause fatal heart arrhythmias when mixed with Methadone.'
+          'Avoid combining methadone with benzodiazepines or other central-nervous-system depressants unless directed by the treating clinician; combined use can increase serious respiratory and sedation risks.',
+          'Drugs that prolong the QT interval (certain antipsychotics) can cause life-threatening heart arrhythmias when mixed with Methadone.'
         ],
         identification: 'Usually dispensed as a pink or clear liquid (Methadose), or white/peach wafers/pills.'
       },
@@ -158,7 +158,7 @@ export const DRUG_DATA = [
           {
             method: 'Oral',
             safety: [
-              'Use a scale to weigh doses; measuring by "teaspoons" is highly inaccurate and leads to high tolerance.',
+              'Household-volume measurements are unreliable for variable products. Product strength and individual response can differ substantially.',
               'Avoid excessive water intake. Sip fluids as needed and seek medical care for severe vomiting, confusion, fainting, breathing problems, or other concerning symptoms.',
               'Buy from vendors who provide third-party lab testing (heavy metals and adulterants are common in gas-station kratom).'
             ]
@@ -170,8 +170,8 @@ export const DRUG_DATA = [
           'Lie down in a dark room and wait it out if experiencing the wobbles.'
         ],
         mixes: [
-          'Do not mix with heavy sedatives or classic opioids.',
-          'Mixing with stimulants increases anxiety, heart rate, and jitteriness.'
+          'Combining with other sedating drugs can increase adverse effects and overdose risk.',
+          'Combining substances can increase anxiety, cardiovascular strain, and other adverse effects.'
         ],
         identification: 'Green, brown, or red fine powder smelling similar to matcha tea, or encapsulated in gel-caps. Kratom extracts are sticky dark liquids.'
       }
@@ -218,16 +218,16 @@ export const DRUG_DATA = [
           'Cool them down with ice packs on the back of the neck/armpits.'
         ],
         mixes: [
-          'NEVER MIX WITH: Alcohol (Forms Cocaethylene in the liver, which is highly cardiotoxic and vastly increases heart attack/stroke risk).',
-          'NEVER MIX WITH: Tramadol (Lowers seizure threshold, inducing seizures).',
-          'NEVER MIX WITH: MAOI Antidepressants (Fatal hypertensive crisis).'
+          'Avoid combining with: Alcohol (Forms Cocaethylene in the liver, which is highly cardiotoxic and vastly increases heart attack/stroke risk).',
+          'Avoid combining with: Tramadol (Lowers seizure threshold, inducing seizures).',
+          'Avoid combining with: MAOI Antidepressants (potentially life-threatening hypertensive crisis).'
         ],
         identification: 'White flaky powder. Crack is hard off-white rocks. Use Marquis, Mecke, or Mandelin reagents to test purity.',
         testStrips: [
           'FTS on cocaine are critical due to accidental cross-contamination on dealer scales.',
           'Fentanyl test-strip instructions vary by product and substance. Follow the current instructions supplied with the specific test strip; stimulant samples can require substantially more dilution than opioid samples, and an incorrect dilution can affect results.',
           'Follow the specific product instructions for sample preparation and dilution; procedures differ by substance and test-strip product.',
-          'ONE line = POSITIVE. TWO lines = NEGATIVE.'
+          'Interpret fentanyl-test-strip lines only according to the instructions supplied with the specific product and sample type; test results have limitations and do not establish safety.'
         ]
       },
       {
@@ -258,13 +258,13 @@ export const DRUG_DATA = [
           }
         ],
         overdose: [
-          'Risk of severe psychosis, hyperthermia (fatal overheating), or cardiac arrest.',
+          'Risk includes severe psychosis, dangerous hyperthermia, cardiovascular complications, or other medical emergencies.',
           'Move them to a quiet, cool physical environment. Provide water but do not let them chug massively.',
           'Do not restrain if panicked or violent, unless they are a danger to themselves. contact the local emergency service for severe distress.'
         ],
         mixes: [
-          'NEVER MIX WITH: Ayahuasca / MAOIs (Fatal hypertensive crisis).',
-          'NEVER MIX WITH: Tramadol, synthetic cathinones (Bath Salts).'
+          'Avoid combining with: Ayahuasca / MAOIs (potentially life-threatening hypertensive crisis).',
+          'Avoid combining with: Tramadol, synthetic cathinones (Bath Salts).'
         ],
         identification: 'Clear or cloudy crystalline shards. Reagent test with Marquis (turns orange-brown).',
         testStrips: [
@@ -290,23 +290,23 @@ export const DRUG_DATA = [
           'In emergency: Cool them down with ice on neck/armpits. If seizing, contact the local emergency service immediately.'
         ],
         mixes: [
-          'NEVER MIX WITH: MAOI Antidepressants (Fatal Serotonin Syndrome).',
-          'NEVER MIX WITH: 5-HTP taken within 24 hours of MDMA.',
+          'Avoid combining with: MAOI Antidepressants (potentially life-threatening serotonin syndrome).',
+          'Avoid combining with: 5-HTP taken within 24 hours of MDMA.',
           'SSRIs and other serotonergic medicines can alter MDMA effects and may contribute to medication interactions. Do not treat a subjective change in effects as evidence of safety.'
         ],
         identification: 'Tan/brown/white crystals or colored pressed pills with logos.',
-        pillId: 'MDMA presses are notorious for being cut with Methamphetamine, PMMA, or pure Caffeine. YOU CANNOT ID THEM BY SIGHT. You MUST use a Marquis Reagent (Should rapidly turn dark purple/black).'
+        pillId: 'Pressed MDMA products can contain unexpected substances. Appearance alone cannot establish identity, purity, or safety; reagent tests also have limitations and do not confirm contents.'
       },
       {
         name: 'Prescription Stimulants (Adderall, Ritalin, Vyvanse)',
-        roas: [{ method: 'Oral', safety: ['Take early in the day to prevent severe insomnia.', 'Force yourself to eat high-protein meals and drink water.'] }],
+        roas: [{ method: 'Oral', safety: ['Follow the prescribed product directions and discuss timing or sleep effects with a clinician or pharmacist.', 'Maintain ordinary hydration and nutrition as tolerated; seek medical advice for concerning symptoms.'] }],
         overdose: [
           'Symptoms include severe chest pain, extreme tachycardia (racing heart, 140+ BPM), and panic attacks.',
           'Move to a quiet, dim environment. Use breathing exercises.',
           'Seek emergency attention if chest pain radiates to the arm or jaw.'
         ],
         mixes: [
-          'NEVER MIX WITH: MAOIs (Fatal hypertensive crisis).',
+          'Avoid combining with: MAOIs (potentially life-threatening hypertensive crisis).',
           'Avoid taking with heavy doses of caffeine or energy drinks.'
         ],
         identification: 'Legitimate pharma pills have a sharp, clean snap and uniform precise stamping.',
@@ -315,11 +315,11 @@ export const DRUG_DATA = [
       {
         name: 'Synthetic Cathinones (Bath Salts, Flakka, 3-MMC, 4-MMC)',
         roas: [
-          { method: 'Snorting / Oral / IV', safety: ['Highly compulsive redosing profile. Set a strict limit before starting.', 'Monitor heart rate constantly. Do not binge for multiple days due to rapid onset of stimulant psychosis.'] }
+          { method: 'Snorting / Oral / IV', safety: ['Highly compulsive redosing profile. Do not assume a preset personal limit makes repeated use safe; potency and individual response are unpredictable.', 'Monitor heart rate constantly. Do not binge for multiple days due to rapid onset of stimulant psychosis.'] }
         ],
         overdose: [
           'Extreme stimulant psychosis, aggressive behavior, extreme hyperthermia, and organ failure.',
-          'Medical intervention often requires heavy sedation (IV benzodiazepines) in the ER.'
+          'Severe stimulant toxicity may require emergency medical treatment; medication choices are made by clinicians based on the presentation.'
         ],
         mixes: [
           'Extremely dangerous to mix with other stimulants (Cocaine, Meth) or MAOI antidepressants.'
@@ -339,21 +339,21 @@ export const DRUG_DATA = [
           {
             method: 'Oral / Sublingual',
             safety: [
-              'NEVER COMBINE depressants (Benzos + Alcohol + Opioids = Highest risk of fatal overdose).',
+              'Combining central-nervous-system depressants, including benzodiazepines, alcohol, and opioids, can substantially increase overdose and respiratory-depression risk.',
               'Beware of pressed street Xanax containing potent designer benzos (RCs).',
-              'If physically dependent, NEVER quit cold turkey. Withdrawal can cause fatal seizures. Taper slowly under medical supervision using a long-acting benzo like Valium.'
+              'Abrupt benzodiazepine discontinuation can cause serious withdrawal, including seizures. If physically dependent, discontinuation should be planned with a qualified clinician rather than stopped abruptly.'
             ]
           }
         ],
         overdose: [
           'Loss of coordination, "delusions of sobriety" (thinking you are sober when heavily intoxicated), blackouts lasting days, respiratory depression if combined with other downers.',
-          'If someone is unarousable or breathing dangerously slow, contact the local emergency service immediately.',
+          'If someone is unarousable or breathing abnormally slowly, contact the local emergency service immediately.',
           'Prop them in the Recovery Position if you cannot wake them to prevent choking on vomit.'
         ],
         mixes: [
-          'NEVER MIX WITH: OPIOIDS (Fatal respiratory depression).',
-          'NEVER MIX WITH: ALCOHOL (Fatal respiratory depression/massive blackouts).',
-          'NEVER MIX WITH: GHB, Ketamine, or Barbiturates.'
+          'Avoid combining with: OPIOIDS (life-threatening respiratory depression).',
+          'Avoid combining with: ALCOHOL (life-threatening respiratory depression/massive blackouts).',
+          'Avoid combining with: GHB, Ketamine, or Barbiturates.'
         ],
         identification: 'Prescription pills or street presses (rectangles/bars).',
         pillId: 'FAKE XANAX WARNING: Street "bars" are rarely Alprazolam. Most are pressed with ultra-potent research chemical benzos (Clonazolam, Flualprazolam, Bromazolam) that cause multi-day blackouts, or they are laced with Fentanyl.'
@@ -364,20 +364,20 @@ export const DRUG_DATA = [
           { 
             method: 'Oral', 
             safety: [
-              'Measure exact mL with a medical oral syringe. NEVER sip from a water bottle.',
+              'For liquid GHB/GBL/1,4-BDO products, measurement errors can materially change exposure. Do not use beverage containers as measuring devices.',
               'Dose-response curve is incredibly steep. An extra 1mL can be the difference between euphoria and a coma.',
-              'Add food coloring to the bottle so no one accidentally drinks it.'
+              'Keep products clearly labeled and physically separated from drinks or other ingestible liquids.'
             ] 
           }
         ],
         overdose: [
           '"G-ing out" (falling into an unarousable coma-like sleep) is common when slightly over-dosed.',
-          'You MUST place them in the Recovery Position so they do not choke on vomit.',
+          'If an unresponsive person is breathing, placing them in a recovery position can help reduce aspiration risk while emergency help is obtained.',
           'If breathing drops below 8 breaths per minute, lips turn blue, or they seize, contact the local emergency service immediately.'
         ],
         mixes: [
-          'NEVER MIX WITH: ALCOHOL (Extremely fatal interaction. Even one beer + GHB can stop breathing).',
-          'NEVER MIX WITH: Ketamine, Opioids, Benzos.'
+          'Avoid combining with: ALCOHOL (potentially life-threatening interaction. Even one beer + GHB can stop breathing).',
+          'Avoid combining with: Ketamine, Opioids, Benzos.'
         ],
         identification: 'Usually a clear liquid. GHB tastes salty/soapy. GBL/1,4-BDO tastes highly chemical/solvent-like and can melt some plastics.'
       },
@@ -425,38 +425,38 @@ export const DRUG_DATA = [
           'Do NOT put them in a bath or body of water. They will drown.'
         ],
         mixes: [
-          'NEVER MIX WITH: ALCOHOL (High risk of vomiting while anesthetized, fatal aspiration).',
-          'NEVER MIX WITH: GHB, Opioids, Benzos (compounds sedation).'
+          'Avoid combining with: ALCOHOL (High risk of vomiting while anesthetized, life-threatening aspiration).',
+          'Avoid combining with: GHB, Opioids, Benzos (compounds sedation).'
         ],
         identification: 'Fine white crystals, rods, or powder. Use a Morris reagent (should turn purple).'
       },
       {
         name: 'DXM (Dextromethorphan)',
         roas: [
-          { method: 'Oral', safety: ['Only use products where Dextromethorphan (DXM) is the EXACT AND ONLY active ingredient.'] }
+          { method: 'Oral', safety: ['Products containing multiple active ingredients can create additional risks; check the label and pharmacist guidance for the specific product.'] }
         ],
         overdose: [
           'Taking products with Acetaminophen (Tylenol), Guaifenesin, or CPM will cause liver failure, severe vomiting, or internal bleeding.',
           'Overdoses of pure DXM lead to extreme tachycardia, serotonin syndrome risk, and prolonged psychosis.'
         ],
         mixes: [
-          'NEVER MIX WITH: MAOIs or SSRIs (High risk of fatal Serotonin Syndrome).',
-          'NEVER MIX WITH: MDMA.'
+          'Some serotonergic medicines, including MAOIs, can interact with psychoactive substances. The risk and clinical significance depend on the specific substances and person; seek professional guidance.',
+          'Avoid combining with: MDMA.'
         ],
         identification: 'Found in OTC cough syrups (Robitussin, Delsym) or gels.'
       },
       {
         name: 'PCP & Analogues (3-MeO-PCP, O-PCE)',
         roas: [
-          { method: 'Smoking / Snorting / Oral', safety: ['Dose extremely carefully. Milligram variations are the difference between stimulation and extreme mania.', 'Use a highly accurate mg scale.'] }
+          { method: 'Smoking / Snorting / Oral', safety: ['Milligram-scale variation can materially change effects and risk; fixed dosing guidance is not provided here.', 'A precise scale does not make an unknown substance or dose safe or accurately identified.'] }
         ],
         overdose: [
           'Can induce powerful mania, delusions, severe psychosis, and hyperthermia.',
           'Individuals may not feel pain and can accidentally injure themselves severely while manic.',
-          'contact the local emergency service for severe agitation or hyperthermia; ERs will sedate with benzos/antipsychotics.'
+          'Contact the local emergency service for severe agitation, hyperthermia, unresponsiveness, or other severe symptoms. Treatment decisions belong to clinicians.'
         ],
         mixes: [
-          'Mixing with stimulants (Meth/Cocaine) almost guarantees severe mania and psychosis.',
+          'Mixing with stimulants (Meth/Cocaine) can substantially increase the risk of severe agitation, mania, or psychosis.',
           'Mixing with depressants causes heavy respiratory issues.'
         ],
         identification: 'PCP is often liquid sprayed onto mint or weed (Dipper, Sherm). Analogues are fine powders.'
@@ -473,12 +473,12 @@ export const DRUG_DATA = [
         overdose: [
           'Physical overdose is rare, but extreme psychological distress ("bad trip") requires grounding techniques.',
           'Change the lighting, music, or room to shift the trip\'s direction.',
-          'Benzodiazepines or Antipsychotics (Seroquel) are used to "kill" or blunt intense trips in an emergency.'
+          'Do not self-treat severe intoxication with prescription sedatives or antipsychotics; seek emergency medical care for severe symptoms.'
         ],
         mixes: [
           'Lithium has been associated with serious adverse reactions when combined with psychedelics. Do not combine prescription medicines with psychoactive substances without professional guidance.',
-          'NEVER MIX WITH: Tramadol (High risk of seizures).',
-          'Mixing with Marijuana vastly intensifies visuals and paranoia (the #1 cause of bad trips).'
+          'Avoid combining with: Tramadol (High risk of seizures).',
+          'Combining cannabis with psychedelics can intensify subjective effects and anxiety for some people.'
         ],
         identification: 'Found on blotter paper, gel tabs, or liquid drops.',
         testStrips: ['Reagent tests can provide limited information but cannot establish identity, purity, or safety. Do not rely on taste, appearance, or a single reagent result to identify an unknown substance.']
@@ -492,7 +492,7 @@ export const DRUG_DATA = [
         ],
         mixes: [
           'Mixing with Cannabis dramatically increases intensity.',
-          'SSRIs (Zoloft, Lexapro) will significantly reduce or block the trip.'
+          'SSRIs and other medicines can alter psychedelic effects; individual responses vary and this is not evidence of safety.'
         ],
         identification: 'Dried fungal caps/stems showing blue bruising where handled.'
       },
@@ -505,7 +505,7 @@ export const DRUG_DATA = [
           'Lasts only 5-15 minutes, but feels like an eternity. Sitters should remain quiet and simply ensure physical safety until they return.'
         ],
         mixes: [
-          'Mixing with MAOIs (like Syrian Rue) turns DMT into an hours-long Ayahuasca trip. Do not do this without extensive research and dietary restriction preparation.'
+          'MAOIs can substantially change the effects and duration of some psychoactive substances and can create serious interactions. Combining prescription medicines or psychoactive substances warrants professional guidance.'
         ],
         identification: 'Yellow, orange, or white crystalline powder smelling distinctly like mothballs or new sneakers.'
       }
@@ -518,12 +518,12 @@ export const DRUG_DATA = [
       {
         name: 'Marijuana (THC / Cannabis)',
         roas: [
-          { method: 'Smoking / Vaping', safety: ['Start slow with high-THC concentrates (dabs) to avoid panic attacks. Keep glass rigs clean.'] },
-          { method: 'Edibles (Oral)', safety: ['Onset takes 1-2 hours. Do NOT take more because "you don\'t feel it yet." Follow current evidence-based guidance for edible onset and do not assume delayed effects mean more is needed.', 'Avoid treating a fixed milligram amount as a universally safe starting dose; product potency and individual response vary.'] }
+          { method: 'Smoking / Vaping', safety: ['High-THC concentrates can produce intense effects and adverse reactions. Keep equipment clean and seek help for severe symptoms.'] },
+          { method: 'Edibles (Oral)', safety: ['Edible effects can be delayed. Taking more before the initial effects are clear can increase the risk of unexpectedly intense effects; follow current product and public-health guidance.', 'Avoid treating a fixed milligram amount as a universally safe starting dose; product potency and individual response vary.'] }
         ],
         overdose: [
           '"Greening out": Extreme dizziness, severe panic attacks, intense nausea/vomiting, paranoia.',
-          'A fatal overdose caused solely by cannabis is unlikely, but severe reactions can occur. Keep the person in a safe environment, monitor for worsening symptoms, and seek urgent medical help for severe or unusual symptoms.'
+          'Severe cannabis reactions can occur. Seek urgent medical help for severe or unusual symptoms, especially when the cause is uncertain or other substances may be involved. Keep the person in a safe environment, monitor for worsening symptoms, and seek urgent medical help for severe or unusual symptoms.'
         ],
         mixes: [
           'Mixing with alcohol (Cross-fading) usually results in severe nausea/spins if weed is smoked AFTER drinking.'
@@ -553,7 +553,7 @@ export const DRUG_DATA = [
       {
         name: 'Nitrous Oxide (Whip-Its)',
         roas: [
-          { method: 'Inhalation', safety: ['Never use bags/masks over your face', 'Always sit down before inhaling.', 'Dispense from a cracker into a balloon, NEVER inhale directly from a cracker/dispenser (can cause fatal freezing/frostbite to lungs/throat).', 'Supplement Vitamin B12; heavy use stops B12 absorption leading to irreversible nerve damage and paralysis.'] }
+          { method: 'Inhalation', safety: ['Do not use an enclosed bag or mask over the face because it can impair oxygen delivery.', 'Sitting before use can reduce fall and injury risk.', 'Direct inhalation from pressurized dispensers can cause cold injury and other harm; follow the safety instructions for the specific product.', 'Heavy nitrous oxide exposure can interfere with vitamin B12 function and cause neurologic injury; persistent or severe symptoms warrant medical evaluation.'] }
         ],
         overdose: [
           'Nitrous risk is asphyxiation (displacing oxygen to the point of passing out/brain damage).',
@@ -567,7 +567,7 @@ export const DRUG_DATA = [
       {
         name: 'Poppers (Alkyl Nitrites)',
         roas: [
-          { method: 'Inhalation', safety: ['Sniff the fumes from the bottle, NEVER drink the liquid (fatal).', 'Do not get liquid on skin/eyes (causes chemical burns).'] }
+          { method: 'Inhalation', safety: ['Nitrite products should not be swallowed. Ingestion can cause severe injury or death.', 'Do not get liquid on skin/eyes (causes chemical burns).'] }
         ],
         overdose: [
           'Can cause extreme drop in blood pressure, fainting, and cyanosis (blue lips/skin from lack of oxygen).'
