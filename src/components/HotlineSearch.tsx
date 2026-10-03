@@ -86,6 +86,7 @@ export default function HotlineSearch() {
         <h2 className="text-xl font-black uppercase text-[#FF69B4] tracking-widest flex items-center gap-3"><PhoneCall className="w-8 h-8" />Crisis & Support Lines</h2>
         <p className="mt-3 text-white/80 text-sm leading-relaxed">National direct-dial hotlines are listed below. Local searches now query mapped public records for nearby services and their published contact details. Missing data does not mean a service is unavailable.</p>
       </div>
+      <CoverageNotice text="Crisis coverage is jurisdiction-dependent. Find A Helpline provides country-specific directories, while local service discovery depends on mapped public records." />
       <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
         <div className="flex items-center gap-3 mb-4"><MapPin className="w-6 h-6 text-[#FF1493]" /><h3 className="text-lg font-black uppercase tracking-wider text-white">Location Status</h3></div>
         {!location && !loadingLoc && <button type="button" onClick={requestLocation} className="px-5 py-3 mb-4 bg-[#FF1493]/20 border border-[#FF1493]/40 text-[#FF69B4] rounded-xl text-xs font-black uppercase tracking-widest">Use My Location</button>}
