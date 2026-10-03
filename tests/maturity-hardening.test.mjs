@@ -107,5 +107,5 @@ test('deployment validation matrix records the remaining real-world evidence bou
     '/Harmless-/',
     'Offline / poor network',
     'Provider outage / rate limit'
-  ]) assert.match(doc, new RegExp(item.replace(/[.*+?^{}()|[\\]\\]/g, '\\\\$&')));
+  ]) assert.ok(doc.includes(item), `missing deployment check: ${item}`);
 });
