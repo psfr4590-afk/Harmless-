@@ -87,10 +87,9 @@ export default function ResourceSearch() {
           reverse.searchParams.set('lon', String(location.lng));
           reverse.searchParams.set('zoom', '3');
           const reverseData = await requestJson<any>('Nominatim reverse geocoder', reverse.toString(), { headers: { Accept: 'application/json' } }, { signal: controller.signal, timeoutMs: 12000, retries: 1 });
-            countryCode = typeof reverseData?.address?.country_code === 'string'
-              ? reverseData.address.country_code.toLowerCase()
-              : null;
-          }
+          countryCode = typeof reverseData?.address?.country_code === 'string'
+            ? reverseData.address.country_code.toLowerCase()
+            : null;
         } catch (error) {
           if (error instanceof DOMException && error.name === 'AbortError') return;
         }
