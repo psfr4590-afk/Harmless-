@@ -19,6 +19,8 @@ export default function InteractionChecker() {
 
   const getStyle = (severity: Severity) => {
     switch (severity) {
+      case 'DOCUMENTED INTERACTION': return 'bg-orange-500/10 border-orange-500/50 text-orange-300';
+      case 'UPSTREAM UNAVAILABLE': return 'bg-white/5 border-white/20 text-white/60';
       case 'FATAL': return 'bg-red-500/10 border-red-500/50 text-red-500';
       case 'UNSAFE': return 'bg-orange-500/10 border-orange-500/50 text-orange-400';
       case 'CAUTION': return 'bg-yellow-500/10 border-yellow-500/50 text-yellow-400';
