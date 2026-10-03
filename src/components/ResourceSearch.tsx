@@ -284,6 +284,7 @@ export default function ResourceSearch() {
             <MapPin className="w-6 h-6 text-[#FF1493]" />
             <div><h3 className="text-xl font-black uppercase tracking-wider text-white">Active Location</h3><p className="text-xs text-white/50 uppercase font-bold tracking-widest mt-1">{activeLocationName || 'Unknown'}</p></div>
           </div>
+          {!location && !loadingLoc && <button type="button" onClick={requestLocation} className="px-5 py-3 mb-4 bg-[#FF1493]/20 border border-[#FF1493]/40 text-[#FF69B4] rounded-xl text-xs font-black uppercase tracking-widest">Use My Location</button>}
           <form onSubmit={handleGeocode} className="w-full md:w-auto flex flex-col sm:flex-row gap-2">
             <input type="text" placeholder="e.g. Dallas County, TX" className="flex-1 w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-[#FF1493]/50" value={manualLocationQuery} onChange={e => setManualLocationQuery(e.target.value)} disabled={geocoding} />
             <button type="submit" disabled={geocoding || !manualLocationQuery.trim()} className="px-6 py-2 bg-white/10 hover:bg-white/20 disabled:opacity-50 text-white flex items-center justify-center rounded-xl transition-colors font-bold uppercase tracking-wider text-xs whitespace-nowrap">{geocoding ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Search World'}</button>
