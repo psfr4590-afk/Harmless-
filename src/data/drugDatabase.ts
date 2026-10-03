@@ -214,7 +214,7 @@ export const DRUG_DATA = [
         overdose: [
           '"Overamping" causes racing heart, extreme paranoia, hyperthermia, chest pain, stroke, or seizures.',
           'If seizing: Clear the floor of hazards, place on their side, put NOTHING in their mouth.',
-          'If experiencing severe chest pain / heart attack symptoms, call 911 immediately. Tell paramedics about cocaine or stimulant use so they can choose treatment based on the full clinical situation.',
+          'If experiencing severe chest pain / heart attack symptoms, contact the local emergency service immediately. Tell paramedics about cocaine or stimulant use so they can choose treatment based on the full clinical situation.',
           'Cool them down with ice packs on the back of the neck/armpits.'
         ],
         mixes: [
@@ -260,7 +260,7 @@ export const DRUG_DATA = [
         overdose: [
           'Risk of severe psychosis, hyperthermia (fatal overheating), or cardiac arrest.',
           'Move them to a quiet, cool physical environment. Provide water but do not let them chug massively.',
-          'Do not restrain if panicked or violent, unless they are a danger to themselves. Call 911 for severe distress.'
+          'Do not restrain if panicked or violent, unless they are a danger to themselves. contact the local emergency service for severe distress.'
         ],
         mixes: [
           'NEVER MIX WITH: Ayahuasca / MAOIs (Fatal hypertensive crisis).',
@@ -287,7 +287,7 @@ export const DRUG_DATA = [
         overdose: [
           'Overdoses are heavily linked to Hyperthermia (heatstroke) and Dehydration, or Water Intoxication.',
           'Serotonin Syndrome occurs from mixing with wrong meds: symptoms include rigid vibrating muscles, heavy sweating, extreme confusion, and seizures.',
-          'In emergency: Cool them down with ice on neck/armpits. If seizing, call 911 immediately.'
+          'In emergency: Cool them down with ice on neck/armpits. If seizing, contact the local emergency service immediately.'
         ],
         mixes: [
           'NEVER MIX WITH: MAOI Antidepressants (Fatal Serotonin Syndrome).',
@@ -347,7 +347,7 @@ export const DRUG_DATA = [
         ],
         overdose: [
           'Loss of coordination, "delusions of sobriety" (thinking you are sober when heavily intoxicated), blackouts lasting days, respiratory depression if combined with other downers.',
-          'If someone is unarousable or breathing dangerously slow, call 911 immediately.',
+          'If someone is unarousable or breathing dangerously slow, contact the local emergency service immediately.',
           'Prop them in the Recovery Position if you cannot wake them to prevent choking on vomit.'
         ],
         mixes: [
@@ -373,7 +373,7 @@ export const DRUG_DATA = [
         overdose: [
           '"G-ing out" (falling into an unarousable coma-like sleep) is common when slightly over-dosed.',
           'You MUST place them in the Recovery Position so they do not choke on vomit.',
-          'If breathing drops below 8 breaths per minute, lips turn blue, or they seize, call 911 immediately.'
+          'If breathing drops below 8 breaths per minute, lips turn blue, or they seize, contact the local emergency service immediately.'
         ],
         mixes: [
           'NEVER MIX WITH: ALCOHOL (Extremely fatal interaction. Even one beer + GHB can stop breathing).',
@@ -453,7 +453,7 @@ export const DRUG_DATA = [
         overdose: [
           'Can induce powerful mania, delusions, severe psychosis, and hyperthermia.',
           'Individuals may not feel pain and can accidentally injure themselves severely while manic.',
-          'Call 911 for severe agitation or hyperthermia; ERs will sedate with benzos/antipsychotics.'
+          'contact the local emergency service for severe agitation or hyperthermia; ERs will sedate with benzos/antipsychotics.'
         ],
         mixes: [
           'Mixing with stimulants (Meth/Cocaine) almost guarantees severe mania and psychosis.',
