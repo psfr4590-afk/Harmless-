@@ -36,7 +36,8 @@ export default function HotlineSearch() {
   const [searchError, setSearchError] = useState<string | null>(null);
   const requestIdRef = useRef(0);
 
-  useEffect(() => { requestLocation(); }, []);
+  // Location is requested only after an explicit user action.
+
 
   function requestLocation() {
     setLoadingLoc(true); setLocError(null);
