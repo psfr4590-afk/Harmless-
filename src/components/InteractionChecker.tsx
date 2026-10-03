@@ -32,6 +32,8 @@ export default function InteractionChecker() {
 
   const getIcon = (severity: Severity) => {
     switch (severity) {
+      case 'DOCUMENTED INTERACTION': return <AlertOctagon className="w-8 h-8 text-orange-400" />;
+      case 'UPSTREAM UNAVAILABLE': return <Info className="w-8 h-8 text-white/50" />;
       case 'FATAL': return <ShieldAlert className="w-8 h-8 animate-pulse text-red-500" />;
       case 'UNSAFE': return <AlertOctagon className="w-8 h-8 text-orange-400" />;
       case 'CAUTION': return <AlertTriangle className="w-8 h-8 text-yellow-400" />;
