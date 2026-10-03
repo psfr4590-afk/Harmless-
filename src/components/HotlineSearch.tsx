@@ -3,6 +3,7 @@ import { MapPin, Search, Navigation, ExternalLink, Loader2, AlertCircle, PhoneCa
 import { motion } from 'framer-motion';
 import { buildOverpassQuery, dedupeById, safeExternalUrl, extractOverpassElements } from '../utils/safetyUtils';
 import { emergencyGuidance } from '../utils/evidenceGovernance';
+import CoverageNotice from './CoverageNotice';
 
 const LOCAL_SEARCHES = [
   { id: 'crisis', name: 'Local Crisis Centers', query: 'mental health crisis center', osm: ['["name"~"crisis|behavioral health|mental health",i]', '["healthcare"="mental_health"]', '["amenity"="clinic"]["name"~"mental|crisis",i]'], color: 'bg-red-500/20 text-red-400 border-red-500/30' },
