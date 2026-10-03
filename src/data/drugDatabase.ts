@@ -60,8 +60,8 @@ export const DRUG_DATA = [
         ],
         overdose: [
           'Recognize: Blue/gray lips or nails, pinpoint pupils, shallow/stopped breathing, pale/clammy skin, "death rattle" gurgling sound.',
-          'IMMEDIATELY CALL 911. Legal protections for calling for help vary by jurisdiction; check the current state law reference in this app.',
-          'Administer NARCAN (Naloxone) nasal spray into one nostril. If no response in 2-3 minutes, administer a second dose in the other nostril.',
+          'If someone is not breathing normally or cannot be awakened, contact the local emergency service for the country you are in. Legal protections for calling for help vary by jurisdiction.',
+          'Give naloxone according to the product instructions. If there is no response, continue emergency response and follow the product instructions for additional doses.',
           'Begin rescue breathing (1 breath every 5 seconds) if they are not breathing. Naloxone reverses opioid effects but does not replace rescue breathing or emergency medical care when breathing is absent or inadequate.',
           'If you must leave them, place them in the Recovery Position (on their side, knee bent, head supported) to prevent choking on vomit.'
         ],
@@ -77,7 +77,7 @@ export const DRUG_DATA = [
           '2. Add 1/2 teaspoon of water and mix well.',
           '3. Hold the test strip in the water by the blue end for 15 seconds.',
           '4. Lay flat and wait 3 minutes.',
-          'ONE RED LINE: POSITIVE for Fentanyl. TWO RED LINES: NEGATIVE.',
+          'Interpret the test only according to the instructions supplied with the specific test-strip product. A negative result does not prove that fentanyl or other potent synthetic opioids are absent.',
           'Beware the "Chocolate Chip Cookie Effect": Fentanyl clumps differently than other powders. One side of a bag might have no fentanyl, while the other is pure fentanyl. Test the whole batch if possible by dissolving it.'
         ]
       },
@@ -87,7 +87,7 @@ export const DRUG_DATA = [
           {
             method: 'Oral',
             safety: [
-              'Chewing or crushing bypasses extended-release mechanisms—dose significantly lower if doing so to prevent overdose.',
+              'Do not crush, chew, or alter extended-release medicines unless the product instructions or a pharmacist specifically says the formulation can be altered.',
               'Beware of counterfeit pressed pills—most street pills contain varying, lethal hotspots of fentanyl.',
               'Do NOT mix with alcohol or benzos (extreme risk of fatal respiratory depression).'
             ]
@@ -108,7 +108,7 @@ export const DRUG_DATA = [
           'Avoid mixing with Benzos, Alcohol, Sleep Aids (Ambien), or other sedatives.'
         ],
         identification: 'Counterfeit M30s are rampant. Appearance alone cannot reliably distinguish genuine medication from counterfeit pills. Use a pharmacist or an authoritative imprint/product-identification service rather than treating visual traits as proof of authenticity.',
-        pillId: 'FAKE M30 WARNING: If the "M" stamp on an M30 pill has curved/rounded armpits (like an archway) instead of sharp, straight V-shaped armpits, IT IS FAKE AND CONTAINS FENTANYL. Fake pills also crumble easily, have chalky textures, or feature inconsistent blue dye spots.'
+        pillId: 'Counterfeit-pill warning: imprint, color, texture, and logo appearance cannot reliably establish authenticity or contents. Pills obtained outside a legitimate pharmacy may contain unexpected potent drugs. Do not treat visual traits as proof.'
       },
       {
         name: 'Buprenorphine (Suboxone / Subutex)',
@@ -118,12 +118,12 @@ export const DRUG_DATA = [
             safety: [
               'Wait until you are in moderate to severe opioid withdrawal before taking, otherwise it will cause Precipitated Withdrawal (immediate, severe, agonizing withdrawal symptoms).',
               'Do not chew or swallow; it must absorb through mucous membranes.',
-              'Prolonged use of strips can cause dental decay; rinse mouth thoroughly with water 15 minutes after dissolving.'
+              'Transmucosal buprenorphine can cause serious dental problems. After the medicine has completely dissolved, follow the current FDA oral-care guidance, including rinsing gently with water and waiting at least 1 hour before brushing.'
             ]
           }
         ],
         overdose: [
-          'Buprenorphine has a "ceiling effect" making fatal overdose rare in adults with opioid tolerance, but it can be highly dangerous to opioid-naive individuals or children.',
+          'Buprenorphine can cause serious or life-threatening effects, especially when combined with other central-nervous-system depressants or when taken by people for whom it was not prescribed.',
           'Narcan (Naloxone) may require larger or repeated doses to reverse a buprenorphine overdose.'
         ],
         mixes: [
@@ -166,7 +166,7 @@ export const DRUG_DATA = [
         ],
         overdose: [
           'Most common "overdose" effect is the "wobbles" (nystagmus, extreme nausea, dizziness).',
-          'Fatal respiratory depression is extremely rare with kratom alone, but risk heavily increases if adulterated or mixed with heavy downers.',
+          'Serious poisoning has been reported with kratom, and risks can increase with adulterated products or combinations with other substances.',
           'Lie down in a dark room and wait it out if experiencing the wobbles.'
         ],
         mixes: [
@@ -226,7 +226,7 @@ export const DRUG_DATA = [
         testStrips: [
           'FTS on cocaine are critical due to accidental cross-contamination on dealer scales.',
           'Fentanyl test-strip instructions vary by product and substance. Follow the current instructions supplied with the specific test strip; stimulant samples can require substantially more dilution than opioid samples, and an incorrect dilution can affect results.',
-          'Testing the residue: Add water directly to the empty baggie, swish to capture everything, then test that water.',
+          'Follow the specific product instructions for sample preparation and dilution; procedures differ by substance and test-strip product.',
           'ONE line = POSITIVE. TWO lines = NEGATIVE.'
         ]
       },
@@ -268,7 +268,7 @@ export const DRUG_DATA = [
         ],
         identification: 'Clear or cloudy crystalline shards. Reagent test with Marquis (turns orange-brown).',
         testStrips: [
-          'Methamphetamine requires significantly more water dilution when testing compared to opioids to avoid False Positives.',
+          'Follow the specific test-strip instructions for methamphetamine and other stimulant samples; dilution requirements are product- and substance-dependent.',
           'Follow specific test strip brand instructions for exact water-to-powder ratios.'
         ]
       },
@@ -278,7 +278,7 @@ export const DRUG_DATA = [
           { 
             method: 'Oral', 
             safety: [
-              'If taking pills, swallow half first. Wait 90 minutes. Do not redose early.',
+              'Pressed pills can contain unexpected substances. Do not assume a pill is accurately dosed or identified from appearance; follow evidence-based guidance for the specific product.',
               'Regulate body temperature. Take breaks from dancing/hot environments every 30 minutes.',
               'Sip fluids as needed rather than forcing large amounts. Excessive water intake can itself be dangerous.'
             ] 
@@ -292,7 +292,7 @@ export const DRUG_DATA = [
         mixes: [
           'NEVER MIX WITH: MAOI Antidepressants (Fatal Serotonin Syndrome).',
           'NEVER MIX WITH: 5-HTP taken within 24 hours of MDMA.',
-          'Mixing with SSRI antidepressants (Lexapro, Zoloft) will severely blunt or entirely cancel the roll.'
+          'SSRIs and other serotonergic medicines can alter MDMA effects and may contribute to medication interactions. Do not treat a subjective change in effects as evidence of safety.'
         ],
         identification: 'Tan/brown/white crystals or colored pressed pills with logos.',
         pillId: 'MDMA presses are notorious for being cut with Methamphetamine, PMMA, or pure Caffeine. YOU CANNOT ID THEM BY SIGHT. You MUST use a Marquis Reagent (Should rapidly turn dark purple/black).'
@@ -310,7 +310,7 @@ export const DRUG_DATA = [
           'Avoid taking with heavy doses of caffeine or energy drinks.'
         ],
         identification: 'Legitimate pharma pills have a sharp, clean snap and uniform precise stamping.',
-        pillId: 'FAKE ADDERALL WARNING: Formatted as orange AD 30 pills, the vast majority sold on the street or darknet are purely Methamphetamine. They are chalky, easily crumble, and often snap incorrectly. ALWAYS fentanyl test street Adderall.'
+        pillId: 'Counterfeit stimulant warning: pills obtained outside a legitimate pharmacy may contain unexpected stimulants or fentanyl. Color, imprint, texture, and shape cannot establish authenticity. Use an authoritative imprint service and consider drug-checking resources where available.'
       },
       {
         name: 'Synthetic Cathinones (Bath Salts, Flakka, 3-MMC, 4-MMC)',
@@ -476,16 +476,16 @@ export const DRUG_DATA = [
           'Benzodiazepines or Antipsychotics (Seroquel) are used to "kill" or blunt intense trips in an emergency.'
         ],
         mixes: [
-          'NEVER MIX WITH: LITHIUM (Guaranteed fatal seizures and extreme psychosis).',
+          'Lithium has been associated with serious adverse reactions when combined with psychedelics. Do not combine prescription medicines with psychoactive substances without professional guidance.',
           'NEVER MIX WITH: Tramadol (High risk of seizures).',
           'Mixing with Marijuana vastly intensifies visuals and paranoia (the #1 cause of bad trips).'
         ],
         identification: 'Found on blotter paper, gel tabs, or liquid drops.',
-        testStrips: ['You MUST test LSD blotter paper with an Ehrlich Reagent kit. If it does not turn pink/purple, it is likely an NBOMe compound (fake acid), which can cause fatal overdoses and seizures. If "Acid" tastes extremely metallic/bitter and numbs the tongue, SPIT IT OUT.']
+        testStrips: ['Reagent tests can provide limited information but cannot establish identity, purity, or safety. Do not rely on taste, appearance, or a single reagent result to identify an unknown substance.']
       },
       {
         name: 'Psilocybin (Mushrooms)',
-        roas: [{ method: 'Oral', safety: ['Can cause extreme nausea during onset. Brewing as a tea with ginger heavily lessens stomach pain.', 'Start low (1-2g) and wait fully.'] }],
+        roas: [{ method: 'Oral', safety: ['Can cause extreme nausea during onset. Brewing as a tea with ginger heavily lessens stomach pain.', 'Potency varies substantially. Avoid relying on a fixed amount as a universally safe dose, and do not assume a delayed effect means more is needed.'] }],
         overdose: [
           'Psychological distress protocol is identical to LSD.',
           'Ensure the mushrooms were not falsely identified toxic wild mushrooms.'
@@ -523,7 +523,7 @@ export const DRUG_DATA = [
         ],
         overdose: [
           '"Greening out": Extreme dizziness, severe panic attacks, intense nausea/vomiting, paranoia.',
-          'It is not physically fatal. Hydrate, eat something sugary, lie down in a dark room, and sleep it off. Chewing black peppercorn can help reduce paranoia.'
+          'A fatal overdose caused solely by cannabis is unlikely, but severe reactions can occur. Keep the person in a safe environment, monitor for worsening symptoms, and seek urgent medical help for severe or unusual symptoms.'
         ],
         mixes: [
           'Mixing with alcohol (Cross-fading) usually results in severe nausea/spins if weed is smoked AFTER drinking.'
@@ -573,7 +573,7 @@ export const DRUG_DATA = [
           'Can cause extreme drop in blood pressure, fainting, and cyanosis (blue lips/skin from lack of oxygen).'
         ],
         mixes: [
-          'POPPERS FATAL MIX: NEVER mix Alkyl Nitrites (Poppers) with Erectile Dysfunction meds (Viagra, Cialis). This causes an irreversible, fatal drop in blood pressure.',
+          'Nitrite poppers can cause dangerous drops in blood pressure, low blood oxygen, severe injury, and death. Do not use them recreationally or combine them with medicines or substances without professional guidance.',
           'Avoid Depressants with Inhalants due to vomit/loss of consciousness risk.'
         ],
         identification: 'Small bottles sold as "Video Head Cleaner" or "Room Odorizer".'
