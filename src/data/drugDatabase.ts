@@ -519,7 +519,7 @@ export const DRUG_DATA = [
         name: 'Marijuana (THC / Cannabis)',
         roas: [
           { method: 'Smoking / Vaping', safety: ['Start slow with high-THC concentrates (dabs) to avoid panic attacks. Keep glass rigs clean.'] },
-          { method: 'Edibles (Oral)', safety: ['Onset takes 1-2 hours. Do NOT take more because "you don\'t feel it yet." Wait fully 2.5 hours before redosing.', 'Start with 5-10mg for beginners.'] }
+          { method: 'Edibles (Oral)', safety: ['Onset takes 1-2 hours. Do NOT take more because "you don\'t feel it yet." Follow current evidence-based guidance for edible onset and do not assume delayed effects mean more is needed.', 'Avoid treating a fixed milligram amount as a universally safe starting dose; product potency and individual response vary.'] }
         ],
         overdose: [
           '"Greening out": Extreme dizziness, severe panic attacks, intense nausea/vomiting, paranoia.',
