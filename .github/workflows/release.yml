@@ -20,6 +20,13 @@ jobs:
       - run: npm ci
       - run: npm audit --audit-level=high
       - run: npm run verify:release
+      - name: Capture reproducible test evidence
+        run: npm run test:tap > /tmp/harm-less-test.tap
+      - name: Generate release evidence record
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+          TEST_LOG: /tmp/harm-less-test.tap
+        run: npm run release:evidence
       - name: Package deployment artifact
         run: |
           tar -czf "harm-less-${GITHUB_REF_NAME}-dist.tar.gz" -C dist .
@@ -28,4 +35,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "${GITHUB_REF_NAME}"             "harm-less-${GITHUB_REF_NAME}-dist.tar.gz"             "harm-less-${GITHUB_REF_NAME}-dist.tar.gz.sha256"             --title "Harm.Less ${GITHUB_REF_NAME}"             --generate-notes
+          gh release create "${GITHUB_REF_NAME}" \
+            "harm-less-${GITHUB_REF_NAME}-dist.tar.gz" \
+            "harm-less-${GITHUB_REF_NAME}-dist.tar.gz.sha256" \
+            release-evidence.json \
+            --title "Harm.Less ${GITHUB_REF_NAME}" \
+            --generate-notes
