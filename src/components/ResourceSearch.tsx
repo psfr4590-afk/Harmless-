@@ -3,6 +3,7 @@ import { MapPin, Search, Navigation, ExternalLink, Loader2, AlertCircle, Phone, 
 import { motion, AnimatePresence } from 'framer-motion';
 import { buildOverpassQuery, dedupeById, safeExternalUrl, extractOverpassElements } from '../utils/safetyUtils';
 import { searchFindTreatment } from '../utils/medicalApi';
+import CoverageNotice from './CoverageNotice';
 
 interface OverpassElement { type: string; id: string | number; lat?: number; lon?: number; center?: { lat: number; lon: number }; tags?: Record<string, string>; }
 
