@@ -58,7 +58,7 @@ export default function PillIdentifier() {
         <div className="bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col space-y-4">
           <h2 className="text-lg font-black uppercase tracking-widest text-[#FF69B4] flex items-center gap-2">
             <Camera className="w-6 h-6" />
-            Scan Pill Markings
+            Inspect Pill Markings Locally
           </h2>
           <p className="text-sm text-white/60">
             Use your device's camera as a magnifier. Take a clear, well-lit photo of the pill's imprint to inspect it closely.
