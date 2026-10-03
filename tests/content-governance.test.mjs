@@ -20,7 +20,7 @@ test('high-consequence static content avoids universal dosing, testing, and iden
   ];
   for (const pattern of prohibited) assert.doesNotMatch(source, pattern);
   assert.doesNotMatch(source, /call 911/i);
-  assert.doesNotMatch(source, /\\b911\\b/);
+  assert.doesNotMatch(source, /\b911\b/g);
 });
 
 test('content governance identifies authoritative evidence boundaries', () => {
