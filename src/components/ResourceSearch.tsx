@@ -278,6 +278,7 @@ export default function ResourceSearch() {
         <h2 className="text-xl font-black uppercase text-[#FF69B4] tracking-widest">Local Resources</h2>
         <p className="mt-2 text-sm text-white/80 max-w-2xl">Search connected treatment and geographic sources near the selected location. Harmless is intended for people anywhere in the world. Geographic discovery uses OpenStreetMap sources worldwide; U.S. substance-use and mental-health searches may also use SAMHSA FindTreatment.gov. Results include source and retrieval metadata, and a missing result does not establish that a service is absent.</p>
       </div>
+      <CoverageNotice text="Worldwide discovery is source-dependent. OpenStreetMap coverage is directory-based; SAMHSA FindTreatment.gov is used only for U.S. locations. No-result does not establish that a service is absent." />
 
       <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
         <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between mb-4">
