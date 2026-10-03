@@ -37,7 +37,7 @@ Harm.Less does not require an account or application-managed cloud profile.
 
 Some features communicate with external public services. Location-based searches can transmit coordinates or a manually entered location to the services required for that search. Interaction checks send the entered substance names to NLM RxNorm and query FDA openFDA labeling. Other resource lookups can contact public mapping or treatment-service endpoints. Pill images are handled locally by the current identifier workflow and are not uploaded by the application.
 
-External providers have their own privacy policies and operational practices. Do not enter secrets, credentials, or unnecessary personal information into external searches.
+External providers have their own privacy policies and operational practices. Harm.Less maintains an explicit provider-boundary registry describing what each integration receives, why it receives it, and whether the user must initiate the action. Do not enter secrets, credentials, or unnecessary personal information into external searches.
 
 ## Development
 
@@ -79,6 +79,7 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for the deployment procedure and post-deploy 
 ## Project documentation
 
 - [Deployment](DEPLOYMENT.md)
+- [Deployment validation matrix](DEPLOYMENT-VALIDATION.md)
 - [Contributing](CONTRIBUTING.md)
 - [Security Policy](SECURITY.md)
 - [Changelog](CHANGELOG.md)
