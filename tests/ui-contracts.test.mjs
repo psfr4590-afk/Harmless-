@@ -46,7 +46,6 @@ test('harm-reduction data exposes category-level source provenance', () => {
   assert.match(source, /sources: CATEGORY_SOURCES/);
 });
 
-
 test('current trusted evidence UI exposes NLM and FDA source boundaries', () => {
   const source = read('src/components/ROASafeUse.tsx');
   assert.match(source, /Current Trusted Evidence/);
@@ -65,12 +64,11 @@ test('resource search has multi-source discovery terms for every user-facing cat
     'substance use treatment', 'legal aid', 'workforce center',
     'domestic violence', 'youth services'
   ]) {
-    assert.match(source, new RegExp(term.replace(/[.*+?^{}()|[\]\\]/g, '\\$&')));
+    assert.match(source, new RegExp(term.replace(/[.*+?^{}()|[\\]\\]/g, '\\$&')));
   }
   assert.match(source, /results\.length < 3/);
   assert.match(source, /OpenStreetMap Nominatim/);
 });
-
 
 test('resource discovery is explicitly worldwide and does not hard-code Texas as the only fallback', () => {
   const source = read('src/components/ResourceSearch.tsx');
@@ -82,7 +80,7 @@ test('resource discovery is explicitly worldwide and does not hard-code Texas as
 
 test('global crisis UI does not present U.S. emergency numbers as universal', () => {
   const source = read('src/components/HotlineSearch.tsx');
-  assert.match(source, /does not assume 911, 112, or another single number worldwide/);
+  assert.match(source, /emergencyGuidance/);
   assert.match(source, /findahelpline\.com/);
   assert.doesNotMatch(source, /number: '911'|number: '988'|SAMHSA National Helpline/);
 });
@@ -93,14 +91,15 @@ test('U.S.-specific legal data is explicitly scoped', () => {
   assert.match(source, /United States state-by-state/);
 });
 
-
 test('coverage governance is surfaced and location access is user initiated', () => {
   const resource = read('src/components/ResourceSearch.tsx');
   const hotline = read('src/components/HotlineSearch.tsx');
   const app = read('src/App.tsx');
+  const governance = read('src/utils/evidenceGovernance.ts');
   assert.match(app, /CoverageNotice/);
   assert.match(resource, /source-dependent/);
-  assert.match(hotline, /does not assume 911, 112/);
+  assert.match(hotline, /CoverageNotice/);
+  assert.match(governance, /does not assume 911, 112/);
   assert.doesNotMatch(resource, /useEffect\(\(\) => \{ requestLocation\(\); \}, \[\]\)/);
   assert.doesNotMatch(hotline, /useEffect\(\(\) => \{ requestLocation\(\); \}, \[\]\)/);
 });
