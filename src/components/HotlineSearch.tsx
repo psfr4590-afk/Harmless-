@@ -86,6 +86,7 @@ export default function HotlineSearch() {
       </div>
       <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
         <div className="flex items-center gap-3 mb-4"><MapPin className="w-6 h-6 text-[#FF1493]" /><h3 className="text-lg font-black uppercase tracking-wider text-white">Location Status</h3></div>
+        {!location && !loadingLoc && <button type="button" onClick={requestLocation} className="px-5 py-3 mb-4 bg-[#FF1493]/20 border border-[#FF1493]/40 text-[#FF69B4] rounded-xl text-xs font-black uppercase tracking-widest">Use My Location</button>}
         {loadingLoc ? <div className="flex items-center gap-3 text-white/60"><Loader2 className="w-5 h-5 animate-spin text-[#FF1493]" /><span className="text-sm uppercase tracking-widest font-bold">Acquiring GPS coordinates...</span></div> :
           locError ? <div className="flex flex-col gap-3"><div className="flex items-center gap-3 text-red-400"><AlertCircle className="w-5 h-5" /><span className="text-sm font-bold">{locError}</span></div><button onClick={requestLocation} className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-sm font-bold uppercase tracking-wider self-start">Retry</button></div> :
           location ? <div className="flex items-center gap-3 text-green-400"><Navigation className="w-5 h-5" /><span className="text-sm uppercase tracking-widest font-bold">Location Active - Local Search Enabled</span></div> : null}
