@@ -66,7 +66,7 @@ export const DRUG_DATA = [
           'If you must leave them, place them in the Recovery Position (on their side, knee bent, head supported) to prevent choking on vomit.'
         ],
         mixes: [
-          'Avoid combining with: BENZODIAZEPINES (Xanax, Valium) - Overwhelmingly the highest cause of fatal overdoses due to compound respiratory depression.',
+          'Avoid combining opioids with benzodiazepines, alcohol, or other central-nervous-system depressants because combined use can substantially increase overdose and respiratory-depression risk.',
           'Avoid combining with: ALCOHOL - Greatly increases the chance of stopping breathing and choking on vomit.',
           'Avoid combining with: GHB, Pregabalin, or other CNS Sedatives.'
         ],
@@ -147,7 +147,7 @@ export const DRUG_DATA = [
           'Naloxone may wear off before methadone does. Continue monitoring, call emergency services, and follow the naloxone product instructions for repeat doses.'
         ],
         mixes: [
-          'Avoid combining with: Benzodiazepines. This is a very common fatal combination.',
+          'Avoid combining methadone with benzodiazepines or other central-nervous-system depressants unless directed by the treating clinician; combined use can increase serious respiratory and sedation risks.',
           'Drugs that prolong the QT interval (certain antipsychotics) can cause life-threatening heart arrhythmias when mixed with Methadone.'
         ],
         identification: 'Usually dispensed as a pink or clear liquid (Methadose), or white/peach wafers/pills.'
@@ -227,7 +227,7 @@ export const DRUG_DATA = [
           'FTS on cocaine are critical due to accidental cross-contamination on dealer scales.',
           'Fentanyl test-strip instructions vary by product and substance. Follow the current instructions supplied with the specific test strip; stimulant samples can require substantially more dilution than opioid samples, and an incorrect dilution can affect results.',
           'Follow the specific product instructions for sample preparation and dilution; procedures differ by substance and test-strip product.',
-          'ONE line = POSITIVE. TWO lines = NEGATIVE.'
+          'Interpret fentanyl-test-strip lines only according to the instructions supplied with the specific product and sample type; test results have limitations and do not establish safety.'
         ]
       },
       {
@@ -258,7 +258,7 @@ export const DRUG_DATA = [
           }
         ],
         overdose: [
-          'Risk of severe psychosis, hyperthermia (fatal overheating), or cardiac arrest.',
+          'Risk includes severe psychosis, dangerous hyperthermia, cardiovascular complications, or other medical emergencies.',
           'Move them to a quiet, cool physical environment. Provide water but do not let them chug massively.',
           'Do not restrain if panicked or violent, unless they are a danger to themselves. contact the local emergency service for severe distress.'
         ],
@@ -295,7 +295,7 @@ export const DRUG_DATA = [
           'SSRIs and other serotonergic medicines can alter MDMA effects and may contribute to medication interactions. Do not treat a subjective change in effects as evidence of safety.'
         ],
         identification: 'Tan/brown/white crystals or colored pressed pills with logos.',
-        pillId: 'MDMA presses are notorious for being cut with Methamphetamine, PMMA, or pure Caffeine. YOU CANNOT ID THEM BY SIGHT. You MUST use a Marquis Reagent (Should rapidly turn dark purple/black).'
+        pillId: 'Pressed MDMA products can contain unexpected substances. Appearance alone cannot establish identity, purity, or safety; reagent tests also have limitations and do not confirm contents.'
       },
       {
         name: 'Prescription Stimulants (Adderall, Ritalin, Vyvanse)',
@@ -341,7 +341,7 @@ export const DRUG_DATA = [
             safety: [
               'Combining central-nervous-system depressants, including benzodiazepines, alcohol, and opioids, can substantially increase overdose and respiratory-depression risk.',
               'Beware of pressed street Xanax containing potent designer benzos (RCs).',
-              'If physically dependent, NEVER quit cold turkey. Withdrawal can cause fatal seizures. Taper slowly under medical supervision using a long-acting benzo like Valium.'
+              'Abrupt benzodiazepine discontinuation can cause serious withdrawal, including seizures. If physically dependent, discontinuation should be planned with a qualified clinician rather than stopped abruptly.'
             ]
           }
         ],
@@ -364,7 +364,7 @@ export const DRUG_DATA = [
           { 
             method: 'Oral', 
             safety: [
-              'Measure exact mL with a medical oral syringe. NEVER sip from a water bottle.',
+              'For liquid GHB/GBL/1,4-BDO products, measurement errors can materially change exposure. Do not use beverage containers as measuring devices.',
               'Dose-response curve is incredibly steep. An extra 1mL can be the difference between euphoria and a coma.',
               'Keep products clearly labeled and physically separated from drinks or other ingestible liquids.'
             ] 
@@ -372,7 +372,7 @@ export const DRUG_DATA = [
         ],
         overdose: [
           '"G-ing out" (falling into an unarousable coma-like sleep) is common when slightly over-dosed.',
-          'You MUST place them in the Recovery Position so they do not choke on vomit.',
+          'If an unresponsive person is breathing, placing them in a recovery position can help reduce aspiration risk while emergency help is obtained.',
           'If breathing drops below 8 breaths per minute, lips turn blue, or they seize, contact the local emergency service immediately.'
         ],
         mixes: [
@@ -440,7 +440,7 @@ export const DRUG_DATA = [
           'Overdoses of pure DXM lead to extreme tachycardia, serotonin syndrome risk, and prolonged psychosis.'
         ],
         mixes: [
-          'Avoid combining with: MAOIs or SSRIs (High risk of fatal Serotonin Syndrome).',
+          'Some serotonergic medicines, including MAOIs, can interact with psychoactive substances. The risk and clinical significance depend on the specific substances and person; seek professional guidance.',
           'Avoid combining with: MDMA.'
         ],
         identification: 'Found in OTC cough syrups (Robitussin, Delsym) or gels.'
@@ -523,7 +523,7 @@ export const DRUG_DATA = [
         ],
         overdose: [
           '"Greening out": Extreme dizziness, severe panic attacks, intense nausea/vomiting, paranoia.',
-          'A fatal overdose caused solely by cannabis is unlikely, but severe reactions can occur. Keep the person in a safe environment, monitor for worsening symptoms, and seek urgent medical help for severe or unusual symptoms.'
+          'Severe cannabis reactions can occur. Seek urgent medical help for severe or unusual symptoms, especially when the cause is uncertain or other substances may be involved. Keep the person in a safe environment, monitor for worsening symptoms, and seek urgent medical help for severe or unusual symptoms.'
         ],
         mixes: [
           'Mixing with alcohol (Cross-fading) usually results in severe nausea/spins if weed is smoked AFTER drinking.'
@@ -553,7 +553,7 @@ export const DRUG_DATA = [
       {
         name: 'Nitrous Oxide (Whip-Its)',
         roas: [
-          { method: 'Inhalation', safety: ['Never use bags/masks over your face', 'Always sit down before inhaling.', 'Direct inhalation from pressurized dispensers can cause cold injury and other harm; follow the safety instructions for the specific product.', 'Heavy nitrous oxide exposure can interfere with vitamin B12 function and cause neurologic injury; persistent or severe symptoms warrant medical evaluation.'] }
+          { method: 'Inhalation', safety: ['Do not use an enclosed bag or mask over the face because it can impair oxygen delivery.', 'Always sit down before inhaling.', 'Direct inhalation from pressurized dispensers can cause cold injury and other harm; follow the safety instructions for the specific product.', 'Heavy nitrous oxide exposure can interfere with vitamin B12 function and cause neurologic injury; persistent or severe symptoms warrant medical evaluation.'] }
         ],
         overdose: [
           'Nitrous risk is asphyxiation (displacing oxygen to the point of passing out/brain damage).',
