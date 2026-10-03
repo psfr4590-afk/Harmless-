@@ -37,6 +37,7 @@ test('interaction UI separates evidence state from local educational severity', 
   const source = read('src/components/InteractionChecker.tsx');
   assert.match(source, /DOCUMENTED INTERACTION/);
   assert.match(source, /NO PAIR FOUND/);
+  assert.match(source, /NO_DOCUMENTED_PAIR_IN_MATCHED_LABELS/);
   assert.match(source, /UPSTREAM UNAVAILABLE/);
   assert.match(source, /LOCAL EDUCATIONAL WARNING/);
   assert.match(source, /not a clinically verified interaction severity result/);
