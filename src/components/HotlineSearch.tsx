@@ -22,7 +22,7 @@ function distanceKm(aLat: number, aLng: number, bLat: number, bLng: number) {
 }
 
 const GLOBAL_SUPPORT_LINKS = [
-  { id: 'emergency', name: 'Local Emergency Services', desc: 'Use the emergency number for the country you are currently in. Harmless does not assume 911, 112, or another single number worldwide.', url: null },
+  { id: 'emergency', name: 'Local Emergency Services', desc: 'Use the emergency service for the country you are currently in. Harm.Less does not assume 911, 112, or another single number worldwide.', url: null },
   { id: 'helpline', name: 'Find A Helpline', desc: 'Country-specific crisis and emotional-support helplines with coverage in 175+ countries.', url: 'https://findahelpline.com/' },
   { id: 'na', name: 'Narcotics Anonymous', desc: 'International recovery support with local meeting and helpline information.', url: 'https://na.org/e-lit/na-a-resource-in-your-community/' }
 ];
