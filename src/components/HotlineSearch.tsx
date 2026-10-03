@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { buildOverpassQuery, dedupeById, safeExternalUrl, extractOverpassElements } from '../utils/safetyUtils';
 import { emergencyGuidance } from '../utils/evidenceGovernance';
 import CoverageNotice from './CoverageNotice';
-import { requestJson } from '../utils/httpClient';
+import { ExternalServiceError, requestJson } from '../utils/httpClient';
 
 const LOCAL_SEARCHES = [
   { id: 'crisis', name: 'Local Crisis Centers', query: 'mental health crisis center', osm: ['["name"~"crisis|behavioral health|mental health",i]', '["healthcare"="mental_health"]', '["amenity"="clinic"]["name"~"mental|crisis",i]'], color: 'bg-red-500/20 text-red-400 border-red-500/30' },
@@ -73,7 +73,18 @@ export default function HotlineSearch() {
       if (!mapped.length) setSearchError('No matching mapped records were returned. This does not establish that local services are absent; directory coverage varies by region.');
     } catch (err) {
       if (err instanceof DOMException && err.name === 'AbortError') return;
-      if (requestId === requestIdRef.current) setSearchError(err instanceof Error ? err.message : 'Unable to search the public directory.');
+      if (requestId === requestIdRef.current) {
+        if (err instanceof ExternalServiceError) {
+          const message = err.kind === 'RATE_LIMIT'
+            ? `${err.service} is rate-limited. Results may be incomplete.`
+            : err.kind === 'TIMEOUT'
+              ? `${err.service} timed out. Current directory evidence is unavailable.`
+              : `${err.service} is unavailable or returned invalid data.`;
+          setSearchError(message);
+        } else {
+          setSearchError(err instanceof Error ? err.message : 'Unable to search the public directory.');
+        }
+      }
     } finally { if (requestId === requestIdRef.current) setSearching(false); }
   }
 
