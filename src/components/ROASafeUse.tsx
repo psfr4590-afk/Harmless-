@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { DRUG_DATA, DATA_SOURCES, DATA_REVIEW_DATE } from '../data/drugDatabase';
 import { searchMedlinePlus, searchFdaDrugSafety } from '../utils/medicalApi';
 import { safeExternalUrl } from '../utils/safetyUtils';
+import { CONTENT_AUDIT_DATE, CONTENT_EVIDENCE_POLICY } from '../data/contentGovernance';
 
 export default function ROASafeUse() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
@@ -60,6 +61,11 @@ export default function ROASafeUse() {
 
   return (
     <div className="flex flex-col h-full bg-[#121212] overflow-y-auto w-full max-w-4xl mx-auto p-6 space-y-6 text-white text-left">
+      <div className="rounded-2xl border border-amber-500/20 bg-amber-500/5 p-4 text-sm text-white/70">
+        <div className="font-black uppercase tracking-widest text-amber-300">Content evidence boundary</div>
+        <p className="mt-2 leading-relaxed">{CONTENT_EVIDENCE_POLICY.cautionRequired}</p>
+        <p className="mt-2 text-xs text-white/50">Static safety content audit date: {CONTENT_AUDIT_DATE}. Category source lists do not make every individual claim a clinical determination.</p>
+      </div>
       
       <div className="bg-[#FF1493]/10 border border-[#FF1493]/30 rounded-2xl p-6 mb-4">
         <div className="flex items-center gap-3">
