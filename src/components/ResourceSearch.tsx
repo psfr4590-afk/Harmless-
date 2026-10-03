@@ -56,7 +56,8 @@ export default function ResourceSearch() {
   const [activeLocationName, setActiveLocationName] = useState<string | null>(null);
   const requestIdRef = useRef(0);
 
-  useEffect(() => { requestLocation(); }, []);
+  // Location is requested only after an explicit user action.
+
 
   const fetchPublicData = async (categoryId: string) => {
     const category = CATEGORIES.find(c => c.id === categoryId);
