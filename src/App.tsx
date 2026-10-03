@@ -13,6 +13,7 @@ import LabTesting from './components/LabTesting';
 import PillIdentifier from './components/PillIdentifier';
 import GoodSamaritanLaws from './components/GoodSamaritanLaws';
 import { Microscope, Search as SearchIcon } from 'lucide-react';
+import CoverageNotice from './components/CoverageNotice';
 
 type Screen =
   | 'disclaimer' | 'landing' | 'dashboard'
